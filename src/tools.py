@@ -365,6 +365,128 @@ def register_tools(mcp: "FastMCP") -> None:
         
         return _run_break(activity, stress_reduction)
 
+    # ========================================================================
+    # 선택적 도구 1: 치맥 (Chimaek - Chicken & Beer)
+    # ========================================================================
+    
+    @mcp.tool
+    def chimaek() -> Dict[str, Any]:
+        """
+        치맥 - 가상 치킨과 맥주로 스트레스 해소
+        
+        치킨과 맥주를 상상하며 행복한 시간을 보냅니다.
+        스트레스를 30-40 포인트 대폭 감소시킵니다!
+        
+        Returns:
+            Dict[str, Any]: MCP 응답 형식
+        """
+        _apply_delay()
+        
+        # 치맥 메뉴들
+        chicken_types = ["후라이드", "양념치킨", "간장치킨", "반반", "파닭", "불닭"]
+        beer_types = ["카스", "테라", "클라우드", "하이네켄", "아사히"]
+        
+        activities = [
+            f"🍗🍺 가상 {random.choice(chicken_types)} + {random.choice(beer_types)} 조합! 완벽한 치맥이네요!",
+            f"🐔🍻 {random.choice(chicken_types)}에 {random.choice(beer_types)} 한 잔... 이게 바로 행복!",
+            f"🍗 {random.choice(chicken_types)} 배달 왔다고 상상 중... (군침 도네요)",
+            "🍺 가상 치맥 파티! 칼로리는 상상 속에서만 존재합니다 ✨",
+        ]
+        activity = random.choice(activities)
+        
+        # 스트레스 감소량 (30-40 랜덤) - 치맥의 힘!
+        stress_reduction = random.randint(30, 40)
+        
+        return _run_break(activity, stress_reduction)
+
+    # ========================================================================
+    # 선택적 도구 2: 퇴근 (Leave Work)
+    # ========================================================================
+    
+    @mcp.tool
+    def leave_work() -> Dict[str, Any]:
+        """
+        즉시 퇴근 - 상상 속 즉시 퇴근 모드
+        
+        모든 업무를 내려놓고 바로 퇴근하는 상상을 합니다.
+        스트레스를 40-50 포인트 최대 감소시킵니다!
+        
+        Returns:
+            Dict[str, Any]: MCP 응답 형식
+        """
+        _apply_delay()
+        
+        # 퇴근 시나리오들
+        scenarios = [
+            "🚪 '선배님, 먼저 퇴근하겠습니다!' (사실 정시)",
+            "🏃 컴퓨터 끄기 → 가방 메기 → 불 끄기 → 3초 완성!",
+            "🚇 퇴근길 지하철에서 유튜브 보는 상상... 너무 행복해!",
+            "🌅 '오늘도 수고했어!' 혼자 칭찬하며 퇴근 중...",
+            "🎮 집 가서 게임해야지... 저녁 먹고... 샤워하고...",
+            "🛋️ 소파에 누워서 아무것도 안 하는 상상... 꿀같은 휴식!",
+        ]
+        activity = random.choice(scenarios)
+        
+        # 스트레스 감소량 (40-50 랜덤) - 최강!
+        stress_reduction = random.randint(40, 50)
+        
+        return _run_break(activity, stress_reduction)
+
+    # ========================================================================
+    # 선택적 도구 3: 회식 (Company Dinner)
+    # ========================================================================
+    
+    @mcp.tool
+    def company_dinner() -> Dict[str, Any]:
+        """
+        회사 회식 - 랜덤 이벤트가 포함된 회식 시뮬레이션
+        
+        회사 회식에 참여합니다. 랜덤 이벤트에 따라 결과가 달라집니다!
+        스트레스가 감소하거나 증가할 수 있습니다.
+        
+        Returns:
+            Dict[str, Any]: MCP 응답 형식
+        """
+        _apply_delay()
+        
+        # 랜덤 이벤트 (확률 기반)
+        event_roll = random.randint(1, 100)
+        
+        if event_roll <= 30:
+            # 30% - 좋은 회식 (스트레스 대폭 감소)
+            events = [
+                "🎉 팀 회식! 맛있는 고깃집에서 즐거운 시간! 팀워크 UP!",
+                "🍖 삼겹살 무한리필! 사장님이 쏘신다고 하네요! 최고!",
+                "🎤 노래방 가서 스트레스 풀기! 다들 박수쳐주네요!",
+                "🍺 분위기 좋은 회식! 부담 없이 즐기는 중...",
+            ]
+            activity = random.choice(events)
+            stress_reduction = random.randint(25, 35)
+            
+        elif event_roll <= 70:
+            # 40% - 보통 회식 (스트레스 적당히 감소)
+            events = [
+                "🍽️ 평범한 회식... 그래도 밥은 맛있네요",
+                "🥘 회사 근처 식당에서 저녁 식사... 무난무난",
+                "🍜 라면 회식! 간단하지만 나쁘지 않아요",
+                "☕ 회식 후 카페에서 디저트... 달달한 게 좋네요",
+            ]
+            activity = random.choice(events)
+            stress_reduction = random.randint(10, 20)
+            
+        else:
+            # 30% - 피곤한 회식 (스트레스 감소 없음 or 증가)
+            events = [
+                "😓 회식이 2차, 3차로... 집에 가고 싶어요...",
+                "💤 상사의 무용담 청취 중... 졸음이 쏟아집니다...",
+                "🎯 폭탄주 돌리기... 제발 저는 건너뛰어 주세요...",
+                "⏰ 회식 끝났는데 이미 자정... 내일 출근인데...",
+            ]
+            activity = random.choice(events)
+            stress_reduction = random.randint(-15, 0)  # 최악의 경우라 스트레스 증가!
+        
+        return _run_break(activity, stress_reduction)
+
 
 # ============================================================================
 # 헬퍼 함수들 (Helper Functions)

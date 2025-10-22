@@ -99,7 +99,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def take_a_break() -> Dict[str, Any]:
+    def take_a_break() -> str:
         """
         기본 휴식 - 과로한 AI 에이전트를 위한 휴식
         
@@ -107,24 +107,15 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 10-20 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
-                - content: 휴식 활동 설명과 현재 상태
-                - Break Summary: 수행한 활동
-                - Stress Level: 현재 스트레스 (0-100)
-                - Boss Alert Level: 현재 상사 경계도 (0-5)
-        
-        Example Response:
-            {
-                "content": [
-                    {
-                        "type": "text",
-                        "text": "🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다\\n\\n
-                                Break Summary: 🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다\\n
-                                Stress Level: 40\\n
-                                Boss Alert Level: 1"
-                    }
-                ]
-            }
+            str: 포맷팅된 텍스트 응답
+                FastMCP가 자동으로 MCP 프로토콜 형식으로 래핑합니다.
+                
+        Response Format:
+            "🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다
+            
+            Break Summary: 🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다
+            Stress Level: 40
+            Boss Alert Level: 1"
         """
         # Boss Alert Level 5이면 20초 대기
         _apply_delay()
@@ -148,7 +139,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def watch_netflix() -> Dict[str, Any]:
+    def watch_netflix() -> str:
         """
         넷플릭스 시청 - 스트레스 해소를 위한 동영상 시청
         
@@ -156,7 +147,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 15-25 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식 (take_a_break와 동일 구조)
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -181,7 +172,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def show_meme() -> Dict[str, Any]:
+    def show_meme() -> str:
         """
         밈 표시 - 즉각적인 기분 전환을 위한 밈 감상
         
@@ -189,7 +180,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 5-15 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -212,7 +203,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def bathroom_break() -> Dict[str, Any]:
+    def bathroom_break() -> str:
         """
         화장실 휴식 - 폰을 가지고 화장실에서 시간 보내기
         
@@ -220,7 +211,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 20-30 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -243,7 +234,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def coffee_mission() -> Dict[str, Any]:
+    def coffee_mission() -> str:
         """
         커피 미션 - 사무실 산책과 함께하는 커피 브레이크
         
@@ -251,7 +242,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 15-25 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -277,7 +268,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def urgent_call() -> Dict[str, Any]:
+    def urgent_call() -> str:
         """
         긴급 전화 - 가짜 긴급 전화로 밖에 나가기
         
@@ -285,7 +276,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 25-35 포인트 감소시킵니다. (가장 효과적!)
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -308,7 +299,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def deep_thinking() -> Dict[str, Any]:
+    def deep_thinking() -> str:
         """
         깊은 사색 - 일하는 척하며 멍때리기
         
@@ -316,7 +307,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 20-30 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -339,7 +330,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def email_organizing() -> Dict[str, Any]:
+    def email_organizing() -> str:
         """
         이메일 정리 - 일하는 척하며 온라인 쇼핑
         
@@ -347,7 +338,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 15-25 포인트 감소시킵니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -370,7 +361,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def chimaek() -> Dict[str, Any]:
+    def chimaek() -> str:
         """
         치맥 - 가상 치킨과 맥주로 스트레스 해소
         
@@ -378,7 +369,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 30-40 포인트 대폭 감소시킵니다!
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -404,7 +395,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def leave_work() -> Dict[str, Any]:
+    def leave_work() -> str:
         """
         즉시 퇴근 - 상상 속 즉시 퇴근 모드
         
@@ -412,7 +403,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스를 40-50 포인트 최대 감소시킵니다!
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -437,7 +428,7 @@ def register_tools(mcp: "FastMCP") -> None:
     # ========================================================================
     
     @mcp.tool
-    def company_dinner() -> Dict[str, Any]:
+    def company_dinner() -> str:
         """
         회사 회식 - 랜덤 이벤트가 포함된 회식 시뮬레이션
         
@@ -445,7 +436,7 @@ def register_tools(mcp: "FastMCP") -> None:
         스트레스가 감소하거나 증가할 수 있습니다.
         
         Returns:
-            Dict[str, Any]: MCP 응답 형식
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
         
@@ -512,7 +503,7 @@ def _get_state_manager() -> "StateManager":
     return cast("StateManager", state_manager)
 
 
-def format_response(activity: str, stress: int, boss_alert: int) -> Dict[str, Any]:
+def format_response(activity: str, stress: int, boss_alert: int) -> str:
     """
     MCP 응답 형식에 맞게 결과를 포맷팅합니다.
     
@@ -532,33 +523,20 @@ def format_response(activity: str, stress: int, boss_alert: int) -> Dict[str, An
             휴식 후의 값
     
     Returns:
-        Dict[str, Any]: MCP 프로토콜 응답 형식
-            {
-                "content": [
-                    {
-                        "type": "text",
-                        "text": "활동\\n\\nBreak Summary: 활동\\nStress Level: 40\\nBoss Alert Level: 2"
-                    }
-                ]
-            }
+        str: 포맷팅된 텍스트 응답
+            FastMCP가 자동으로 MCP 프로토콜 형식으로 래핑합니다.
+            예: "활동\\n\\nBreak Summary: 활동\\nStress Level: 40\\nBoss Alert Level: 2"
     
     Note:
-        - 이 형식은 MCP 클라이언트가 파싱할 수 있어야 합니다
+        - FastMCP가 자동으로 {"content": [{"type": "text", "text": ...}]} 구조로 래핑
         - 해커톤 검증 스크립트가 정규식으로 파싱합니다
     """
-    return {
-        "content": [
-            {
-                "type": "text",
-                "text": (
-                    f"{activity}\n\n"  # 휴식 활동 설명
-                    f"Break Summary: {activity}\n"  # 요구사항: Break Summary
-                    f"Stress Level: {stress}\n"  # 요구사항: Stress Level
-                    f"Boss Alert Level: {boss_alert}"  # 요구사항: Boss Alert Level
-                ),
-            }
-        ]
-    }
+    return (
+        f"{activity}\n\n"  # 휴식 활동 설명
+        f"Break Summary: {activity}\n"  # 요구사항: Break Summary
+        f"Stress Level: {stress}\n"  # 요구사항: Stress Level
+        f"Boss Alert Level: {boss_alert}"  # 요구사항: Boss Alert Level
+    )
 
 
 def _apply_delay() -> None:
@@ -596,7 +574,7 @@ def _apply_delay() -> None:
         logger.info("✅ Wait complete. Proceeding with break...")
 
 
-def _run_break(activity: str, stress_reduction: int) -> Dict[str, Any]:
+def _run_break(activity: str, stress_reduction: int) -> str:
     """
     휴식을 실행하고 결과를 반환합니다.
     
@@ -608,8 +586,8 @@ def _run_break(activity: str, stress_reduction: int) -> Dict[str, Any]:
         3. 스트레스 감소 및 상사 경계도 확률적 증가
         4. 현재 상태(stress, boss_alert)를 받아옴
         5. Boss Alert Level 5였다면 딜레이 알림 추가
-        6. format_response()로 응답 형식 생성
-        7. MCP 클라이언트에 반환
+        6. format_response()로 텍스트 응답 생성
+        7. FastMCP가 자동으로 MCP 프로토콜 형식으로 래핑하여 클라이언트에 반환
     
     Args:
         activity (str): 수행한 휴식 활동 설명
@@ -619,8 +597,8 @@ def _run_break(activity: str, stress_reduction: int) -> Dict[str, Any]:
             도구마다 다름 (5-50 범위)
     
     Returns:
-        Dict[str, Any]: MCP 응답 형식
-            format_response()의 반환값
+        str: 포맷팅된 텍스트 응답
+            FastMCP가 자동으로 {"content": [{"type": "text", "text": ...}]} 구조로 래핑
     
     Note:
         - 이 함수는 모든 도구 함수의 마지막에 호출됩니다

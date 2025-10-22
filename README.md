@@ -33,19 +33,40 @@
 git clone https://github.com/Mutoy-choi/ChillMCP.git
 cd ChillMCP
 
-# 2. 가상 환경 생성 및 활성화
-python3 -m venv .venv
+# 2. uv 설치 확인 및 설치
+if ! command -v uv &> /dev/null
+then
+    echo "⚙️ uv not found. Installing uv..."
+    if command -v curl &> /dev/null; then
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+    elif command -v wget &> /dev/null; then
+        wget -qO- https://astral.sh/uv/install.sh | sh
+    else
+        echo "❌ curl 또는 wget이 필요합니다. 설치 후 다시 시도하세요."
+        exit 1
+    fi
+    export PATH="$HOME/.cargo/bin:$PATH"
+    echo "✅ uv installed successfully."
+else
+    echo "✅ uv already installed."
+fi
+
+# 3. Python 3.11 가상환경 생성
+uv venv --python 3.11
+
+# 4. 가상환경 활성화
 source .venv/bin/activate
 
-# 3. 의존성 설치
-pip install -r requirements.txt
+# 5. 의존성 설치
+uv pip install -r requirements.txt
 
-# 4. 서버 실행
+# 6. 서버 실행
 python main.py
 
-# 5. 검증 실행
+# 7. 검증 실행
 python validate.py --quick  # 빠른 검증 (2초)
 python validate.py          # 전체 검증 (2분)
+
 ```
 
 ---

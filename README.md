@@ -14,6 +14,7 @@
 - [설치 방법](#-설치-방법)
 - [사용 방법](#-사용-방법)
 - [테스트 방법](#-테스트-방법)
+- [해커톤 검증](#-해커톤-검증)
 - [아키텍처](#-아키텍처)
 - [CLI 옵션](#-cli-옵션)
 - [해커톤 요구사항 충족](#-해커톤-요구사항-충족)
@@ -260,12 +261,86 @@ print(json.loads(response))
 
 ---
 
-## 🏗️ 아키텍처
+## � 해커톤 검증
+
+### 자동 검증 스크립트
+
+해커톤 요구사항을 자동으로 검증하는 스크립트가 포함되어 있습니다.
+
+#### 빠른 검증 (권장)
+```bash
+# 필수 항목만 빠르게 검증 (약 6초 소요)
+.venv/bin/python validate.py --quick
+```
+
+#### 전체 검증
+```bash
+# 모든 테스트 시나리오 포함 (약 1분 소요)
+.venv/bin/python validate.py
+
+# 상세 출력
+.venv/bin/python validate.py --verbose
+```
+
+### 검증 항목
+
+✅ **필수 검증 (Required Validations)**
+1. **CLI Parameters**: `--boss_alertness`와 `--boss_alertness_cooldown` 파라미터 인식
+2. **MCP Server Basic**: 8개 도구 모두 등록 및 통신 정상
+3. **Tool Execution**: 도구 실행 성공
+4. **Response Format**: 응답에 Break Summary, Stress Level, Boss Alert Level 포함
+
+🧪 **테스트 시나리오 (Test Scenarios)**
+1. **Continuous Breaks**: 연속 휴식 시 Boss Alert Level 증가
+2. **Delay at Max Alert**: Boss Alert Level 5일 때 20초 딜레이
+3. **Cooldown Mechanism**: Cooldown에 따른 Boss Alert Level 감소
+
+### 검증 결과 예시
+
+```
+======================================================================
+🚀 ChillMCP Hackathon Validation
+======================================================================
+
+📋 필수 검증 항목 (Required Validations)
+----------------------------------------------------------------------
+✅ PASS CLI Parameters
+   Both --boss_alertness and --boss_alertness_cooldown recognized
+   ⏱️  Execution time: 4.41s
+
+✅ PASS MCP Server Basic
+   All 8 required tools registered
+   ⏱️  Execution time: 0.58s
+
+✅ PASS Tool Execution
+   Tool executed successfully
+   ⏱️  Execution time: 0.60s
+
+✅ PASS Response Format
+   All required fields present and parseable
+   ⏱️  Execution time: 0.59s
+
+======================================================================
+📊 검증 요약 (Validation Summary)
+======================================================================
+
+총 테스트: 7
+✅ 통과: 4
+⏱️  총 실행 시간: 6.18s
+
+🎉 모든 검증 통과!
+   해커톤 제출 준비가 완료되었습니다!
+```
+
+---
+
+## �🏗️ 아키텍처
 
 ### 디렉토리 구조
 ```
 SKAI/
 ├── main.py                    # CLI 진입점
+├── validate.py                # 해커톤 검증 스크립트
 ├── requirements.txt           # Python 의존성
 ├── test_with_inspector.sh     # MCP Inspector 테스트 스크립트
 ├── README.md                  # 이 파일

@@ -572,6 +572,7 @@ def _apply_delay() -> None:
         1. StateManager에서 get_delay() 호출
         2. Boss Alert Level == 5이면 20 반환, 아니면 0 반환
         3. 반환값만큼 time.sleep() 실행
+        4. 딜레이 발생 시 로그 메시지 출력
     
     Returns:
         None
@@ -579,11 +580,20 @@ def _apply_delay() -> None:
     Note:
         - 모든 도구 함수의 시작 부분에서 호출됩니다
         - 해커톤 요구사항: Boss Alert Level 5일 때 20초 딜레이
+        - v2.1: 딜레이 발생 시 사용자에게 알림 추가
     """
     manager = _get_state_manager()
     delay = manager.get_delay()
     if delay > 0:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(
+            f"⚠️  Boss Alert Level is at MAXIMUM (5)! "
+            f"Waiting {delay} seconds before taking a break... "
+            f"Boss is watching closely! 👀"
+        )
         time.sleep(delay)
+        logger.info("✅ Wait complete. Proceeding with break...")
 
 
 def _run_break(activity: str, stress_reduction: int) -> Dict[str, Any]:
@@ -593,18 +603,20 @@ def _run_break(activity: str, stress_reduction: int) -> Dict[str, Any]:
     모든 도구 함수의 공통 로직을 처리하는 헬퍼 함수입니다.
     
     작동 순서:
-        1. StateManager의 take_break() 호출
-        2. 스트레스 감소 및 상사 경계도 확률적 증가
-        3. 현재 상태(stress, boss_alert)를 받아옴
-        4. format_response()로 응답 형식 생성
-        5. MCP 클라이언트에 반환
+        1. 딜레이 발생 여부 확인 (Boss Alert Level 5인지)
+        2. StateManager의 take_break() 호출
+        3. 스트레스 감소 및 상사 경계도 확률적 증가
+        4. 현재 상태(stress, boss_alert)를 받아옴
+        5. Boss Alert Level 5였다면 딜레이 알림 추가
+        6. format_response()로 응답 형식 생성
+        7. MCP 클라이언트에 반환
     
     Args:
         activity (str): 수행한 휴식 활동 설명
             예: "📺 넷플릭스 '오징어게임' 정주행 중..."
             
         stress_reduction (int): 감소시킬 스트레스 양
-            도구마다 다름 (5-35 범위)
+            도구마다 다름 (5-50 범위)
     
     Returns:
         Dict[str, Any]: MCP 응답 형식
@@ -613,11 +625,21 @@ def _run_break(activity: str, stress_reduction: int) -> Dict[str, Any]:
     Note:
         - 이 함수는 모든 도구 함수의 마지막에 호출됩니다
         - 중복 코드를 제거하고 일관성을 보장합니다
+        - v2.1: Boss Alert Level 5일 때 응답에 딜레이 알림 포함
     """
     manager = _get_state_manager()
     
+    # Boss Alert Level 5인지 체크 (딜레이 발생 여부)
+    # get_delay()가 0보다 크면 딜레이가 발생한 것
+    delay = manager.get_delay()
+    delay_applied = delay > 0
+    
     # 휴식 실행: 스트레스 감소 + 경계도 확률적 증가
     stress, boss_alert = manager.take_break(stress_reduction)
+    
+    # 딜레이가 발생했다면 활동 메시지에 알림 추가
+    if delay_applied:
+        activity = f"⏰ [상사가 주시하고 있어 {delay}초 대기했습니다]\n\n{activity}"
     
     # MCP 응답 형식으로 변환하여 반환
     return format_response(activity, stress, boss_alert)

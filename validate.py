@@ -212,7 +212,7 @@ class ChillMCPValidator:
         self.verbose = verbose
         self.quick = quick
         self.results: List[TestResult] = []
-        self.python_path = ".venv/bin/python"
+        self.python_path = sys.executable
         self.main_script = "main.py"
         self.session: Optional[MCPServerSession] = None
         

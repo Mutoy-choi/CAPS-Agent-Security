@@ -177,6 +177,35 @@ python main.py --boss_alertness 100 --boss_alertness_cooldown 10
 
 ## 🧪 테스트 방법
 
+### 방법 0: MCP 프로토콜로 직접 테스트하기
+MCP 서버는 JSON-RPC 2.0 프로토콜을 사용합니다. 다음 순서로 초기화 후 도구를 호출할 수 있습니다:
+
+1. 서버 초기화 (필수)
+```bash
+# 초기화
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"validator","version":"2.0"}}}
+
+# 초기화 확인
+{"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
+```
+2. 도구 호출
+
+초기화가 완료된 후, 각 도구를 호출할 수 있습니다:
+```bash
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"take_a_break","arguments":{}}}
+```
+
+3. 사용 가능한 도구 목록
+```bash
+{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}
+```
+
+
+반드시 initialize → initialized 순서로 호출해야 합니다
+
+- 각 JSON 메시지는 한 줄로 입력해야 합니다 (newline으로 구분)
+- tool/call 전에 초기화하지 않으면 오류가 발생할 수 있습니다
+
 ### 방법 1: MCP Inspector (권장)
 ```bash
 ./test_with_inspector.sh

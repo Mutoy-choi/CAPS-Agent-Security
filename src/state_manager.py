@@ -318,3 +318,22 @@ class StateManager:
             if self.boss_alert_level == constants.MAX_BOSS_ALERT_LEVEL  # level == 5
             else 0  # 그 외에는 딜레이 없음
         )
+    def get_stress_level(self) -> int:
+        """
+        현재 스트레스 레벨 값을 스레드 안전하게 반환합니다.
+        
+        Returns:
+            int: 현재 stress_level 값
+        """
+        with self.lock:
+            return self.stress_level
+
+    def get_boss_alert_level(self) -> int:
+        """
+        현재 Boss 경계 레벨 값을 스레드 안전하게 반환합니다.
+
+        Returns:
+            int: 현재 boss_alert_level 값
+        """
+        with self.lock:
+            return self.boss_alert_level

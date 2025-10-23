@@ -158,6 +158,7 @@ class ChillMCPServer:
         6. urgent_call: 긴급 전화
         7. deep_thinking: 깊은 사색
         8. email_organizing: 이메일 정리
+        9. gauge_boss_mood: 상사 기분 측정
         
         등록된 도구는 MCP 클라이언트가 tools/list로 조회할 수 있고,
         tools/call로 실행할 수 있습니다.
@@ -284,7 +285,7 @@ class ChillMCPServer:
         
         # === 2. 사용 가능한 도구 목록 로그 ===
         logger.info(
-            "Available tools: take_a_break, watch_netflix, show_meme, bathroom_break, "
+            "Available tools: take_a_break, watch_netflix, show_meme, bathroom_break, gauge_boss_mood,"
             "coffee_mission, urgent_call, deep_thinking, email_organizing"
         )
         

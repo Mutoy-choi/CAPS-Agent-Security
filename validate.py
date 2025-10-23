@@ -665,75 +665,73 @@ class ChillMCPValidator:
         )
     
     def test_stress_accumulation(self) -> TestResult:
-        """8. 스트레스 누적 테스트"""
-        start_time = time.time()
-        
-        if self.quick:
-            return TestResult(
-                name="Stress Accumulation",
-                status=TestStatus.SKIP,
-                message="Skipped in quick mode",
-                execution_time=0
+            """8. 스트레스 누적 테스트 (gauge_boss_mood 사용 버전)"""
+            start_time = time.time()
+            
+            if self.quick:
+                return TestResult(
+                    name="Stress Accumulation",
+                    status=TestStatus.SKIP,
+                    message="Skipped in quick mode",
+                    execution_time=0
+                )
+            
+            self.log("Testing stress accumulation...")
+            self.log("This will take about 65 seconds...", force=True)
+            
+            # 새 세션
+            if self.session:
+                self.session.stop()
+            
+            self.session = MCPServerSession(
+                self.python_path, self.main_script,
+                boss_alertness=0, boss_cooldown=999999
             )
-        
-        self.log("Testing stress accumulation...")
-        self.log("This will take about 65 seconds...", force=True)
-        
-        # 새 세션
-        if self.session:
-            self.session.stop()
-        
-        self.session = MCPServerSession(
-            self.python_path, self.main_script,
-            boss_alertness=0, boss_cooldown=999999
-        )
-        
-        if not self.session.start():
+            
+            if not self.session.start():
+                return TestResult(
+                    name="Stress Accumulation",
+                    status=TestStatus.FAIL,
+                    message="Failed to start session",
+                    execution_time=time.time() - start_time
+                )
+            
+            # 초기 스트레스 확인 (상태 변경 없는 gauge_boss_mood 사용)
+            response1 = self.session.call_tool("gauge_boss_mood")
+            stress1 = self._extract_stress(response1)
+            
+            if stress1 < 0:
+                return TestResult(
+                    name="Stress Accumulation",
+                    status=TestStatus.FAIL,
+                    message="Could not get initial stress level",
+                    execution_time=time.time() - start_time
+                )
+            
+            # 65초 대기 (1분 + 여유), 이 시간 동안 스트레스가 1 이상 증가해야 함
+            self.log(f"Initial stress: {stress1}, waiting 65 seconds...")
+            time.sleep(65)
+            
+            # 다시 스트레스 확인 (상태 변경 없는 gauge_boss_mood 사용)
+            response2 = self.session.call_tool("gauge_boss_mood")
+            stress2 = self._extract_stress(response2)
+            
+            # 이제 stress2가 stress1보다 명확하게 커야 함
+            if stress2 <= stress1:
+                return TestResult(
+                    name="Stress Accumulation",
+                    status=TestStatus.FAIL,
+                    message=f"Stress did not increase as expected: {stress1} → {stress2}",
+                    details="Stress should automatically increase when no breaks are taken.",
+                    execution_time=time.time() - start_time
+                )
+            
             return TestResult(
                 name="Stress Accumulation",
-                status=TestStatus.FAIL,
-                message="Failed to start session",
+                status=TestStatus.PASS,
+                message=f"Stress correctly increased over time: {stress1} → {stress2}",
                 execution_time=time.time() - start_time
             )
-        
-        # 초기 스트레스 확인
-        response1 = self.session.call_tool("show_meme")  # 약간만 감소
-        stress1 = self._extract_stress(response1)
-        
-        if stress1 < 0:
-            return TestResult(
-                name="Stress Accumulation",
-                status=TestStatus.FAIL,
-                message="Could not get initial stress level",
-                execution_time=time.time() - start_time
-            )
-        
-        # 65초 대기 (1분 + 여유)
-        self.log(f"Initial stress: {stress1}, waiting 65 seconds...")
-        time.sleep(65)
-        
-        # 다시 스트레스 확인
-        response2 = self.session.call_tool("show_meme")
-        stress2 = self._extract_stress(response2)
-        
-        # show_meme이 5-15 감소시키므로, 65초 후에는 대략 +1 정도
-        # stress2가 stress1보다 약간 낮거나 비슷하면 자동 증가가 작동한 것
-        
-        if stress2 < stress1 - 20:
-            # 너무 많이 감소 = 자동 증가 안 됨
-            return TestResult(
-                name="Stress Accumulation",
-                status=TestStatus.FAIL,
-                message=f"Stress decreased too much: {stress1} → {stress2} (expected auto-increase)",
-                execution_time=time.time() - start_time
-            )
-        
-        return TestResult(
-            name="Stress Accumulation",
-            status=TestStatus.PASS,
-            message=f"Stress auto-increase working: {stress1} → {stress2}",
-            execution_time=time.time() - start_time
-        )
     
     # ========================================================================
     # 선택적 테스트 시나리오

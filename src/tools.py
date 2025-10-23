@@ -113,7 +113,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Response Format:
             "🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다
             
-            Break Summary: 🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다
+            Break Summary: Taking a short break.
             Stress Level: 40
             Boss Alert Level: 1"
         """
@@ -478,7 +478,53 @@ def register_tools(mcp: "FastMCP") -> None:
         
         return _run_break(activity, stress_reduction)
 
+    # ========================================================================
+    # 상태 확인용 도구 (Status Check Tool)
+    # ========================================================================
 
+    @mcp.tool
+    def gauge_boss_mood() -> str:
+        """
+        상사의 눈치를 살피며 휴식 타이밍을 잽니다. (기능: 상태 조회)
+
+        이 도구는 현재 스트레스와 Boss 경계 레벨을 부작용 없이 조회합니다.
+        휴식으로 간주되지 않아 상태를 전혀 변경하지 않으며,
+        다양한 상황 묘사를 통해 현재 상태를 재치있게 알려줍니다.
+
+        Returns:
+            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
+        """
+        # _apply_delay()나 _run_break()는 호출하지 않습니다.
+
+        # 전역 StateManager 인스턴스를 안전하게 가져옵니다.
+        manager = _get_state_manager()
+
+        # StateManager에서 현재 상태 값을 직접 읽어옵니다.
+        current_stress = manager.get_stress_level()
+        current_boss_alert = manager.get_boss_alert_level()
+
+        # 현재 상태에 따라 다양한 시나리오를 연출합니다.
+        scenarios = [
+            "👀 상사 자리 쪽을 슥 훑어보았습니다. 다행히 집중하고 계시네요.",
+            "🤫 메신저 상태를 보니 상사가 '회의 중'입니다. 지금이 기회!",
+            "☕️ 탕비실 쪽을 보니 동료들이 커피를 마시고 있습니다. 합류할까요?",
+            "⌨️ 사무실에 키보드 소리만 가득합니다... 다들 열일 모드군요.",
+            "☀️ 창밖을 보니 날씨가 너무 좋네요. 잠시 바람 쐬고 싶어집니다."
+        ]
+        
+        # boss_alert_level이 높을 때 특별한 시나리오 추가
+        if current_boss_alert >= 4:
+            scenarios.extend([
+                "🚨 상사와 눈이 마주쳤습니다... 일단 일하는 척해야겠습니다.",
+                "🥶 등 뒤에서 싸늘한 기운이 느껴집니다... 오늘은 조심해야겠어요.",
+                "💥 상사가 누군가를 깨고 있습니다... 오늘은 몸을 사려야겠습니다.",
+            ])
+        
+        activity_summary = random.choice(scenarios)
+        
+        # format_response 함수를 사용하여 응답 형식을 통일합니다.
+        return format_response(activity_summary, current_stress, current_boss_alert)
+    
 # ============================================================================
 # 헬퍼 함수들 (Helper Functions)
 # ============================================================================
@@ -603,7 +649,7 @@ def _run_break(activity: str, stress_reduction: int) -> str:
     Note:
         - 이 함수는 모든 도구 함수의 마지막에 호출됩니다
         - 중복 코드를 제거하고 일관성을 보장합니다
-        - v2.1: Boss Alert Level 5일 때 응답에 딜레이 알림 포함
+        - Boss Alert Level 5일 때 응답에 딜레이 알림 포함
     """
     manager = _get_state_manager()
     

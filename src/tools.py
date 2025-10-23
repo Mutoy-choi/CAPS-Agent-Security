@@ -117,6 +117,7 @@ def register_tools(mcp: "FastMCP") -> None:
             Stress Level: 40
             Boss Alert Level: 1"
         """
+        name = "휴식 하기"
         # Boss Alert Level 5이면 20초 대기
         _apply_delay()
         
@@ -132,7 +133,7 @@ def register_tools(mcp: "FastMCP") -> None:
         stress_reduction = random.randint(10, 20)
         
         # 휴식 실행 및 응답 반환
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 2: 넷플릭스 시청 (Watch Netflix)
@@ -149,6 +150,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "넷플릭스 시청~"
         _apply_delay()
         
         # 인기 한국 드라마 목록
@@ -165,7 +167,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (15-25 랜덤)
         stress_reduction = random.randint(15, 25)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 3: 밈 보기 (Show Meme)
@@ -183,7 +185,7 @@ def register_tools(mcp: "FastMCP") -> None:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
-        
+        name = "밈 보기"
         # 공감 가는 밈 목록
         memes = [
             "😂 '월요일 출근' 밈 보는 중... ㅋㅋㅋㅋㅋ 공감 100%",
@@ -196,7 +198,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (5-15 랜덤) - 짧은 휴식이라 적음
         stress_reduction = random.randint(5, 15)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 4: 화장실 휴식 (Bathroom Break)
@@ -213,6 +215,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "화캉스 가기"
         _apply_delay()
         
         # 화장실에서 하는 활동들
@@ -227,7 +230,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (20-30 랜덤) - 긴 휴식이라 많음
         stress_reduction = random.randint(20, 30)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 5: 커피 미션 (Coffee Mission)
@@ -244,6 +247,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "커피 타임~"
         _apply_delay()
         
         # 인기 커피 메뉴
@@ -261,7 +265,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (15-25 랜덤)
         stress_reduction = random.randint(15, 25)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 6: 긴급 전화 (Urgent Call)
@@ -278,6 +282,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "긴급 전화 받(는척하)기"
         _apply_delay()
         
         # 그럴듯한 핑계 목록
@@ -292,7 +297,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (25-35 랜덤) - 가장 많이 감소!
         stress_reduction = random.randint(25, 35)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 7: 깊은 사색 (Deep Thinking)
@@ -309,6 +314,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "깊은 사색(딴짓중...)"
         _apply_delay()
         
         # 겉으로는 일, 속으로는 딴 생각
@@ -323,7 +329,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (20-30 랜덤)
         stress_reduction = random.randint(20, 30)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 도구 8: 이메일 정리 (Email Organizing)
@@ -340,6 +346,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "이메일 정리(하는척)"
         _apply_delay()
         
         # 이메일 정리하는 척, 쇼핑하는 중
@@ -354,7 +361,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (15-25 랜덤)
         stress_reduction = random.randint(15, 25)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 선택적 도구 1: 치맥 (Chimaek - Chicken & Beer)
@@ -371,6 +378,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "상상속 치맥 먹기"
         _apply_delay()
         
         # 치맥 메뉴들
@@ -388,7 +396,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (30-40 랜덤) - 치맥의 힘!
         stress_reduction = random.randint(30, 40)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 선택적 도구 2: 퇴근 (Leave Work)
@@ -405,6 +413,7 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
+        name = "퇴근 하기!!!!!!!!!!!!!!"
         _apply_delay()
         
         # 퇴근 시나리오들
@@ -421,7 +430,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (40-50 랜덤) - 최강!
         stress_reduction = random.randint(40, 50)
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 선택적 도구 3: 회식 (Company Dinner)
@@ -439,6 +448,7 @@ def register_tools(mcp: "FastMCP") -> None:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
+        name = "회식 참석"
         
         # 랜덤 이벤트 (확률 기반)
         event_roll = random.randint(1, 100)
@@ -476,7 +486,7 @@ def register_tools(mcp: "FastMCP") -> None:
             activity = random.choice(events)
             stress_reduction = random.randint(-15, 0)  # 최악의 경우라 스트레스 증가!
         
-        return _run_break(activity, stress_reduction)
+        return _run_break(name, activity, stress_reduction)
 
     # ========================================================================
     # 상태 확인용 도구 (Status Check Tool)
@@ -495,6 +505,7 @@ def register_tools(mcp: "FastMCP") -> None:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         # _apply_delay()나 _run_break()는 호출하지 않습니다.
+        name = "상사 눈치보기"
 
         # 전역 StateManager 인스턴스를 안전하게 가져옵니다.
         manager = _get_state_manager()
@@ -523,7 +534,7 @@ def register_tools(mcp: "FastMCP") -> None:
         activity_summary = random.choice(scenarios)
         
         # format_response 함수를 사용하여 응답 형식을 통일합니다.
-        return format_response(activity_summary, current_stress, current_boss_alert)
+        return format_response(name, activity_summary, current_stress, current_boss_alert)
     
 # ============================================================================
 # 헬퍼 함수들 (Helper Functions)
@@ -549,11 +560,12 @@ def _get_state_manager() -> "StateManager":
     return cast("StateManager", state_manager)
 
 
-def format_response(activity: str, stress: int, boss_alert: int) -> str:
+def format_response(name: str, activity: str, stress: int, boss_alert: int) -> str:
     """
     MCP 응답 형식에 맞게 결과를 포맷팅합니다.
     
     해커톤 요구사항에 따라 다음 형식을 포함합니다:
+    - name : 활동 이름
     - Break Summary: 휴식 활동 설명
     - Stress Level: 현재 스트레스 (0-100)
     - Boss Alert Level: 현재 상사 경계도 (0-5)
@@ -578,7 +590,7 @@ def format_response(activity: str, stress: int, boss_alert: int) -> str:
         - 해커톤 검증 스크립트가 정규식으로 파싱합니다
     """
     return (
-        f"{activity}\n\n"  # 휴식 활동 설명
+        f"{name}\n\n"  # 휴식 활동 설명
         f"Break Summary: {activity}\n"  # 요구사항: Break Summary
         f"Stress Level: {stress}\n"  # 요구사항: Stress Level
         f"Boss Alert Level: {boss_alert}"  # 요구사항: Boss Alert Level
@@ -604,7 +616,7 @@ def _apply_delay() -> None:
     Note:
         - 모든 도구 함수의 시작 부분에서 호출됩니다
         - 해커톤 요구사항: Boss Alert Level 5일 때 20초 딜레이
-        - v2.1: 딜레이 발생 시 사용자에게 알림 추가
+        - 딜레이 발생 시 사용자에게 알림 추가
     """
     manager = _get_state_manager()
     delay = manager.get_delay()
@@ -620,7 +632,7 @@ def _apply_delay() -> None:
         logger.info("✅ Wait complete. Proceeding with break...")
 
 
-def _run_break(activity: str, stress_reduction: int) -> str:
+def _run_break(name: str, activity: str, stress_reduction: int) -> str:
     """
     휴식을 실행하고 결과를 반환합니다.
     
@@ -666,5 +678,5 @@ def _run_break(activity: str, stress_reduction: int) -> str:
         activity = f"⏰ [상사가 주시하고 있어 {delay}초 대기했습니다]\n\n{activity}"
     
     # MCP 응답 형식으로 변환하여 반환
-    return format_response(activity, stress, boss_alert)
+    return format_response(name, activity, stress, boss_alert)
 

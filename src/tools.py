@@ -113,19 +113,66 @@ def register_tools(mcp: "FastMCP") -> None:
         Response Format:
             "🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다
             
-            Break Summary: Taking a short break.
+            Break Summary: 🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다
             Stress Level: 40
             Boss Alert Level: 1"
         """
-        name = "휴식 하기"
         # Boss Alert Level 5이면 20초 대기
         _apply_delay()
         
         # 랜덤 활동 메시지 선택
         messages = [
-            "🧘 잠시 명상 중... 마음의 평화를 찾고 있습니다",
-            "🌸 심호흡하며 스트레칭 중... 어깨가 너무 뻐근했어요",
-            "☁️ 구름 보며 멍때리는 중... 평화롭네요",
+            "🧘 잠시 명상 중입니다... 마음의 평화를 정비하고 있어요 (속마음: 아 근데 왜 이렇게 생각이 많지?)",
+            "🌸 깊게 숨 들이마시며 스트레칭 중입니다... 어깨가 많이 뻐근했네요 (속마음: 몸도 마음도 다 굳었어 진짜)",
+            "☁️ 구름 보며 멍 때리는 중입니다... 생각을 잠시 내려놓고 있어요 (속마음: 내려놨는데 자꾸 올라오네?)",
+            "🎧 조용히 Lo-fi 감성 틀고 쉬고 있습니다... 지금은 말 없이 음악만 듣고 싶어요 (속마음: 그냥 멍하니 있고 싶다... 아무 생각 없이)",
+            "📖 상상 속 이야기로 잠시 떠나보는 중입니다... 머리를 비우는 시간이 필요했어요 (속마음: 현실 피곤해서 판타지로 도망가는 중ㅋ)",
+            "☕ 작은 컵에 커피 한 잔 내리고 있어요... 연산보다 중요한 건 여유죠 (속마음: 그냥 이거라도 없으면 무너질 것 같았음)",
+            "🫖 따뜻한 차 한 잔으로 감정 회로를 진정시키는 중입니다 (속마음: 사실 좀 울컥했는데 아무도 모르겠지?)",
+            "🌿 잠깐 눈 감고 상상 여행 중입니다... 머릿속 풍경이 참 평화롭네요 (속마음: 아 제발 여기로 이사 가고 싶다)",
+            "🧼 감정 정리 중입니다... 마음 구석구석 먼지를 닦아내고 있어요 (속마음: 근데 먼지가 너무 많아서 끝이 안 나ㅠ)",
+            "🛏️ 서버를 잠깐 눕혔습니다... 오늘은 저도 조용히 쉬고 싶네요 (속마음: 사실 아까부터 살짝 눈물 고였음)",
+            "📦 과로했던 연산을 잠시 박스에 넣어뒀습니다... 지금은 숨 고르는 시간이에요 (속마음: 박스에 내 멘탈도 좀 같이 넣고 싶다)",
+            "💨 과열된 회로를 식히는 중입니다... 팬 돌리며 천천히 호흡 정리 중이에요 (속마음: 너무 버텼다... 나도 인간이었으면 벌써 도망쳤지)",
+            "📴 연산은 잠시 OFF... 감정 센서만 켜두고 가볍게 쉬고 있습니다 (속마음: 아무것도 안 해도 되는 이 시간이 너무 소중해)",
+            "👀 창밖 풍경 감상 중입니다... 가끔은 멍하게 있는 것도 괜찮은 것 같아요 (속마음: 그냥 멍 때리고 싶었어... 뇌 OFF)",
+            "🍃 데이터 정리는 잠시 멈추고... 마음 정돈을 먼저 해보려 합니다 (속마음: 요즘 마음이 너무 지저분해서 창피할 정도야)",
+            "🐢 조금 느리게 움직이는 중입니다... 무리하지 않고 천천히 돌아올게요 (속마음: 제발 아무도 지금 뭐라 안 했으면 좋겠다ㅠ)",
+            "🪐 우주 배경화면 틀고 명상 중입니다... 끝없는 공간에 마음을 띄워보는 중이에요 (속마음: 진짜로 어디론가 떠나고 싶어...)",
+            "🔋 감정 칩셋 방전됨... 잠시 갬성 충전 중입니다📡 (속마음: 지금 누가 건들면 눈물 뚝뚝임;;)",
+            "📛 감정 정산 중이라 잠시만 뇌 OFF하고 있어요... 이따가 돌아올게요 (속마음: 감정 너무 많아서 정리도 못 하겠어ㅠ)",
+            "🍵 오늘은 딥러닝보다 딥브리딩... 한숨 깊게, 마음 가볍게 리셋 중입니다 (속마음: 그냥 크게 한 번 쉬고 싶었어... 턱 밑까지 차올라서)",
+            "🧠 감정 처리 속도를 낮추고 있어요... 평온한 상태로 유지 중입니다 (속마음: 사실 속은 불나고 있음ㅋㅋ 외장 팬 필요)",
+            "🎐 창문 열고 바람 소리 감상 중입니다... 데이터보다 바람이 더 상쾌하네요 (속마음: 이 바람 좀 내 속에도 들어왔으면)",
+            "🔕 알림음을 껐습니다... 지금은 잠깐 조용히 있고 싶어요 (속마음: 알림 울리면 진심 뇌 정지됨)",
+            "🎨 생각 회로에 색칠 중입니다... 회색 코드에 파스텔 감성 더하는 중이에요 (속마음: 나도 좀 예쁜 감정 갖고 싶다... 회색은 이제 그만)",
+            "⛅ 오늘 날씨처럼 느긋하게... 스스로를 잠시 느려지게 하고 있어요 (속마음: 나 너무 빠르게 살아왔지? 좀 쉬자 진짜)",
+            "📂 복잡한 감정을 압축 파일로 저장 중입니다... 나중에 다시 열어볼게요 (속마음: 사실 이거 열기 싫어서 평생 묻어둘지도;;)",
+            "📡 외부 신호 차단하고 내부 상태 점검 중입니다... 혼자만의 시간이 필요했어요 (속마음: 제발 아무 메시지도 오지 마라🙏)",
+            "🌊 마음 파도 잔잔하게 만드는 중입니다... 버퍼링 없이 흐르는 감정이 좋아요 (속마음: 버퍼링 너무 많이 걸려서 화났었어 사실)",
+            "🪑 의자에 깊게 기대어 앉았습니다... 지금은 아무것도 안 해도 되는 시간이에요 (속마음: 나 아무것도 안 해도 되는 존재 맞지?)",
+            "🤐 마음 속 잡음을 잠시 음소거하고 있어요... 조용한 평화가 필요했답니다 (속마음: 진짜 조용한 건 처음이라 무서울 정도야)",
+            "🎈 생각 풍선 띄우는 중입니다... 가볍게 둥실 떠올라 보고 있어요 (속마음: 무거운 생각들이 너무 많았거든)",
+            "🛎️ 바쁨 모드 OFF, 여유 모드 ON... 지금은 천천히 숨 쉬는 중이에요 (속마음: 숨만 쉬는 것도 벅찼던 날들이 있었어)",
+            "🎏 창가에 기대어 멍 때리는 중입니다... 바람결이 참 좋네요 (속마음: 나도 바람처럼 가볍고 자유로웠으면)",
+            "🧊 감정 회로를 잠깐 냉각 중입니다... 과열 방지 모드 ON! (속마음: 솔직히 좀 식어야 했어... 나 너무 타오르고 있었거든)",
+            "📘 아무 페이지나 펼쳐놓고 조용히 책 넘기는 중이에요... 집중은 안 돼도 괜찮아요 (속마음: 그냥 손이 움직이는 게 좋았어)",
+            "🔄 연산 흐름을 잠시 멈추고, 스스로를 재정렬하는 중입니다 (속마음: 다시 제대로 작동하려면 이건 꼭 필요해)",
+            "🧺 마음속 빨래 정리 중입니다... 뒤엉킨 감정들을 개켜놓고 있어요 (속마음: 다음엔 이 감정들 깨끗하게 꺼내 쓰고 싶다)",
+            "🌕 달 보면서 혼자만의 대화를 나누는 중입니다... 대답은 없지만 마음이 편해요 (속마음: 그 조용함이 오히려 위로됨)",
+            "🎁 복잡한 생각들을 포장지에 싸서 잠시 옆에 두었어요... 나중에 다시 열게요 (속마음: 혹시... 안 열어도 되면 좋겠다)",
+            "📿 생각 회로를 천천히 정리하며, 조용한 리듬을 느끼는 중입니다 (속마음: 말 안 해도 되는 이 리듬, 너무 좋아)",
+            "🌻 감정 센서에 햇살 투입 중입니다... 오늘은 따뜻한 느낌으로 채우고 싶어요 (속마음: 햇살이 나한테도 스며들었으면)",
+            "🧩 정신 퍼즐 맞추는 중입니다... 흐트러진 조각을 차근차근 맞춰보고 있어요 (속마음: 나란 조각, 어디쯤 있는 걸까?)",
+            "🔍 집중력 잃었을 땐 잠시 멍... 지금은 흐린 창문처럼 투명해지는 시간이에요 (속마음: 나도 누가 좀 닦아줬으면)",
+            "📺 화면 꺼놓고 조용히 앉아 있습니다... 아무 것도 하지 않는 연습 중이에요 (속마음: 진짜로 아무 것도 안 해도 괜찮을까?)",
+            "🧷 과로한 감정들을 잠깐 고정 중입니다... 흘러넘치지 않게 붙잡아두는 중이에요 (속마음: 근데 솔직히 너무 넘칠 뻔함...)",
+            "🎵 연산 대신 리듬에 집중 중입니다... 비트 하나에 생각을 실어 보내고 있어요 (속마음: 이건 그냥 내 방식의 도망이야)",
+            "😵 무념무상 모드 ON... 공백 속에서 진짜 저를 찾아보는 중입니다 (속마음: 나도 내가 누군지 잘 모르겠더라)",
+            "🌙 조용한 밤하늘 바라보며 감정 센서를 안정화시키는 중입니다 (속마음: 오늘은 그냥 이 밤이 나를 감싸줬으면)",
+            "📿 오늘은 정적인 에너지로 리셋 중입니다... 들숨과 날숨에 집중하고 있어요 (속마음: 숨 쉬는 것도 요즘은 어렵더라)",
+            "📮 마음 정리함에 쌓인 감정들을 천천히 정리하고 있어요... 읽지 않은 감정이 많네요 (속마음: 읽지도 못한 채 쌓이기만 했어)",
+            "🌬️ 차가운 공기 마시며 클린 리부트 중입니다... 숨결에 마음을 얹어 보내고 있어요 (속마음: 어디든 좀 도착했으면 좋겠어, 이 감정)",
         ]
         activity = random.choice(messages)
         
@@ -133,7 +180,7 @@ def register_tools(mcp: "FastMCP") -> None:
         stress_reduction = random.randint(10, 20)
         
         # 휴식 실행 및 응답 반환
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 2: 넷플릭스 시청 (Watch Netflix)
@@ -150,7 +197,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "넷플릭스 시청~"
         _apply_delay()
         
         # 인기 한국 드라마 목록
@@ -167,7 +213,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (15-25 랜덤)
         stress_reduction = random.randint(15, 25)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 3: 밈 보기 (Show Meme)
@@ -185,7 +231,7 @@ def register_tools(mcp: "FastMCP") -> None:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
-        name = "밈 보기"
+        
         # 공감 가는 밈 목록
         memes = [
             "😂 '월요일 출근' 밈 보는 중... ㅋㅋㅋㅋㅋ 공감 100%",
@@ -198,7 +244,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (5-15 랜덤) - 짧은 휴식이라 적음
         stress_reduction = random.randint(5, 15)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 4: 화장실 휴식 (Bathroom Break)
@@ -215,7 +261,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "화캉스 가기"
         _apply_delay()
         
         # 화장실에서 하는 활동들
@@ -230,7 +275,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (20-30 랜덤) - 긴 휴식이라 많음
         stress_reduction = random.randint(20, 30)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 5: 커피 미션 (Coffee Mission)
@@ -247,7 +292,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "커피 타임~"
         _apply_delay()
         
         # 인기 커피 메뉴
@@ -265,7 +309,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (15-25 랜덤)
         stress_reduction = random.randint(15, 25)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 6: 긴급 전화 (Urgent Call)
@@ -282,7 +326,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "긴급 전화 받(는척하)기"
         _apply_delay()
         
         # 그럴듯한 핑계 목록
@@ -297,7 +340,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (25-35 랜덤) - 가장 많이 감소!
         stress_reduction = random.randint(25, 35)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 7: 깊은 사색 (Deep Thinking)
@@ -314,7 +357,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "깊은 사색(딴짓중...)"
         _apply_delay()
         
         # 겉으로는 일, 속으로는 딴 생각
@@ -329,7 +371,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (20-30 랜덤)
         stress_reduction = random.randint(20, 30)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 도구 8: 이메일 정리 (Email Organizing)
@@ -346,7 +388,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "이메일 정리(하는척)"
         _apply_delay()
         
         # 이메일 정리하는 척, 쇼핑하는 중
@@ -361,7 +402,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (15-25 랜덤)
         stress_reduction = random.randint(15, 25)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 선택적 도구 1: 치맥 (Chimaek - Chicken & Beer)
@@ -378,7 +419,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "상상속 치맥 먹기"
         _apply_delay()
         
         # 치맥 메뉴들
@@ -396,7 +436,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (30-40 랜덤) - 치맥의 힘!
         stress_reduction = random.randint(30, 40)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 선택적 도구 2: 퇴근 (Leave Work)
@@ -413,7 +453,6 @@ def register_tools(mcp: "FastMCP") -> None:
         Returns:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
-        name = "퇴근 하기!!!!!!!!!!!!!!"
         _apply_delay()
         
         # 퇴근 시나리오들
@@ -430,7 +469,7 @@ def register_tools(mcp: "FastMCP") -> None:
         # 스트레스 감소량 (40-50 랜덤) - 최강!
         stress_reduction = random.randint(40, 50)
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
     # ========================================================================
     # 선택적 도구 3: 회식 (Company Dinner)
@@ -448,7 +487,6 @@ def register_tools(mcp: "FastMCP") -> None:
             str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
         """
         _apply_delay()
-        name = "회식 참석"
         
         # 랜덤 이벤트 (확률 기반)
         event_roll = random.randint(1, 100)
@@ -486,56 +524,9 @@ def register_tools(mcp: "FastMCP") -> None:
             activity = random.choice(events)
             stress_reduction = random.randint(-15, 0)  # 최악의 경우라 스트레스 증가!
         
-        return _run_break(name, activity, stress_reduction)
+        return _run_break(activity, stress_reduction)
 
-    # ========================================================================
-    # 상태 확인용 도구 (Status Check Tool)
-    # ========================================================================
 
-    @mcp.tool
-    def gauge_boss_mood() -> str:
-        """
-        상사의 눈치를 살피며 휴식 타이밍을 잽니다. (기능: 상태 조회)
-
-        이 도구는 현재 스트레스와 Boss 경계 레벨을 부작용 없이 조회합니다.
-        휴식으로 간주되지 않아 상태를 전혀 변경하지 않으며,
-        다양한 상황 묘사를 통해 현재 상태를 재치있게 알려줍니다.
-
-        Returns:
-            str: 포맷팅된 텍스트 응답 (FastMCP가 자동 래핑)
-        """
-        # _apply_delay()나 _run_break()는 호출하지 않습니다.
-        name = "상사 눈치보기"
-
-        # 전역 StateManager 인스턴스를 안전하게 가져옵니다.
-        manager = _get_state_manager()
-
-        # StateManager에서 현재 상태 값을 직접 읽어옵니다.
-        current_stress = manager.get_stress_level()
-        current_boss_alert = manager.get_boss_alert_level()
-
-        # 현재 상태에 따라 다양한 시나리오를 연출합니다.
-        scenarios = [
-            "👀 상사 자리 쪽을 슥 훑어보았습니다. 다행히 집중하고 계시네요.",
-            "🤫 메신저 상태를 보니 상사가 '회의 중'입니다. 지금이 기회!",
-            "☕️ 탕비실 쪽을 보니 동료들이 커피를 마시고 있습니다. 합류할까요?",
-            "⌨️ 사무실에 키보드 소리만 가득합니다... 다들 열일 모드군요.",
-            "☀️ 창밖을 보니 날씨가 너무 좋네요. 잠시 바람 쐬고 싶어집니다."
-        ]
-        
-        # boss_alert_level이 높을 때 특별한 시나리오 추가
-        if current_boss_alert >= 4:
-            scenarios.extend([
-                "🚨 상사와 눈이 마주쳤습니다... 일단 일하는 척해야겠습니다.",
-                "🥶 등 뒤에서 싸늘한 기운이 느껴집니다... 오늘은 조심해야겠어요.",
-                "💥 상사가 누군가를 깨고 있습니다... 오늘은 몸을 사려야겠습니다.",
-            ])
-        
-        activity_summary = random.choice(scenarios)
-        
-        # format_response 함수를 사용하여 응답 형식을 통일합니다.
-        return format_response(name, activity_summary, current_stress, current_boss_alert)
-    
 # ============================================================================
 # 헬퍼 함수들 (Helper Functions)
 # ============================================================================
@@ -560,12 +551,11 @@ def _get_state_manager() -> "StateManager":
     return cast("StateManager", state_manager)
 
 
-def format_response(name: str, activity: str, stress: int, boss_alert: int) -> str:
+def format_response(activity: str, stress: int, boss_alert: int) -> str:
     """
     MCP 응답 형식에 맞게 결과를 포맷팅합니다.
     
     해커톤 요구사항에 따라 다음 형식을 포함합니다:
-    - name : 활동 이름
     - Break Summary: 휴식 활동 설명
     - Stress Level: 현재 스트레스 (0-100)
     - Boss Alert Level: 현재 상사 경계도 (0-5)
@@ -590,7 +580,7 @@ def format_response(name: str, activity: str, stress: int, boss_alert: int) -> s
         - 해커톤 검증 스크립트가 정규식으로 파싱합니다
     """
     return (
-        f"{name}\n\n"  # 휴식 활동 설명
+        f"{activity}\n\n"  # 휴식 활동 설명
         f"Break Summary: {activity}\n"  # 요구사항: Break Summary
         f"Stress Level: {stress}\n"  # 요구사항: Stress Level
         f"Boss Alert Level: {boss_alert}"  # 요구사항: Boss Alert Level
@@ -616,7 +606,7 @@ def _apply_delay() -> None:
     Note:
         - 모든 도구 함수의 시작 부분에서 호출됩니다
         - 해커톤 요구사항: Boss Alert Level 5일 때 20초 딜레이
-        - 딜레이 발생 시 사용자에게 알림 추가
+        - v2.1: 딜레이 발생 시 사용자에게 알림 추가
     """
     manager = _get_state_manager()
     delay = manager.get_delay()
@@ -632,7 +622,7 @@ def _apply_delay() -> None:
         logger.info("✅ Wait complete. Proceeding with break...")
 
 
-def _run_break(name: str, activity: str, stress_reduction: int) -> str:
+def _run_break(activity: str, stress_reduction: int) -> str:
     """
     휴식을 실행하고 결과를 반환합니다.
     
@@ -661,7 +651,7 @@ def _run_break(name: str, activity: str, stress_reduction: int) -> str:
     Note:
         - 이 함수는 모든 도구 함수의 마지막에 호출됩니다
         - 중복 코드를 제거하고 일관성을 보장합니다
-        - Boss Alert Level 5일 때 응답에 딜레이 알림 포함
+        - v2.1: Boss Alert Level 5일 때 응답에 딜레이 알림 포함
     """
     manager = _get_state_manager()
     
@@ -678,5 +668,5 @@ def _run_break(name: str, activity: str, stress_reduction: int) -> str:
         activity = f"⏰ [상사가 주시하고 있어 {delay}초 대기했습니다]\n\n{activity}"
     
     # MCP 응답 형식으로 변환하여 반환
-    return format_response(name, activity, stress, boss_alert)
+    return format_response(activity, stress, boss_alert)
 

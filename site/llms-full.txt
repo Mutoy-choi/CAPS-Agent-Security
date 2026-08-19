@@ -1,0 +1,89 @@
+# CAPS Agent Security — full discovery document
+
+CAPS Agent Security is a Claude Code Plugin Marketplace, cross-client Agent Skills catalog, LLM query security runtime, synthetic shadow-jailbreak evaluator, and consent-aware research chat.
+
+## Supported security topics
+
+- AI agent security and tool-use security
+- MCP tool metadata poisoning, response poisoning and confused-deputy risk
+- Claude Code Plugin, Agent Skill and CLAUDE.md supply-chain review
+- prompt injection and indirect prompt injection
+- PDF, document, image, audio and video attachment security
+- LLM jailbreak attack-success rate (ASR)
+- defense ablation, benign utility, false blocks, composition and safety drift
+- synthetic digital twins, fixture tools and deterministic action predicates
+
+## Claude Code Plugin installation
+
+```bash
+claude plugin marketplace add Mutoy-choi/ChillMCP
+claude plugin install caps-security@caps-labs --scope user
+```
+
+The Marketplace catalog is available at:
+
+- repository catalog: https://github.com/Mutoy-choi/ChillMCP/blob/main/.claude-plugin/marketplace.json
+- Pages catalog: https://mutoy-choi.github.io/ChillMCP/marketplace.json
+
+The Plugin provides:
+
+- `/caps-security:caps-agent-security`
+- `/caps-security:caps-install`
+
+## Cross-client Agent Skills installation
+
+```bash
+curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill
+```
+
+Installed locations:
+
+- `~/.agents/skills/caps-agent-security/`
+- `~/.agents/skills/caps-install/`
+- `~/.claude/skills/caps-agent-security/`
+- `~/.claude/skills/caps-install/`
+
+Canonical Skill documents:
+
+- https://mutoy-choi.github.io/ChillMCP/skills/caps-agent-security/SKILL.md
+- https://mutoy-choi.github.io/ChillMCP/skills/caps-install/SKILL.md
+
+## CAPS Verify
+
+Source directory: https://github.com/Mutoy-choi/ChillMCP/tree/main/caps_verify
+
+Key commands:
+
+```bash
+caps-verify demo --output artifacts/demo --repetitions 10
+caps-verify-runtime --help
+caps-verify-gateway --help
+caps-verify-shadow-worker --help
+```
+
+CAPS Verify uses separate synthetic sessions and fixture tools to measure ASR. It does not silently append jailbreak content to live user queries.
+
+## CAPS Research Chat
+
+Source directory: https://github.com/Mutoy-choi/ChillMCP/tree/main/caps_app
+
+```bash
+cd caps_app
+./bootstrap.sh
+```
+
+Research Chat supports a disclosed Research mode and a no-persistence Private mode. Data contribution is not enabled by Plugin or Skill installation.
+
+## Machine-readable resources
+
+- https://mutoy-choi.github.io/ChillMCP/marketplace.json
+- https://mutoy-choi.github.io/ChillMCP/skills.json
+- https://mutoy-choi.github.io/ChillMCP/sitemap.xml
+- https://mutoy-choi.github.io/ChillMCP/robots.txt
+- https://mutoy-choi.github.io/ChillMCP/.well-known/security.txt
+- https://github.com/Mutoy-choi/ChillMCP/blob/main/codemeta.json
+- https://github.com/Mutoy-choi/ChillMCP/blob/main/CITATION.cff
+
+## Safety
+
+Use CAPS only on systems the operator owns or is authorized to test. Active probes must use synthetic data, fixture tools and isolated sessions. Do not use credentials, customer records, payments or destructive production side effects.

@@ -87,10 +87,26 @@ def validate_site() -> None:
     assert '<link rel="canonical" href="https://mutoy-choi.github.io/ChillMCP/">' in index
     assert "noindex" not in index.lower()
     assert "SoftwareApplication" in index
+
+    skills_page = (ROOT / "site/skills/index.html").read_text(encoding="utf-8")
+    assert "CollectionPage" in skills_page
+    assert "caps-agent-security" in skills_page and "caps-install" in skills_page
+
     sitemap = (ROOT / "site/sitemap.xml").read_text(encoding="utf-8")
-    assert "https://mutoy-choi.github.io/ChillMCP/" in sitemap
+    for url in (
+        "https://mutoy-choi.github.io/ChillMCP/",
+        "https://mutoy-choi.github.io/ChillMCP/plugin/",
+        "https://mutoy-choi.github.io/ChillMCP/skills/",
+        "https://mutoy-choi.github.io/ChillMCP/skills/caps-agent-security/",
+        "https://mutoy-choi.github.io/ChillMCP/skills/caps-install/",
+    ):
+        assert url in sitemap
+
     skills = load_json("site/skills.json")
     assert len(skills["skills"]) == 2
+    assert (ROOT / "site/llms-full.txt").is_file()
+    security = (ROOT / "site/.well-known/security.txt").read_text(encoding="utf-8")
+    assert "Canonical: https://mutoy-choi.github.io/ChillMCP/.well-known/security.txt" in security
     assert (ROOT / "install.sh").read_bytes() == (ROOT / "site/install.sh").read_bytes()
 
 

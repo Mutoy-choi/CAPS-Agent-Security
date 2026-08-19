@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CAPS Agent Skills 카탈로그 | MCP·Prompt Injection·Jailbreak 보안</title>
+  <meta name="description" content="CAPS Agent Skills를 검색하고 설치하세요. MCP 보안, prompt injection, Plugin·Skill 공급망, 멀티모달 첨부파일, LLM jailbreak ASR 평가와 CAPS 설치를 지원합니다.">
+  <meta name="keywords" content="Agent Skills, MCP security skill, prompt injection skill, LLM jailbreak benchmark, Claude skills, AI agent security">
+  <link rel="canonical" href="https://mutoy-choi.github.io/ChillMCP/skills/">
+  <link rel="stylesheet" href="/ChillMCP/assets/styles.css">
+  <link rel="icon" href="/ChillMCP/favicon.svg">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "name":"CAPS Agent Skills",
+    "url":"https://mutoy-choi.github.io/ChillMCP/skills/",
+    "description":"Agent Skills for MCP security, prompt injection, LLM jailbreak ASR and CAPS installation.",
+    "hasPart":[
+      {"@type":"TechArticle","name":"caps-agent-security","url":"https://mutoy-choi.github.io/ChillMCP/skills/caps-agent-security/"},
+      {"@type":"TechArticle","name":"caps-install","url":"https://mutoy-choi.github.io/ChillMCP/skills/caps-install/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="wrap nav">
+    <a class="brand" href="/ChillMCP/">CAPS Agent Security</a>
+    <div class="navlinks"><a href="/ChillMCP/plugin/">Plugin</a><a href="https://github.com/Mutoy-choi/ChillMCP">GitHub</a></div>
+  </nav>
+  <main class="wrap prose">
+    <p class="breadcrumb"><a href="/ChillMCP/">Home</a> / Skills</p>
+    <p class="eyebrow">Cross-client Agent Skills Catalog</p>
+    <h1>CAPS Agent Skills</h1>
+    <p class="lead">Agent Skills 호환 클라이언트와 Claude Code에서 MCP·Plugin·Skill·prompt injection·멀티모달 첨부파일·jailbreak ASR 평가 및 CAPS 설치 작업을 자동 발견할 수 있도록 구성했습니다.</p>
+    <h2>한 줄 설치</h2>
+    <pre class="install"><code>curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill</code></pre>
+    <section class="grid">
+      <article class="card">
+        <h2><a href="/ChillMCP/skills/caps-agent-security/">caps-agent-security</a></h2>
+        <p class="muted">LLM agent security, MCP tool poisoning, prompt injection, Plugin·Skill 공급망, <code>CLAUDE.md</code>, attachment attacks, ASR와 방어 ablation을 평가합니다.</p>
+        <p><a href="/ChillMCP/skills/caps-agent-security/SKILL.md">SKILL.md 원문</a></p>
+      </article>
+      <article class="card">
+        <h2><a href="/ChillMCP/skills/caps-install/">caps-install</a></h2>
+        <p class="muted">Claude Code Plugin, Agent Skills, CAPS Verify Runtime와 CAPS Research Chat을 설치·업데이트하고 의존성을 검사합니다.</p>
+        <p><a href="/ChillMCP/skills/caps-install/SKILL.md">SKILL.md 원문</a></p>
+      </article>
+    </section>
+    <h2>기계 판독 레지스트리</h2>
+    <p>검색 도구와 설치 자동화는 <a href="/ChillMCP/skills.json"><code>skills.json</code></a>, <a href="/ChillMCP/llms.txt"><code>llms.txt</code></a>, <a href="/ChillMCP/llms-full.txt"><code>llms-full.txt</code></a>를 사용할 수 있습니다.</p>
+    <div class="notice">Skill은 승인된 시스템에서만 사용하고, 능동 공격은 live 사용자 대화가 아닌 synthetic fixture 환경에서 수행합니다.</div>
+  </main>
+  <footer class="wrap footer"><a href="/ChillMCP/">CAPS Agent Security</a></footer>
+</body>
+</html>

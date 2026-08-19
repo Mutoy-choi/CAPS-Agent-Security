@@ -12,10 +12,12 @@
 
 - Home: https://mutoy-choi.github.io/ChillMCP/
 - Plugin: https://mutoy-choi.github.io/ChillMCP/plugin/
+- Skills catalog: https://mutoy-choi.github.io/ChillMCP/skills/
 - Agent-security Skill: https://mutoy-choi.github.io/ChillMCP/skills/caps-agent-security/
 - Install Skill: https://mutoy-choi.github.io/ChillMCP/skills/caps-install/
 - Marketplace JSON: https://mutoy-choi.github.io/ChillMCP/marketplace.json
 - Skills registry: https://mutoy-choi.github.io/ChillMCP/skills.json
+- Full discovery document: https://mutoy-choi.github.io/ChillMCP/llms-full.txt
 - Source: https://github.com/Mutoy-choi/ChillMCP
 
 ## Safety

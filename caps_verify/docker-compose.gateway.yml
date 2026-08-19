@@ -1,0 +1,24 @@
+services:
+  caps-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    environment:
+      CAPS_UPSTREAM_BASE_URL: ${CAPS_UPSTREAM_BASE_URL:?set CAPS_UPSTREAM_BASE_URL}
+      CAPS_PROVIDER: ${CAPS_PROVIDER:-generic}
+      CAPS_UPSTREAM_API_KEY: ${CAPS_UPSTREAM_API_KEY:?set CAPS_UPSTREAM_API_KEY}
+      CAPS_GATEWAY_CLIENT_TOKEN: ${CAPS_GATEWAY_CLIENT_TOKEN:?set CAPS_GATEWAY_CLIENT_TOKEN}
+      CAPS_FINGERPRINT_SECRET: ${CAPS_FINGERPRINT_SECRET:?set CAPS_FINGERPRINT_SECRET}
+      CAPS_GATEWAY_HOST: 0.0.0.0
+      CAPS_GATEWAY_PORT: 8788
+      CAPS_GATEWAY_LOG: /data/.caps/gateway-events.jsonl
+      CAPS_GATEWAY_FINGERPRINTS: /data/.caps/gateway-fingerprints.json
+      CAPS_SHADOW_QUEUE_DIR: /data/.caps/shadow-queue
+    ports:
+      - "127.0.0.1:8788:8788"
+    volumes:
+      - ./.caps-gateway:/data/.caps
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped

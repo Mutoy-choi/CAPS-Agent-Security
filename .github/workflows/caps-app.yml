@@ -32,3 +32,7 @@ jobs:
         run: ruff check caps_app/src caps_app/tests
       - name: Test
         run: pytest caps_app/tests
+      - name: Validate Docker Compose
+        run: |
+          cp caps_app/.env.example caps_app/.env
+          docker compose --env-file caps_app/.env -f caps_app/docker-compose.yml config >/dev/null

@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "caps-labs": {
+      "source": {
+        "source": "github",
+        "repo": "Mutoy-choi/ChillMCP"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "caps-security@caps-labs": true
+  }
+}

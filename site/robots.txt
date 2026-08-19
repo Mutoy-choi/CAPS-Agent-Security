@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mutoy-choi.github.io/ChillMCP/sitemap.xml

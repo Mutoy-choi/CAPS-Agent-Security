@@ -1,0 +1,16 @@
+{
+  "name": "CAPS Agent Security",
+  "short_name": "CAPS Security",
+  "description": "Claude Code Plugin and Agent Skills for MCP, prompt injection, multimodal attachment and LLM jailbreak security evaluation.",
+  "start_url": "/ChillMCP/",
+  "display": "standalone",
+  "background_color": "#08111f",
+  "theme_color": "#5b7cff",
+  "icons": [
+    {
+      "src": "/ChillMCP/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

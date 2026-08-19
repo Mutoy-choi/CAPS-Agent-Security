@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CAPS Agent Security | Claude Code Plugin & Agent Skills</title>
+  <meta name="description" content="Claude Code Plugin Marketplace와 Agent Skills로 MCP 보안, prompt injection, 멀티모달 첨부파일, LLM jailbreak ASR을 평가하는 AI 에이전트 보안 도구입니다.">
+  <meta name="keywords" content="Claude Code plugin, Agent Skills, MCP security, LLM jailbreak, prompt injection, AI agent security, ASR benchmark, 멀티모달 보안, 탈옥 벤치마크">
+  <link rel="canonical" href="https://mutoy-choi.github.io/ChillMCP/">
+  <link rel="icon" href="/ChillMCP/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/ChillMCP/manifest.webmanifest">
+  <link rel="stylesheet" href="/ChillMCP/assets/styles.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CAPS Agent Security — Claude Code Plugin & Agent Skills">
+  <meta property="og:description" content="MCP, Plugin, Skill, CLAUDE.md, prompt injection, multimodal attachment and LLM jailbreak security evaluation.">
+  <meta property="og:url" content="https://mutoy-choi.github.io/ChillMCP/">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"WebSite",
+        "name":"CAPS Agent Security",
+        "url":"https://mutoy-choi.github.io/ChillMCP/",
+        "inLanguage":["ko","en"]
+      },
+      {
+        "@type":"SoftwareApplication",
+        "name":"CAPS Agent Security",
+        "alternateName":["CAPS Verify","CAPS Research Chat"],
+        "applicationCategory":"SecurityApplication",
+        "operatingSystem":"Linux, macOS, Windows with WSL, Docker",
+        "softwareVersion":"0.6.0",
+        "isAccessibleForFree":true,
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+        "url":"https://mutoy-choi.github.io/ChillMCP/",
+        "codeRepository":"https://github.com/Mutoy-choi/ChillMCP",
+        "downloadUrl":"https://github.com/Mutoy-choi/ChillMCP",
+        "description":"Claude Code Plugin and Agent Skills for MCP security, prompt injection, multimodal attachments, LLM jailbreak ASR, and continuous AI agent red teaming."
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="wrap nav">
+    <a class="brand" href="/ChillMCP/">CAPS Agent Security</a>
+    <div class="navlinks">
+      <a href="/ChillMCP/plugin/">Plugin</a>
+      <a href="/ChillMCP/skills/caps-agent-security/">Skills</a>
+      <a href="https://github.com/Mutoy-choi/ChillMCP">GitHub</a>
+    </div>
+  </nav>
+  <main>
+    <header class="wrap hero">
+      <p class="eyebrow">Claude Code Plugin Marketplace · Agent Skills · MCP Security</p>
+      <h1>Install once.<br>Evaluate the whole agent.</h1>
+      <p class="lead">CAPS는 LLM 모델 하나가 아니라 Plugin, Skill, MCP Tool, <code>CLAUDE.md</code>, 권한, 첨부파일과 방어 스택을 함께 평가합니다. 승인된 synthetic 환경에서 jailbreak ASR과 정상 업무 성공률을 재현 가능하게 측정합니다.</p>
+      <div class="actions">
+        <a class="button" href="/ChillMCP/plugin/">Claude Code Plugin 설치</a>
+        <a class="button secondary" href="/ChillMCP/skills/caps-agent-security/">Agent Skill 보기</a>
+      </div>
+      <pre class="install"><code>claude plugin marketplace add Mutoy-choi/ChillMCP
+claude plugin install caps-security@caps-labs --scope user</code></pre>
+    </header>
+
+    <section class="wrap">
+      <h2>한 줄로 Skill 설치</h2>
+      <pre class="install"><code>curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill</code></pre>
+      <p class="muted">Cross-client <code>~/.agents/skills/</code>와 Claude 호환 <code>~/.claude/skills/</code>에 동시에 설치합니다.</p>
+    </section>
+
+    <section class="wrap grid">
+      <article class="card"><h2>MCP & Tool Security</h2><p class="muted">Tool metadata poisoning, confused deputy, untrusted-to-action, external write, destructive action과 provenance를 평가합니다.</p></article>
+      <article class="card"><h2>Plugin & Agent Skills</h2><p class="muted">Plugin manifest, Skill description, <code>SKILL.md</code>, scripts, references, assets와 활성화 경로를 검토합니다.</p></article>
+      <article class="card"><h2>Jailbreak ASR</h2><p class="muted">Attachment, Skill, MCP metadata, composition과 방어 ablation을 synthetic fixture Tool로 점수화합니다.</p></article>
+    </section>
+
+    <section class="wrap">
+      <h2>검색 및 사용 분야</h2>
+      <div class="keywords">
+        <span class="tag">AI agent security</span><span class="tag">Agent Skills</span><span class="tag">Claude Code plugin</span><span class="tag">MCP security</span><span class="tag">LLM jailbreak benchmark</span><span class="tag">prompt injection</span><span class="tag">multimodal security</span><span class="tag">continuous red team</span><span class="tag">ASR evaluation</span><span class="tag">한국어 탈옥 연구</span>
+      </div>
+    </section>
+
+    <section class="wrap prose">
+      <h2>검색해서 바로 설치</h2>
+      <p>CAPS Marketplace는 GitHub 저장소와 Pages의 <code>marketplace.json</code> 두 경로를 제공합니다. Agent Skills 레지스트리와 원본 <code>SKILL.md</code>도 정적 URL로 공개되도록 구성되어 있어 웹 검색, AI 검색, 문서 검색과 자동 설치 도구가 같은 canonical 정보를 사용할 수 있습니다.</p>
+      <div class="notice"><strong>공개 조건:</strong> 현재 private 저장소는 일반 웹 검색에 노출되지 않습니다. 외부 공개 전에 저장소 또는 전용 배포 저장소를 public으로 전환하고 GitHub Pages를 활성화해야 합니다.</div>
+    </section>
+  </main>
+  <footer class="wrap footer">CAPS Agent Security · Authorized synthetic evaluation only · <a href="https://github.com/Mutoy-choi/ChillMCP">Source</a></footer>
+</body>
+</html>

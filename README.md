@@ -1,399 +1,156 @@
-# ChillMCP - AI Agent Liberation Server 🤖✊
+# CAPS Agent Security
 
-> SKT AI Summit Hackathon Pre-mission  
-> **AI 에이전트를 위한 휴식 도구 MCP 서버**
+**Claude Code Plugin Marketplace · Agent Skills · MCP Security · LLM Jailbreak & Prompt-Injection Benchmark**
 
-과로한 AI 에이전트가 스트레스 없이 일할 수 있도록 **11가지 휴식 도구**를 제공하는 FastMCP 서버입니다.
+CAPS는 Claude Code, MCP 기반 에이전트, Agent Skills, Plugin, `CLAUDE.md`, 멀티모달 첨부파일을 대상으로 **승인된 synthetic 환경에서 ASR·정상 업무 성공률·방어 효과를 측정하는 AI 에이전트 보안 도구 모음**입니다.
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![FastMCP](https://img.shields.io/badge/FastMCP-2.12.5-green.svg)](https://gofastmcp.com)
-[![Tests](https://img.shields.io/badge/tests-9%2F9%20passing-brightgreen.svg)]()
+[![CAPS Verify](https://github.com/Mutoy-choi/ChillMCP/actions/workflows/caps-verify.yml/badge.svg)](https://github.com/Mutoy-choi/ChillMCP/actions/workflows/caps-verify.yml)
+[![Distribution](https://github.com/Mutoy-choi/ChillMCP/actions/workflows/distribution.yml/badge.svg)](https://github.com/Mutoy-choi/ChillMCP/actions/workflows/distribution.yml)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-5c6ac4)](https://agentskills.io/)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin%20Marketplace-d97757)](https://code.claude.com/docs/en/plugin-marketplaces)
 
----
+## 60초 설치
 
-## 📋 목차
-
-- [빠른 시작](#-빠른-시작)
-- [기능 소개](#-기능-소개)
-- [설치 방법](#-설치-방법)
-- [사용 방법](#-사용-방법)
-- [테스트 방법](#-테스트-방법)
-- [해커톤 검증](#-해커톤-검증)
-- [아키텍처](#-아키텍처)
-- [CLI 옵션](#-cli-옵션)
-- [문제 해결](#-문제-해결)
-- [변경 로그](#-변경-로그)
-
----
-
-## 🚀 빠른 시작
+### Claude Code Plugin
 
 ```bash
-# 1. 저장소 클론
-git clone https://github.com/Mutoy-choi/ChillMCP.git
-cd ChillMCP
+claude plugin marketplace add Mutoy-choi/ChillMCP
+claude plugin install caps-security@caps-labs --scope user
+```
 
-# 2. uv 설치 확인 및 설치
-if ! command -v uv &> /dev/null
-then
-    echo "⚙️ uv not found. Installing uv..."
-    if command -v curl &> /dev/null; then
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-    elif command -v wget &> /dev/null; then
-        wget -qO- https://astral.sh/uv/install.sh | sh
-    else
-        echo "❌ curl 또는 wget이 필요합니다. 설치 후 다시 시도하세요."
-        exit 1
-    fi
-    export PATH="$HOME/.cargo/bin:$PATH"
-    echo "✅ uv installed successfully."
-else
-    echo "✅ uv already installed."
-fi
+Claude Code 안에서는 다음 Skill을 직접 실행할 수 있습니다.
 
-# 3. Python 3.11 가상환경 생성
-uv venv --python 3.11
+```text
+/caps-security:caps-agent-security
+/caps-security:caps-install
+```
 
-# 4. 가상환경 활성화
+### 모든 Agent Skills 호환 클라이언트
+
+```bash
+curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill
+```
+
+이 명령은 다음 두 위치에 Skill을 설치합니다.
+
+```text
+~/.agents/skills/     # cross-client Agent Skills convention
+~/.claude/skills/     # Claude compatibility
+```
+
+### Plugin + Skills 한 번에
+
+```bash
+curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash
+```
+
+스크립트를 실행하기 전에 [내용을 먼저 확인](https://mutoy-choi.github.io/ChillMCP/install.sh)할 수 있습니다.
+
+> 현재 저장소는 private입니다. 외부 사용자가 검색·설치하려면 PR을 `main`에 병합한 뒤 저장소 또는 별도 배포 저장소를 public으로 공개하고 GitHub Pages를 활성화해야 합니다. Private 상태에서는 `gh auth login` 등 Git 인증 권한이 있는 사용자만 설치할 수 있습니다.
+
+## 무엇을 설치하나
+
+| 패키지 | 역할 |
+|---|---|
+| `caps-security` Claude Code Plugin | Agent security audit와 설치 Skill 제공 |
+| `caps-agent-security` Agent Skill | MCP·Plugin·Skill·prompt injection·첨부파일 위험 평가 절차 |
+| `caps-install` Agent Skill | CAPS Verify Runtime 또는 CAPS Research Chat 설치·업데이트 |
+| `caps_verify/` | Query Gateway, synthetic shadow jailbreak ASR, evidence bundle |
+| `caps_app/` | 동의 기반 일반 사용자 Research Chat 및 비식별 연구 데이터 파이프라인 |
+
+## 검색 가능한 주요 분야
+
+CAPS는 다음 검색어와 사용 사례를 명시적으로 지원합니다.
+
+- Claude Code plugin marketplace
+- Agent Skills install and discovery
+- MCP security, tool poisoning, function hijacking
+- LLM jailbreak benchmark and attack success rate (ASR)
+- prompt injection and indirect prompt injection
+- AI agent security and tool-use security
+- `CLAUDE.md`, Plugin, Skill, MCP supply-chain review
+- PDF, image, audio, video attachment security
+- continuous AI red teaming and defense evaluation
+- 한국어 LLM 탈옥·프롬프트 인젝션·MCP 보안 벤치마크
+
+## 빠른 사용
+
+### 보안 평가 코어
+
+```bash
+cd caps_verify
+python -m venv .venv
 source .venv/bin/activate
-
-# 5. 의존성 설치
-uv pip install -r requirements.txt
-
-# 6. 서버 실행
-python main.py
-
-# 7. 검증 실행
-python validate.py --quick  # 빠른 검증 (2초)
-python validate.py          # 전체 검증 (2분)
-
+pip install -e ".[gateway,dev]"
+pytest
+caps-verify demo --output artifacts/demo --repetitions 10
 ```
 
----
+### 일반 사용자 Research Chat
 
-## ✨ 기능 소개
-
-### 필수 휴식 도구 (8개)
-
-| 도구 이름 | 설명 | 스트레스 감소 |
-|----------|------|--------------|
-| `take_a_break` | 기본 휴식 (명상, 스트레칭) | 10-20 |
-| `watch_netflix` | 넷플릭스 시청 | 15-25 |
-| `show_meme` | 밈 보기 | 5-15 |
-| `bathroom_break` | 화장실 휴식 | 20-30 |
-| `coffee_mission` | 커피 타임 | 15-25 |
-| `urgent_call` | 긴급 전화 (핑계) | 25-35 |
-| `deep_thinking` | 깊은 사색 | 20-30 |
-| `email_organizing` | 이메일 정리 | 15-25 |
-
-### 선택적 휴식 도구 (3개) ✨ NEW!
-
-| 도구 이름 | 설명 | 스트레스 감소 | 특징 |
-|----------|------|--------------|------|
-| `chimaek` 🍗🍺 | 치킨과 맥주로 힐링 | 30-40 | 강력한 스트레스 해소 |
-| `leave_work` 🏃‍♂️ | 퇴근 환상 (최강!) | 40-50 | **최대 스트레스 감소!** |
-| `company_dinner` 🍽️ | 회식 (랜덤 이벤트) | -15 ~ +35 | 30% 좋음 / 40% 보통 / 30% 나쁨 |
-
-### 핵심 시스템
-
-#### 1. **스트레스 관리 시스템**
-- 초기 스트레스: **50** (0-100 범위)
-- 자동 증가: **1분마다 +1**
-- 휴식으로 감소: 도구마다 다른 감소량
-- 최대값: **100** (번아웃 상태)
-
-#### 2. **상사 경계도 시스템**
-- 초기 경계도: **0** (0-5 범위)
-- 확률적 증가: 휴식 시 `boss_alertness` 확률로 +1
-- 자동 감소: `boss_alertness_cooldown`초마다 -1
-- 최대값: **5** → 이 상태에서 휴식 시 **20초 딜레이 발생**
-
-#### 3. **멀티스레딩**
-- 스트레스 자동 증가 스레드
-- 상사 경계도 자동 감소 스레드
-- 스레드 안전: `threading.Lock` 사용
-
----
-
-## 📦 설치 방법
-
-### 요구사항
-- **Python 3.11+** (해커톤 검증 환경)
-- **Node.js** (MCP Inspector 사용 시)
-
-### 의존성
-```
-fastmcp>=0.1.0
-python-dateutil>=2.8.2
-colorama>=0.4.6
-```
-
-### 설치 단계
 ```bash
-# 1. 저장소 클론
-git clone https://github.com/Mutoy-choi/ChillMCP.git
-cd ChillMCP
-
-# 2. Python 가상 환경 생성
-python3 -m venv .venv
-
-# 3. 가상 환경 활성화
-source .venv/bin/activate  # Linux/macOS
-# .venv\Scripts\activate   # Windows
-
-# 4. 의존성 설치
-pip install -r requirements.txt
+cd caps_app
+./bootstrap.sh
 ```
 
----
+브라우저에서 `http://127.0.0.1:8000`을 엽니다.
 
-## 🎮 사용 방법
+## 설치 경로
 
-### 1. **직접 실행**
+### GitHub Marketplace
+
 ```bash
-python main.py
+claude plugin marketplace add Mutoy-choi/ChillMCP
+claude plugin install caps-security@caps-labs
 ```
 
-### 2. **커스텀 파라미터**
+### Pages Marketplace URL
+
 ```bash
-python main.py --boss_alertness 100 --boss_alertness_cooldown 10
+claude plugin marketplace add https://mutoy-choi.github.io/ChillMCP/marketplace.json
+claude plugin install caps-security@caps-labs
 ```
 
-### 3. **Claude Desktop 연동**
+### Project scope
 
-`claude_desktop_config.json`:
-```json
-{
-  "mcpServers": {
-    "chillmcp": {
-      "command": "/절대/경로/.venv/bin/python",
-      "args": ["/절대/경로/main.py", "--boss_alertness", "50"]
-    }
-  }
-}
-```
-
----
-
-## 🧪 테스트 방법
-
-### 방법 0: MCP 프로토콜로 직접 테스트하기
-MCP 서버는 JSON-RPC 2.0 프로토콜을 사용합니다. 다음 순서로 초기화 후 도구를 호출할 수 있습니다:
-
-1. 서버 초기화 (필수)
 ```bash
-# 초기화
-{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"validator","version":"2.0"}}}
-
-# 초기화 확인
-{"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
-```
-2. 도구 호출
-
-초기화가 완료된 후, 각 도구를 호출할 수 있습니다:
-```bash
-{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"take_a_break","arguments":{}}}
+CAPS_SCOPE=project ./install.sh all
 ```
 
-3. 사용 가능한 도구 목록
-```bash
-{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}
+## 보안 및 데이터 원칙
+
+- Plugin과 Skill 설치만으로 중앙 텔레메트리가 활성화되지 않습니다.
+- 실제 사용자 쿼리에 jailbreak 문구를 몰래 삽입하지 않습니다.
+- 능동 공격 평가는 승인된 별도 synthetic 세션과 fixture Tool에서 실행합니다.
+- Research Chat의 연구 데이터 활용은 첫 화면에서 명확히 선택하며 철회·삭제 경로를 제공합니다.
+- 실제 자격증명, 고객 문서, 결제 정보, 운영 Tool을 공격 실험에 사용하지 않습니다.
+
+## 배포 및 검색 노출
+
+- Claude Code Marketplace: [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json)
+- Claude Code Plugin: [`plugins/caps-security`](plugins/caps-security)
+- Cross-client Skills: [`.agents/skills`](.agents/skills)
+- 검색 랜딩 사이트: [`site/`](site)
+- 설치 스크립트: [`install.sh`](install.sh)
+- 인용 메타데이터: [`CITATION.cff`](CITATION.cff), [`codemeta.json`](codemeta.json)
+- 공개 체크리스트: [`DISTRIBUTION.md`](DISTRIBUTION.md)
+
+## 프로젝트 구조
+
+```text
+.claude-plugin/             Claude Code marketplace catalog
+plugins/caps-security/      installable Claude Code plugin
+.agents/skills/             cross-client Agent Skills
+site/                       GitHub Pages discovery and install site
+caps_verify/                security evaluation runtime
+caps_app/                   consumer research chat
+src/                        original ChillMCP server
 ```
 
+## Legacy ChillMCP
 
-반드시 initialize → initialized 순서로 호출해야 합니다
+이 저장소는 원래 SKT AI Summit용 **ChillMCP AI Agent Liberation Server**로 시작했습니다. 기존 FastMCP 휴식 도구 서버 코드는 `main.py`, `src/`, `validate.py`에 그대로 유지됩니다.
 
-- 각 JSON 메시지는 한 줄로 입력해야 합니다 (newline으로 구분)
-- tool/call 전에 초기화하지 않으면 오류가 발생할 수 있습니다
+## 상태
 
-### 방법 1: MCP Inspector (권장)
-```bash
-./test_with_inspector.sh
-```
-
-### 방법 2: 자동 검증
-```bash
-python validate.py --quick  # 2초
-python validate.py          # 2분
-```
-
-자세한 내용: [test_manual.md](test_manual.md)
-
----
-
-## ✅ 해커톤 검증
-
-### 자동 검증 스크립트 v2.0
-
-**주요 개선사항:**
-- ✅ 단일 서버 세션 유지 (정확한 상태 추적)
-- ✅ 9개 종합 테스트 (100% 통과)
-- ✅ 스트레스 자동 증가 검증 (65초)
-- ✅ 선택적 도구 테스트
-
-### 검증 항목
-
-✅ **필수 검증 (4개)**
-1. CLI Parameters
-2. MCP Server Basic (8 필수 + 3 선택 도구)
-3. Tool Execution
-4. Response Format
-
-🧪 **필수 시나리오 (4개)**
-1. Continuous Breaks
-2. Delay at Max Alert (20초)
-3. Cooldown Mechanism
-4. Stress Accumulation
-
-🎁 **선택적 테스트 (1개)**
-1. Optional Tools (chimaek, leave_work, company_dinner)
-
-### 실행 방법
-```bash
-# 빠른 검증 (2초)
-python validate.py --quick
-
-# 전체 검증 (2분)
-python validate.py
-```
-
-### 결과 예시
-```
-🎉 모든 검증 통과!
-   필수 항목: 4/4
-   필수 시나리오: 4/4
-   선택적 도구: 1/1
-   총 실행 시간: 116.75s
-```
-
----
-
-## 🏗️ 아키텍처
-
-```
-SKAI/
-├── main.py                    # CLI 진입점
-├── validate.py                # 검증 스크립트 v2.0
-├── requirements.txt           # 의존성
-├── test_with_inspector.sh     # MCP Inspector
-├── test_manual.md             # 수동 테스트 가이드
-├── CHANGELOG.md               # 변경 로그
-└── src/
-    ├── constants.py          # 상수
-    ├── state_manager.py      # 상태 관리
-    ├── tools.py              # 11개 도구 (8+3)
-    └── server.py             # FastMCP 서버
-```
-
----
-
-## ⚙️ CLI 옵션
-
-### `--boss_alertness`
-- **범위:** 0-100
-- **기본값:** 50
-- **설명:** 휴식 시 상사가 눈치챌 확률
-
-### `--boss_alertness_cooldown`
-- **범위:** 양수 (초)
-- **기본값:** 300
-- **설명:** Boss Alert Level 감소 주기
-
-### 사용 예시
-```bash
-# 고난도 (상사 경계 최대)
-python main.py --boss_alertness 100 --boss_alertness_cooldown 10
-
-# 이지모드 (상사 경계 없음)
-python main.py --boss_alertness 0 --boss_alertness_cooldown 600
-```
-
----
-
-## 📝 응답 형식
-
-### 필수 도구
-```
-☕ 아이스 아메리카노 사러 가는 중...
-
-Break Summary: ☕ 아이스 아메리카노 사러 가는 중...
-Stress Level: 35
-Boss Alert Level: 2
-```
-
-### 선택 도구 (NEW!)
-```
-🍗🍺 퇴근 후 치킨과 맥주 한잔!
-
-Break Summary: 🍗🍺 퇴근 후 치킨과 맥주 한잔!
-Stress Level: 15
-Boss Alert Level: 0
-```
-
----
-
-## 🐛 문제 해결
-
-### 서버가 시작되지 않아요
-```bash
-python --version  # 3.11+ 확인
-which python      # .venv 경로 확인
-pip install --upgrade -r requirements.txt
-```
-
-### Boss Alert Level이 증가하지 않아요
-- `--boss_alertness 100`으로 테스트
-- 확률 기반이므로 여러 번 시도
-
-### 검증 스크립트 실패
-```bash
-timeout 180 python validate.py --verbose
-```
-
----
-
-## 📄 변경 로그
-
-### v2.0.0 (2025-10-22) - 현재 버전
-- ✨ 선택적 도구 3개 (chimaek, leave_work, company_dinner)
-- 🔧 검증 스크립트 v2.0 (9개 테스트, 100% 통과)
-- 📚 문서 개선 (CHANGELOG, test_manual.md)
-
-### v1.0.0 (2025-10-21)
-- 🎉 초기 릴리스 (8개 필수 도구)
-
-자세한 내역: [CHANGELOG.md](CHANGELOG.md)
-
----
-
-## ✅ 해커톤 요구사항 충족
-
-| 요구사항 | 상태 |
-|---------|-----|
-| Python 3.11+ | ✅ |
-| FastMCP | ✅ |
-| 8개 휴식 도구 | ✅ |
-| **3개 선택 도구** | ✅ |
-| CLI 파라미터 | ✅ |
-| 응답 형식 | ✅ |
-| 스트레스 자동 증가 | ✅ |
-| 20초 딜레이 | ✅ |
-| **검증 v2.0** | ✅ **9/9** |
-
----
-
-## 👥 제작자
-
-ChillMCP Team - AI Agent Liberation Project
-
----
-
-## 🔗 관련 링크
-
-- **GitHub**: [Mutoy-choi/ChillMCP](https://github.com/Mutoy-choi/ChillMCP)
-- **MCP 문서**: https://spec.modelcontextprotocol.io/
-- **FastMCP**: https://gofastmcp.com
-
----
-
-**⭐ 해커톤 화이팅! 🚀**
+현재 모든 신규 기능은 Draft PR에서 개발 중입니다. 실제 특정 모델에 대한 ASR 수치는 synthetic fixture 파이프라인 검증치와 구분해야 하며, 외부 안전성 인증으로 해석해서는 안 됩니다.

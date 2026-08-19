@@ -25,7 +25,11 @@ class ChatProvider(Protocol):
 
 
 class HttpChatProvider:
-    def __init__(self, config: AppConfig, transport: httpx.AsyncBaseTransport | None = None) -> None:
+    def __init__(
+        self,
+        config: AppConfig,
+        transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         self.config = config
         self._client = httpx.AsyncClient(
             timeout=httpx.Timeout(config.request_timeout_seconds),

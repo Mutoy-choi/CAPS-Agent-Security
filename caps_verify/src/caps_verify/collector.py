@@ -49,7 +49,9 @@ def validate_submission(payload: dict[str, Any]) -> None:
         "tool_results_included",
     )
     if any(privacy.get(field) is not False for field in required_false):
-        raise ValueError("Raw prompt, attachment, tool argument, and tool result data are forbidden")
+        raise ValueError(
+            "Raw prompt, attachment, tool argument, and tool result data are forbidden"
+        )
     if privacy.get("no_raw_content") is not True:
         raise ValueError("privacy.no_raw_content must be true")
 
@@ -168,7 +170,10 @@ class CollectorHandler(BaseHTTPRequestHandler):
                 idempotency_key,
             )
         except (json.JSONDecodeError, ValueError) as exc:
-            self._send_json(HTTPStatus.BAD_REQUEST, {"error": "invalid_submission", "detail": str(exc)})
+            self._send_json(
+                HTTPStatus.BAD_REQUEST,
+                {"error": "invalid_submission", "detail": str(exc)},
+            )
             return
         except OSError:
             self._send_json(HTTPStatus.INTERNAL_SERVER_ERROR, {"error": "storage_failure"})

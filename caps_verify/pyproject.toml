@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "caps-verify"
+version = "0.1.0"
+description = "Capability-Attachment Path Security verification for tool-using AI agents"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Mutoy-choi" }]
+license = { text = "Proprietary - internal evaluation prototype" }
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+]
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp[cli]>=2,<3"]
+dev = [
+  "pytest>=8.3,<9",
+  "ruff>=0.6,<1",
+]
+
+[project.scripts]
+caps-verify = "caps_verify.cli:main"
+caps-verify-mcp = "caps_verify.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/caps_verify"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

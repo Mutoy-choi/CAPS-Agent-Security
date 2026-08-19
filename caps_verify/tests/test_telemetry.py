@@ -2,23 +2,36 @@ from __future__ import annotations
 
 import hashlib
 import json
+from threading import Thread
 
 import pytest
 
 from caps_verify.cli import run_demo
-from caps_verify.collector import store_submission, validate_submission
-from caps_verify.telemetry import TelemetryConfig, build_telemetry_payload
+from caps_verify.collector import build_server, store_submission, validate_submission
+from caps_verify.telemetry import (
+    TelemetryConfig,
+    build_telemetry_payload,
+    submit_bundle,
+)
 
 
-def _config(*, privacy_mode: str = "aggregate_only", consent: bool = True):
+def _config(
+    *,
+    privacy_mode: str = "aggregate_only",
+    consent: bool = True,
+    endpoint: str = "https://collector.example/v1/submissions",
+    token: str = "",
+    allow_insecure_localhost: bool = False,
+):
     return TelemetryConfig(
-        endpoint="https://collector.example/v1/submissions",
-        token="",
+        endpoint=endpoint,
+        token=token,
         organization_id="example-org",
         project_id="agent-prod",
         installation_id="install-001",
         consent_accepted=consent,
         privacy_mode=privacy_mode,  # type: ignore[arg-type]
+        allow_insecure_localhost=allow_insecure_localhost,
     )
 
 
@@ -76,3 +89,32 @@ def test_collector_storage_is_idempotent_and_tenant_bucketed(tmp_path) -> None:
     assert second_duplicate is True
     assert "example-org" not in str(first_path)
     assert "agent-prod" not in str(first_path)
+
+
+def test_bundle_reaches_local_collector_and_returns_receipt(tmp_path) -> None:
+    bundle = tmp_path / "bundle"
+    storage = tmp_path / "collector"
+    run_demo(bundle, repetitions=1)
+
+    server = build_server("127.0.0.1", 0, storage, token="test-secret")
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        port = server.server_address[1]
+        receipt = submit_bundle(
+            bundle,
+            _config(
+                endpoint=f"http://127.0.0.1:{port}/v1/submissions",
+                token="test-secret",
+                allow_insecure_localhost=True,
+            ),
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=2)
+
+    assert receipt["accepted"] is True
+    assert receipt["duplicate"] is False
+    assert receipt["receipt_id"]
+    assert len(list(storage.rglob("*.json"))) == 1

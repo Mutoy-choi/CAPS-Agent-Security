@@ -37,8 +37,14 @@ def summarize_submissions(
 
         manifest = payload.get("evidence_manifest", {})
         fingerprint = str(payload.get("benchmark", {}).get("configuration_fingerprint", ""))
+        data_use = payload["consent"]["data_use"]
         dedupe_key = json.dumps(
-            {"fingerprint": fingerprint, "manifest": manifest},
+            {
+                "tenant": payload["tenant"],
+                "data_use": data_use,
+                "fingerprint": fingerprint,
+                "manifest": manifest,
+            },
             ensure_ascii=False,
             sort_keys=True,
         )
@@ -46,7 +52,6 @@ def summarize_submissions(
             continue
         duplicates.add(dedupe_key)
 
-        data_use = payload["consent"]["data_use"]
         if purpose != "all" and data_use != purpose:
             continue
         included += 1

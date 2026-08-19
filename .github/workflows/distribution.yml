@@ -35,6 +35,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Validate distribution metadata
         run: python scripts/validate_distribution.py
       - name: Validate shell installers
@@ -46,3 +49,7 @@ jobs:
           python -m json.tool site/marketplace.json >/dev/null
           python -m json.tool site/skills.json >/dev/null
           python -m json.tool codemeta.json >/dev/null
+      - name: Validate Claude Code marketplace and Plugin
+        run: |
+          npm install --global @anthropic-ai/claude-code@latest
+          claude plugin validate .

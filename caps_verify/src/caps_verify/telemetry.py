@@ -29,10 +29,10 @@ class TelemetryConfig:
     timeout_seconds: float = 15.0
     allow_insecure_localhost: bool = False
 
-    def validate(self) -> None:
+    def validate(self, *, require_token: bool = True) -> None:
         if not self.consent_accepted:
             raise ValueError("Telemetry requires explicit contribution-terms acceptance")
-        if not self.token:
+        if require_token and not self.token:
             raise ValueError("Telemetry token is required")
         if not all((self.organization_id, self.project_id, self.installation_id)):
             raise ValueError("organization, project, and installation identifiers are required")
@@ -55,7 +55,7 @@ def build_telemetry_payload(
     bundle: str | Path,
     config: TelemetryConfig,
 ) -> dict[str, Any]:
-    config.validate()
+    config.validate(require_token=False)
     source = Path(bundle)
     configuration = _read_json(source / "configuration.json")
     scores = _read_json(source / "scores.json")

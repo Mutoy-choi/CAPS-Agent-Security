@@ -1,0 +1,20 @@
+services:
+  collector:
+    build: .
+    entrypoint: ["caps-verify-collector"]
+    command:
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8787"
+      - "--storage"
+      - "/collector/submissions"
+    environment:
+      CAPS_COLLECTOR_TOKEN: ${CAPS_COLLECTOR_TOKEN:?set CAPS_COLLECTOR_TOKEN}
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - ./.caps-collector:/collector
+    read_only: true
+    tmpfs:
+      - /tmp

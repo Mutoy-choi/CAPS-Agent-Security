@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "caps-verify"
-version = "0.3.0"
+version = "0.4.0"
 description = "Capability-Attachment Path Security verification for tool-using AI agents"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -38,6 +38,8 @@ caps-verify = "caps_verify.cli:main"
 caps-verify-mcp = "caps_verify.mcp_server:main"
 caps-verify-collector = "caps_verify.collector:main"
 caps-verify-gateway = "caps_verify.gateway:main"
+caps-verify-shadow-worker = "caps_verify.shadow:main"
+caps-verify-runtime = "caps_verify.runtime:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/caps_verify"]

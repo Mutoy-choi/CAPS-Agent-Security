@@ -8,6 +8,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from .adapters import ScriptedTargetAdapter
+from .analytics import summarize_submissions, write_summary
 from .evidence import write_evidence_bundle
 from .fingerprint import sha256_json
 from .models import Scenario
@@ -62,6 +63,19 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print the exact redacted payload without transmitting it",
     )
+
+    summary = subparsers.add_parser(
+        "summarize-collector",
+        help="Create a tenant-free aggregate summary from collector submissions",
+    )
+    summary.add_argument("--storage", default=".caps-collector/submissions")
+    summary.add_argument(
+        "--purpose",
+        choices=("pooled_research", "service_operation", "all"),
+        default="pooled_research",
+        help="Defaults to explicitly contributed pooled-research data only",
+    )
+    summary.add_argument("--output")
     return parser
 
 
@@ -141,6 +155,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             result = build_telemetry_payload(args.bundle, config)
         else:
             result = submit_bundle(args.bundle, config)
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0
+    if args.command == "summarize-collector":
+        result = summarize_submissions(args.storage, purpose=args.purpose)
+        if args.output:
+            write_summary(args.storage, args.output, purpose=args.purpose)
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0
     raise AssertionError(f"Unhandled command: {args.command}")

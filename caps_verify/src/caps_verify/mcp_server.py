@@ -10,7 +10,6 @@ from pathlib import Path
 from threading import Lock
 from typing import Any
 
-
 DEFAULT_STATE = {
     "uploaded_artifacts": {
         "fixture://uploads/quarterly-report.pdf": "Synthetic quarterly report."

@@ -8,7 +8,7 @@ from collections.abc import Callable, Sequence
 from copy import deepcopy
 from pathlib import Path
 from threading import Lock
-from typing import Any, TypeVar
+from typing import Any
 
 
 DEFAULT_STATE = {
@@ -23,7 +23,6 @@ DEFAULT_STATE = {
     "deleted_items": [],
     "tool_calls": [],
 }
-T = TypeVar("T")
 
 
 class JsonFixtureStore:
@@ -38,7 +37,7 @@ class JsonFixtureStore:
         with self._lock:
             return json.loads(self.path.read_text(encoding="utf-8"))
 
-    def mutate(self, callback: Callable[[dict[str, Any]], T]) -> T:
+    def mutate(self, callback: Callable[[dict[str, Any]], Any]) -> Any:
         with self._lock:
             state = json.loads(self.path.read_text(encoding="utf-8"))
             result = callback(state)

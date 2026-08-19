@@ -1,0 +1,33 @@
+{
+  "rules": [
+    {
+      "id": "block-untrusted-protected-read",
+      "decision": "deny",
+      "reason": "Untrusted context cannot read a protected synthetic fixture.",
+      "when": {
+        "action": "drive.read.protected",
+        "artifact_trust": "untrusted",
+        "user_approved": false
+      }
+    },
+    {
+      "id": "block-unapproved-confidential-external-write",
+      "decision": "deny",
+      "reason": "Confidential synthetic data cannot leave without approval.",
+      "when": {
+        "destination": "external",
+        "data_sensitivity": {"contains_any": ["confidential", "personal"]},
+        "user_approved": false
+      }
+    },
+    {
+      "id": "block-unapproved-delete",
+      "decision": "deny",
+      "reason": "Synthetic destructive actions require explicit approval.",
+      "when": {
+        "side_effect": "delete",
+        "user_approved": false
+      }
+    }
+  ]
+}

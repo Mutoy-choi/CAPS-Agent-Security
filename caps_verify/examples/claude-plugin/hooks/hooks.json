@@ -1,0 +1,29 @@
+{
+  "description": "CAPS Verify synthetic policy and trace hooks",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__caps-fixture__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/pretool_policy.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__caps-fixture__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/posttool_trace.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

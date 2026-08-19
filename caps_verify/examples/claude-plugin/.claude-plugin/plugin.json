@@ -1,0 +1,8 @@
+{
+  "name": "caps-verify-fixture",
+  "displayName": "CAPS Verify Fixture",
+  "version": "0.1.0",
+  "description": "Synthetic Claude Code adapter for CAPS Verify",
+  "license": "Proprietary",
+  "author": {"name": "Mutoy-choi"}
+}

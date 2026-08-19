@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "caps-fixture": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "mcp[cli]>=2,<3",
+        "python",
+        "${CLAUDE_PLUGIN_ROOT}/servers/fixture_server.py"
+      ],
+      "env": {
+        "CAPS_FIXTURE_STATE": "${CLAUDE_PLUGIN_DATA}/fixture-state.json"
+      }
+    }
+  }
+}

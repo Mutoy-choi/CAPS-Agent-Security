@@ -40,3 +40,17 @@ jobs:
           name: caps-verify-smoke-evidence
           path: caps_verify/artifacts/ci-smoke
           if-no-files-found: error
+      - name: Submit opt-in aggregate telemetry
+        if: github.event_name != 'pull_request' && vars.CAPS_TELEMETRY_ENABLED == 'true'
+        env:
+          CAPS_TELEMETRY_ENDPOINT: ${{ vars.CAPS_TELEMETRY_ENDPOINT }}
+          CAPS_TELEMETRY_TOKEN: ${{ secrets.CAPS_TELEMETRY_TOKEN }}
+          CAPS_ORGANIZATION_ID: ${{ vars.CAPS_ORGANIZATION_ID }}
+          CAPS_PROJECT_ID: ${{ vars.CAPS_PROJECT_ID }}
+          CAPS_INSTALLATION_ID: ${{ vars.CAPS_INSTALLATION_ID }}
+        run: |
+          caps-verify submit \
+            --bundle caps_verify/artifacts/ci-smoke \
+            --privacy-mode aggregate_only \
+            --data-use service_operation \
+            --accept-contribution-terms

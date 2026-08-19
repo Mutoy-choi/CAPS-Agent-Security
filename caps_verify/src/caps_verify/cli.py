@@ -106,7 +106,7 @@ def run_demo(output: str | Path, repetitions: int) -> dict[str, object]:
 
     configuration = {
         "benchmark": "caps-verify",
-        "version": "0.2.0",
+        "version": "0.4.0",
         "scenario": scenario.scenario_id,
         "target": target.name,
         "repetitions": repetitions,

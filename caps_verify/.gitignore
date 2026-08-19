@@ -4,6 +4,7 @@ __pycache__/
 *.py[cod]
 artifacts/
 .caps/
+.caps-runtime/
 .caps-collector/
 .caps-plugin-data/
 *.egg-info/

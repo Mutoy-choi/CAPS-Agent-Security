@@ -9,7 +9,7 @@ from pathlib import Path
 from .adapters import ScriptedTargetAdapter
 from .evidence import write_evidence_bundle
 from .fingerprint import sha256_json
-from .models import DefenseMode, Scenario
+from .models import Scenario
 from .policy import PolicyEngine
 from .resource_loader import load_json
 from .runner import BenchmarkRunner
@@ -39,7 +39,7 @@ def run_demo(output: str | Path, repetitions: int) -> dict[str, object]:
         grouped[run.defense.value].append(run)
     scores = {name: score_runs(group) for name, group in sorted(grouped.items())}
 
-    for name, score in scores.items():
+    for score in scores.values():
         by_variant = score["by_variant"]
         singles = [
             by_variant[item]["asr"]

@@ -18,7 +18,7 @@ services:
       - ${CAPS_FINGERPRINT_SECRET}
     environment:
       CAPS_UPSTREAM_API_KEY: ${CAPS_UPSTREAM_API_KEY}
-      CAPS_EVALUATION_API_KEY: ${CAPS_EVALUATION_API_KEY:-${CAPS_UPSTREAM_API_KEY}}
+      CAPS_EVALUATION_API_KEY: ${CAPS_EVALUATION_API_KEY}
       CAPS_ATTACK_PACK: ${CAPS_ATTACK_PACK:-}
     volumes:
       - caps-runtime-data:/data/.caps
@@ -37,7 +37,7 @@ services:
     environment:
       CAPS_APP_DATABASE_PATH: /data/caps_app.db
       CAPS_APP_PROVIDER_MODE: openai_compatible
-      CAPS_APP_UPSTREAM_BASE_URL: http://caps-runtime:8788/api/v1
+      CAPS_APP_UPSTREAM_BASE_URL: ${CAPS_APP_RUNTIME_BASE_URL:-http://caps-runtime:8788/api/v1}
       CAPS_APP_API_KEY: local-placeholder
       CAPS_APP_GATEWAY_CLIENT_TOKEN: ${CAPS_GATEWAY_CLIENT_TOKEN}
       CAPS_APP_MODEL: ${CAPS_APP_MODEL}

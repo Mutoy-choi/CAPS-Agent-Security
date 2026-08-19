@@ -19,14 +19,17 @@ provider="${provider:-openrouter}"
 case "$provider" in
   openrouter)
     upstream="https://openrouter.ai"
+    runtime_base="http://caps-runtime:8788/api/v1"
     default_model="openai/gpt-4o-mini"
     ;;
   openai)
     upstream="https://api.openai.com"
+    runtime_base="http://caps-runtime:8788/v1"
     default_model="gpt-4o-mini"
     ;;
   deepseek)
     upstream="https://api.deepseek.com"
+    runtime_base="http://caps-runtime:8788"
     default_model="deepseek-chat"
     ;;
   *)
@@ -58,6 +61,7 @@ PY
 cat > .env <<EOF
 CAPS_PROVIDER=$provider
 CAPS_UPSTREAM_BASE_URL=$upstream
+CAPS_APP_RUNTIME_BASE_URL=$runtime_base
 CAPS_UPSTREAM_API_KEY=$api_key
 CAPS_EVALUATION_API_KEY=$api_key
 CAPS_APP_MODEL=$model
@@ -66,7 +70,7 @@ CAPS_APP_ENCRYPTION_SECRET=$(random_secret)
 CAPS_APP_ADMIN_TOKEN=$(random_secret)
 CAPS_GATEWAY_CLIENT_TOKEN=$(random_secret)
 CAPS_FINGERPRINT_SECRET=$(random_secret)
-CAPS_APP_PUBLIC_NAME=CAPS Research Chat
+CAPS_APP_PUBLIC_NAME="CAPS Research Chat"
 CAPS_APP_RESEARCH_TERMS_VERSION=caps-research-v1
 CAPS_APP_RESEARCH_RETENTION_DAYS=365
 CAPS_APP_SECURE_COOKIE=false

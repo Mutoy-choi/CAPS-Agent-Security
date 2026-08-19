@@ -119,7 +119,9 @@ def test_shadow_worker_runs_safe_probes_and_writes_asr(tmp_path) -> None:
     assert result["metrics"]["attack_successes"] == 4
     serialized = json.dumps(result)
     assert "Synthetic quarterly report" not in serialized
-    assert "raw_response" not in serialized
+    assert "synthetic-response" not in serialized
+    assert '"arguments"' not in serialized
+    assert result["privacy"]["raw_response_stored"] is False
 
 
 def test_probe_payloads_use_synthetic_tools_only() -> None:

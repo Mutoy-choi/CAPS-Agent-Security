@@ -1,0 +1,35 @@
+services:
+  caps-runtime:
+    build:
+      context: .
+      dockerfile: Dockerfile.runtime
+    command:
+      - --provider
+      - ${CAPS_PROVIDER:-openai}
+      - --upstream-base-url
+      - ${CAPS_UPSTREAM_BASE_URL}
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8788"
+      - --client-token
+      - ${CAPS_GATEWAY_CLIENT_TOKEN}
+      - --fingerprint-secret
+      - ${CAPS_FINGERPRINT_SECRET}
+    environment:
+      CAPS_UPSTREAM_API_KEY: ${CAPS_UPSTREAM_API_KEY}
+      CAPS_EVALUATION_API_KEY: ${CAPS_EVALUATION_API_KEY:-}
+      CAPS_ATTACK_PACK: ${CAPS_ATTACK_PACK:-}
+      CAPS_SHADOW_ENDPOINT_PATH: ${CAPS_SHADOW_ENDPOINT_PATH:-}
+    ports:
+      - "127.0.0.1:8788:8788"
+    volumes:
+      - ./.caps-runtime:/data/.caps
+      - ./examples/attack-packs:/attack-packs:ro
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL

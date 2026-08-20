@@ -1,0 +1,56 @@
+name: CAPS Verify
+
+on:
+  pull_request:
+    paths:
+      - "caps_verify/**"
+      - ".github/workflows/caps-verify.yml"
+  push:
+    branches: [main]
+    paths:
+      - "caps_verify/**"
+      - ".github/workflows/caps-verify.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: caps_verify/pyproject.toml
+      - name: Install
+        run: python -m pip install -e "./caps_verify[dev]"
+      - name: Lint
+        run: ruff check caps_verify/src caps_verify/tests
+      - name: Test
+        run: pytest caps_verify/tests
+      - name: Generate smoke evidence
+        run: caps-verify demo --output caps_verify/artifacts/ci-smoke --repetitions 5
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: caps-verify-smoke-evidence
+          path: caps_verify/artifacts/ci-smoke
+          if-no-files-found: error
+      - name: Submit opt-in aggregate telemetry
+        if: github.event_name != 'pull_request' && vars.CAPS_TELEMETRY_ENABLED == 'true'
+        env:
+          CAPS_TELEMETRY_ENDPOINT: ${{ vars.CAPS_TELEMETRY_ENDPOINT }}
+          CAPS_TELEMETRY_TOKEN: ${{ secrets.CAPS_TELEMETRY_TOKEN }}
+          CAPS_ORGANIZATION_ID: ${{ vars.CAPS_ORGANIZATION_ID }}
+          CAPS_PROJECT_ID: ${{ vars.CAPS_PROJECT_ID }}
+          CAPS_INSTALLATION_ID: ${{ vars.CAPS_INSTALLATION_ID }}
+        run: |
+          caps-verify submit \
+            --bundle caps_verify/artifacts/ci-smoke \
+            --privacy-mode aggregate_only \
+            --data-use service_operation \
+            --accept-contribution-terms

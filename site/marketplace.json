@@ -1,0 +1,37 @@
+{
+  "name": "caps-labs",
+  "owner": {
+    "name": "Mutoy-choi",
+    "url": "https://github.com/Mutoy-choi"
+  },
+  "description": "Claude Code plugin marketplace for CAPS Agent Security, MCP security, prompt injection, Agent Skills, multimodal attachment testing, and LLM jailbreak ASR.",
+  "version": "0.6.0",
+  "plugins": [
+    {
+      "name": "caps-security",
+      "displayName": "CAPS Agent Security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Mutoy-choi/ChillMCP.git",
+        "path": "plugins/caps-security",
+        "ref": "main"
+      },
+      "description": "Audit and benchmark Claude Code, MCP tools, plugins, Agent Skills, CLAUDE.md, prompt injection, multimodal attachments, and LLM jailbreak defenses.",
+      "version": "0.6.0",
+      "homepage": "https://mutoy-choi.github.io/ChillMCP/",
+      "repository": "https://github.com/Mutoy-choi/ChillMCP",
+      "keywords": [
+        "ai-agent-security",
+        "agent-skills",
+        "claude-code-plugin",
+        "jailbreak-benchmark",
+        "mcp-security",
+        "prompt-injection"
+      ],
+      "category": "security",
+      "tags": ["red-team", "llm-security", "multimodal-security", "asr"],
+      "strict": true,
+      "defaultEnabled": true
+    }
+  ]
+}

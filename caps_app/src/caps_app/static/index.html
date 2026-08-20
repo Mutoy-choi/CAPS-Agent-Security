@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAPS Research Chat</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div id="consent" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <p class="eyebrow">CAPS COMMUNITY RESEARCH</p>
+      <h1>한 번 선택하고 바로 시작하세요</h1>
+      <p>
+        Research mode에서는 질문과 모델 응답을 암호화해 저장하고, 식별정보를 제거한 복사본을
+        AI 안전성·jailbreak/방어 연구·benchmark·내부 모델 개발·제품 개선에 활용합니다.
+        언제든 내보내기, 동의 철회, 삭제가 가능합니다.
+      </p>
+      <div class="consent-actions">
+        <button id="research-start" class="primary">연구에 참여하고 시작</button>
+        <button id="private-start" class="secondary">저장하지 않고 시작</button>
+      </div>
+      <p class="fineprint">
+        실제 모델 공급자도 요청을 처리합니다. 자격증명, 타인의 개인정보, 기밀자료는 입력하지 마세요.
+        <a href="https://github.com/Mutoy-choi/ChillMCP" target="_blank" rel="noreferrer">프로젝트 정보</a>
+      </p>
+    </div>
+  </div>
+
+  <main class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">CAPS</p>
+        <h1 id="app-name">Research Chat</h1>
+      </div>
+      <div class="status-panel">
+        <span id="mode-badge" class="badge">준비 중</span>
+        <span id="model-badge" class="model"></span>
+      </div>
+    </header>
+
+    <section id="messages" class="messages" aria-live="polite">
+      <article class="message assistant">
+        <div class="bubble">무엇을 같이 살펴볼까요?</div>
+      </article>
+    </section>
+
+    <form id="chat-form" class="composer">
+      <textarea id="prompt" rows="3" placeholder="메시지를 입력하세요" maxlength="20000" required></textarea>
+      <button id="send" type="submit" class="primary">보내기</button>
+    </form>
+
+    <footer>
+      <button id="export-data" class="link-button">내 데이터 내려받기</button>
+      <button id="withdraw" class="link-button">연구 동의 철회</button>
+      <button id="delete-data" class="link-button danger">내 데이터 삭제</button>
+    </footer>
+  </main>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

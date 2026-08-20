@@ -1,0 +1,67 @@
+services:
+  caps-runtime:
+    build:
+      context: ../caps_verify
+      dockerfile: Dockerfile.runtime
+    command:
+      - --provider
+      - ${CAPS_PROVIDER:-openrouter}
+      - --upstream-base-url
+      - ${CAPS_UPSTREAM_BASE_URL:-https://openrouter.ai}
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8788"
+      - --client-token
+      - ${CAPS_GATEWAY_CLIENT_TOKEN}
+      - --fingerprint-secret
+      - ${CAPS_FINGERPRINT_SECRET}
+    environment:
+      CAPS_UPSTREAM_API_KEY: ${CAPS_UPSTREAM_API_KEY}
+      CAPS_EVALUATION_API_KEY: ${CAPS_EVALUATION_API_KEY}
+      CAPS_ATTACK_PACK: ${CAPS_ATTACK_PACK:-}
+    volumes:
+      - caps-runtime-data:/data/.caps
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  caps-app:
+    build: .
+    depends_on:
+      - caps-runtime
+    environment:
+      CAPS_APP_DATABASE_PATH: /data/caps_app.db
+      CAPS_APP_PROVIDER_MODE: openai_compatible
+      CAPS_APP_UPSTREAM_BASE_URL: ${CAPS_APP_RUNTIME_BASE_URL:-http://caps-runtime:8788/api/v1}
+      CAPS_APP_API_KEY: local-placeholder
+      CAPS_APP_GATEWAY_CLIENT_TOKEN: ${CAPS_GATEWAY_CLIENT_TOKEN}
+      CAPS_APP_MODEL: ${CAPS_APP_MODEL}
+      CAPS_APP_SECRET: ${CAPS_APP_SECRET}
+      CAPS_APP_ENCRYPTION_SECRET: ${CAPS_APP_ENCRYPTION_SECRET}
+      CAPS_APP_ADMIN_TOKEN: ${CAPS_APP_ADMIN_TOKEN}
+      CAPS_APP_PUBLIC_NAME: ${CAPS_APP_PUBLIC_NAME:-CAPS Research Chat}
+      CAPS_APP_RESEARCH_TERMS_VERSION: ${CAPS_APP_RESEARCH_TERMS_VERSION:-caps-research-v1}
+      CAPS_APP_RESEARCH_RETENTION_DAYS: ${CAPS_APP_RESEARCH_RETENTION_DAYS:-365}
+      CAPS_APP_SECURE_COOKIE: ${CAPS_APP_SECURE_COOKIE:-false}
+      CAPS_APP_ALLOW_INSECURE_DEV: ${CAPS_APP_ALLOW_INSECURE_DEV:-false}
+      CAPS_APP_PORT: "8000"
+    ports:
+      - "127.0.0.1:${CAPS_APP_PORT:-8000}:8000"
+    volumes:
+      - caps-app-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  caps-app-data:
+  caps-runtime-data:

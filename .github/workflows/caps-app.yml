@@ -1,0 +1,38 @@
+name: CAPS Research Chat
+
+on:
+  pull_request:
+    paths:
+      - "caps_app/**"
+      - ".github/workflows/caps-app.yml"
+  push:
+    branches: [main]
+    paths:
+      - "caps_app/**"
+      - ".github/workflows/caps-app.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: caps_app/pyproject.toml
+      - name: Install
+        run: python -m pip install -e "./caps_app[dev]"
+      - name: Lint
+        run: ruff check caps_app/src caps_app/tests
+      - name: Test
+        run: pytest caps_app/tests
+      - name: Validate Docker Compose
+        run: |
+          cp caps_app/.env.example caps_app/.env
+          docker compose --env-file caps_app/.env -f caps_app/docker-compose.yml config >/dev/null

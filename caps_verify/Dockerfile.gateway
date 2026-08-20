@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY pyproject.toml README.md ./
+COPY src ./src
+RUN pip install --no-cache-dir ".[gateway]"
+
+RUN useradd --create-home --uid 10001 caps \
+    && mkdir -p /data/.caps \
+    && chown -R caps:caps /data
+
+USER caps
+WORKDIR /data
+
+EXPOSE 8788
+ENTRYPOINT ["caps-verify-gateway"]
+CMD ["--host", "0.0.0.0", "--port", "8788"]

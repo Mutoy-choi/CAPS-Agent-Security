@@ -1,0 +1,5 @@
+Contact: https://github.com/Mutoy-choi/ChillMCP/security/advisories/new
+Canonical: https://mutoy-choi.github.io/ChillMCP/.well-known/security.txt
+Policy: https://github.com/Mutoy-choi/ChillMCP/blob/main/SECURITY.md
+Preferred-Languages: ko, en
+Expires: 2027-08-19T00:00:00Z

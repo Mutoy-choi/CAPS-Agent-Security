@@ -1,0 +1,55 @@
+name: CAPS Distribution
+
+on:
+  pull_request:
+    paths:
+      - ".agents/**"
+      - ".claude/**"
+      - ".claude-plugin/**"
+      - "plugins/**"
+      - "site/**"
+      - "install.sh"
+      - "scripts/validate_distribution.py"
+      - ".github/workflows/distribution.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".agents/**"
+      - ".claude/**"
+      - ".claude-plugin/**"
+      - "plugins/**"
+      - "site/**"
+      - "install.sh"
+      - "scripts/validate_distribution.py"
+      - ".github/workflows/distribution.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate distribution metadata
+        run: python scripts/validate_distribution.py
+      - name: Validate shell installers
+        run: bash -n install.sh site/install.sh
+      - name: Validate JSON catalogs
+        run: |
+          python -m json.tool .claude-plugin/marketplace.json >/dev/null
+          python -m json.tool plugins/caps-security/.claude-plugin/plugin.json >/dev/null
+          python -m json.tool site/marketplace.json >/dev/null
+          python -m json.tool site/skills.json >/dev/null
+          python -m json.tool codemeta.json >/dev/null
+      - name: Validate Claude Code marketplace and Plugin
+        run: |
+          npm install --global @anthropic-ai/claude-code@latest
+          claude plugin validate .

@@ -1,0 +1,10 @@
+services:
+  caps-verify:
+    build: .
+    command: ["demo", "--output", "/artifacts/demo", "--repetitions", "10"]
+    volumes:
+      - ./artifacts:/artifacts
+    network_mode: "none"
+    read_only: true
+    tmpfs:
+      - /tmp

@@ -40,20 +40,28 @@ if [[ "$SCOPE" != "user" && "$SCOPE" != "project" ]]; then
   echo "CAPS_SCOPE must be user or project" >&2
   exit 2
 fi
-for command in git python3; do
-  if ! command -v "$command" >/dev/null 2>&1; then
-    echo "$command is required" >&2
+
+install_plugin() {
+  if ! command -v claude >/dev/null 2>&1; then
+    echo "Claude Code CLI not found; Plugin installation skipped." >&2
+    return
+  fi
+  claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security >/dev/null 2>&1 || \
+    claude plugin marketplace update caps-labs >/dev/null 2>&1 || true
+  claude plugin install caps-security@caps-labs --scope "$SCOPE"
+}
+
+clone_temp() {
+  if ! command -v git >/dev/null 2>&1; then
+    echo "git is required" >&2
     exit 1
   fi
-done
-
-TMP_DIR="$(mktemp -d)"
-trap 'rm -rf "$TMP_DIR"' EXIT
-
-git clone --quiet --depth 1 --branch "$REF" "$REPO" "$TMP_DIR/repo"
+  git clone --quiet --depth 1 --branch "$REF" "$REPO" "$TMP_DIR/repo"
+}
 
 install_skills() {
   local agents_root claude_root
+  clone_temp
   if [[ "$SCOPE" == "project" ]]; then
     agents_root="$ORIGINAL_DIR/.agents/skills"
     claude_root="$ORIGINAL_DIR/.claude/skills"
@@ -70,18 +78,13 @@ install_skills() {
   printf 'Installed Agent Skills:\n  %s\n  %s\n' "$agents_root" "$claude_root"
 }
 
-install_plugin() {
-  if ! command -v claude >/dev/null 2>&1; then
-    echo "Claude Code CLI not found; Plugin installation skipped." >&2
-    return
-  fi
-  claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security >/dev/null 2>&1 || \
-    claude plugin marketplace update caps-labs >/dev/null 2>&1 || true
-  claude plugin install caps-security@caps-labs --scope "$SCOPE"
-}
-
 install_verify() {
   local destination venv python
+  clone_temp
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "python3 is required" >&2
+    exit 1
+  fi
   destination="${CAPS_HOME:-$HOME/.local/share/caps-unlock-lab}"
   rm -rf "$destination"
   mkdir -p "$(dirname "$destination")"
@@ -97,6 +100,7 @@ install_verify() {
 
 prepare_chat() {
   local destination
+  clone_temp
   if ! command -v docker >/dev/null 2>&1; then
     echo "Docker is required for CAPS Research Chat" >&2
     exit 1
@@ -108,6 +112,9 @@ prepare_chat() {
   rm -rf "$destination/.git"
   printf 'CAPS Research Chat prepared at %s/caps_app\nRun ./bootstrap.sh there.\n' "$destination"
 }
+
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
 
 case "$MODE" in
   skill) install_skills ;;

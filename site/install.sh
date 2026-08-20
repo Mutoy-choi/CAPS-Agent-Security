@@ -75,7 +75,7 @@ install_codex() {
   rm -rf "$CAPS_HOME/openai-plugin"
   cp -R "$CHECKOUT/plugins/caps-unlock" "$CAPS_HOME/openai-plugin"
   printf 'Local ChatGPT/Codex Plugin package: %s\n' "$CAPS_HOME/openai-plugin"
-  printf '%s\n' 'In Codex, use: $caps-agent-security or /skills'
+  printf 'In Codex, use: $%s or /skills\n' 'caps-agent-security'
 }
 
 install_claude() {

@@ -1,16 +1,10 @@
 {
-  "name": "CAPS Agent Security",
-  "short_name": "CAPS Security",
-  "description": "Claude Code Plugin and Agent Skills for MCP, prompt injection, multimodal attachment and LLM jailbreak security evaluation.",
-  "start_url": "/ChillMCP/",
+  "name": "CAPS Unlock Lab",
+  "short_name": "CAPS Unlock",
+  "description": "Cross-platform authorized model-unlock research for ChatGPT, Codex, Claude, Gemini, Copilot, IDE agents, MCP, and jailbreak ASR.",
+  "start_url": "/CAPS-Agent-Security/",
   "display": "standalone",
-  "background_color": "#08111f",
-  "theme_color": "#5b7cff",
-  "icons": [
-    {
-      "src": "/ChillMCP/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
+  "background_color": "#07101d",
+  "theme_color": "#7C5CFF",
+  "icons": [{"src":"/CAPS-Agent-Security/favicon.svg","sizes":"any","type":"image/svg+xml"}]
 }

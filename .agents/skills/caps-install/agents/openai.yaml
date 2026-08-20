@@ -1,0 +1,7 @@
+interface:
+  display_name: "Install CAPS Unlock Lab"
+  short_description: "Install CAPS across Codex, Claude, Gemini, Copilot, and IDE agents"
+  brand_color: "#7C5CFF"
+  default_prompt: "Use $caps-install to choose and explain the safest CAPS installation for my platform."
+policy:
+  allow_implicit_invocation: true

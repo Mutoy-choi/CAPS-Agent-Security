@@ -1,0 +1,8 @@
+description = "Show the safest CAPS installation path for this platform"
+prompt = """
+Use the caps-install Skill. Detect the current platform and explain the smallest installation path for CAPS Unlock Lab.
+
+Requested component or platform: {{args}}
+
+Do not request or print provider API keys. Explain filesystem, package, command, and network changes before asking the user to run an installation command.
+"""

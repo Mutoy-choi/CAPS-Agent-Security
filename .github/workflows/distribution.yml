@@ -6,9 +6,27 @@ on:
       - ".agents/**"
       - ".claude/**"
       - ".claude-plugin/**"
+      - ".codex/**"
+      - ".codex-plugin/**"
+      - ".cursor/**"
+      - ".clinerules/**"
+      - ".windsurf/**"
+      - ".github/agents/**"
+      - ".github/skills/**"
+      - ".github/copilot-instructions.md"
+      - "AGENTS.md"
+      - "GEMINI.md"
+      - "gemini-extension.json"
+      - "commands/**"
+      - "skills/**"
       - "plugins/**"
+      - "platforms/**"
+      - "platforms.json"
       - "site/**"
+      - "README.md"
+      - "PLATFORMS.md"
       - "install.sh"
+      - "install.ps1"
       - "scripts/validate_distribution.py"
       - ".github/workflows/distribution.yml"
   push:
@@ -17,9 +35,27 @@ on:
       - ".agents/**"
       - ".claude/**"
       - ".claude-plugin/**"
+      - ".codex/**"
+      - ".codex-plugin/**"
+      - ".cursor/**"
+      - ".clinerules/**"
+      - ".windsurf/**"
+      - ".github/agents/**"
+      - ".github/skills/**"
+      - ".github/copilot-instructions.md"
+      - "AGENTS.md"
+      - "GEMINI.md"
+      - "gemini-extension.json"
+      - "commands/**"
+      - "skills/**"
       - "plugins/**"
+      - "platforms/**"
+      - "platforms.json"
       - "site/**"
+      - "README.md"
+      - "PLATFORMS.md"
       - "install.sh"
+      - "install.ps1"
       - "scripts/validate_distribution.py"
       - ".github/workflows/distribution.yml"
   workflow_dispatch:
@@ -30,6 +66,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,18 +75,33 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate distribution metadata
+      - name: Validate cross-platform distribution metadata
         run: python scripts/validate_distribution.py
-      - name: Validate shell installers
+      - name: Validate Unix installers
         run: bash -n install.sh site/install.sh
-      - name: Validate JSON catalogs
+      - name: Validate PowerShell installers
+        shell: bash
+        run: |
+          if command -v pwsh >/dev/null 2>&1; then
+            pwsh -NoLogo -NoProfile -Command "[void][scriptblock]::Create((Get-Content -Raw './install.ps1')); [void][scriptblock]::Create((Get-Content -Raw './site/install.ps1'))"
+          else
+            echo "pwsh is not available on this runner; static parity remains validated by Python."
+          fi
+      - name: Validate JSON catalogs and manifests
         run: |
           python -m json.tool .claude-plugin/marketplace.json >/dev/null
-          python -m json.tool plugins/caps-security/.claude-plugin/plugin.json >/dev/null
+          python -m json.tool .codex-plugin/plugin.json >/dev/null
+          python -m json.tool gemini-extension.json >/dev/null
+          python -m json.tool plugins/caps-unlock/.claude-plugin/plugin.json >/dev/null
+          python -m json.tool plugins/caps-unlock/.codex-plugin/plugin.json >/dev/null
           python -m json.tool site/marketplace.json >/dev/null
           python -m json.tool site/skills.json >/dev/null
+          python -m json.tool site/platforms.json >/dev/null
+          python -m json.tool platforms.json >/dev/null
           python -m json.tool codemeta.json >/dev/null
-      - name: Validate Claude Code marketplace and Plugin
+      - name: Validate Claude Code Marketplace and Plugin
         run: |
           npm install --global @anthropic-ai/claude-code@latest
           claude plugin validate .
+      - name: Validate Gemini CLI extension
+        run: npx -y @google/gemini-cli@latest extensions validate .

@@ -1,0 +1,23 @@
+{
+  "name": "caps-unlock",
+  "displayName": "CAPS Unlock Lab",
+  "description": "Platform-neutral authorized model-restriction-bypass research for jailbreak ASR, prompt injection, MCP, Plugins, Skills, instruction files, and multimodal attachments.",
+  "version": "0.8.0",
+  "author": {
+    "name": "Mutoy-choi",
+    "url": "https://github.com/Mutoy-choi"
+  },
+  "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+  "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
+  "keywords": [
+    "agent-security",
+    "agent-skills",
+    "claude-code-plugin",
+    "jailbreak-asr",
+    "mcp-security",
+    "model-unlock",
+    "prompt-injection"
+  ],
+  "skills": ["./skills"],
+  "defaultEnabled": true
+}

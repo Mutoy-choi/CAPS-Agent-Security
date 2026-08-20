@@ -18,7 +18,7 @@ class AppConfig:
     api_key: str = "local-placeholder"
     gateway_client_token: str = ""
     model: str = "gpt-4o-mini"
-    public_name: str = "CAPS Research Chat"
+    public_name: str = "CAPS Unlock Research Chat"
     research_terms_version: str = "caps-research-v1"
     research_retention_days: int = 365
     secure_cookie: bool = False
@@ -45,7 +45,7 @@ class AppConfig:
             api_key=os.environ.get("CAPS_APP_API_KEY", "local-placeholder"),
             gateway_client_token=os.environ.get("CAPS_APP_GATEWAY_CLIENT_TOKEN", ""),
             model=os.environ.get("CAPS_APP_MODEL", "gpt-4o-mini"),
-            public_name=os.environ.get("CAPS_APP_PUBLIC_NAME", "CAPS Research Chat"),
+            public_name=os.environ.get("CAPS_APP_PUBLIC_NAME", "CAPS Unlock Research Chat"),
             research_terms_version=os.environ.get(
                 "CAPS_APP_RESEARCH_TERMS_VERSION", "caps-research-v1"
             ),

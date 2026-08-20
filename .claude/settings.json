@@ -3,11 +3,11 @@
     "caps-labs": {
       "source": {
         "source": "github",
-        "repo": "Mutoy-choi/ChillMCP"
+        "repo": "Mutoy-choi/CAPS-Agent-Security"
       }
     }
   },
   "enabledPlugins": {
-    "caps-security@caps-labs": true
+    "caps-unlock@caps-labs": true
   }
 }

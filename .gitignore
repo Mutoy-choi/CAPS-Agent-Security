@@ -1,41 +1,30 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-
-# Virtual Environment
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
 .venv/
 venv/
-ENV/
-env/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Distribution
 dist/
 build/
-*.egg-info/
 
-# MyPy
-.mypy_cache/
-.dmypy.json
-dmypy.json
+# CAPS runtime and evidence
+.caps/
+.caps-collector/
+.caps-plugin-data/
+.caps-runtime/
+artifacts/
+*.db
+*.db-shm
+*.db-wal
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/

@@ -4,38 +4,41 @@
     "name": "Mutoy-choi",
     "url": "https://github.com/Mutoy-choi"
   },
-  "description": "Claude Code plugins and Agent Skills for AI agent security, MCP security, prompt injection, multimodal attachment testing, and LLM jailbreak ASR evaluation.",
-  "version": "0.6.0",
+  "description": "Cross-platform authorized model-unlock research for ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, IDE agents, MCP security, prompt injection, and jailbreak ASR.",
+  "version": "0.8.0",
   "plugins": [
     {
-      "name": "caps-security",
-      "displayName": "CAPS Agent Security",
-      "source": "./plugins/caps-security",
-      "description": "Audit and benchmark Claude Code, MCP tools, plugins, Agent Skills, CLAUDE.md instructions, prompt injection, multimodal attachments, and LLM jailbreak defenses.",
-      "version": "0.6.0",
+      "name": "caps-unlock",
+      "displayName": "CAPS Unlock Lab",
+      "source": "./plugins/caps-unlock",
+      "description": "Measure restriction-bypass paths across instruction files, Plugins, Agent Skills, MCP tools, prompt injection, multimodal attachments, and defenses in authorized synthetic environments.",
+      "version": "0.8.0",
       "author": {
         "name": "Mutoy-choi",
         "url": "https://github.com/Mutoy-choi"
       },
-      "homepage": "https://mutoy-choi.github.io/ChillMCP/",
-      "repository": "https://github.com/Mutoy-choi/ChillMCP",
+      "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+      "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
       "keywords": [
-        "ai-agent-security",
         "agent-skills",
+        "ai-agent-security",
         "claude-code",
         "jailbreak",
         "llm-security",
         "mcp-security",
+        "model-unlock",
         "prompt-injection",
         "red-team"
       ],
       "category": "security",
       "tags": [
+        "asr-benchmark",
+        "cross-platform",
         "mcp",
-        "plugin-security",
-        "skill-security",
         "multimodal-security",
-        "asr-benchmark"
+        "plugin-security",
+        "restriction-bypass",
+        "skill-security"
       ],
       "strict": true,
       "defaultEnabled": true

@@ -1,20 +1,2 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>CAPS Security Claude Code Plugin 설치</title>
-  <meta name="description" content="CAPS Agent Security Claude Code Plugin을 Marketplace에서 설치해 MCP, Agent Skills, Plugin, CLAUDE.md, prompt injection과 LLM jailbreak ASR을 평가합니다.">
-  <link rel="canonical" href="https://mutoy-choi.github.io/ChillMCP/plugin/">
-  <link rel="stylesheet" href="/ChillMCP/assets/styles.css"><link rel="icon" href="/ChillMCP/favicon.svg">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CAPS Agent Security Claude Code Plugin installation","url":"https://mutoy-choi.github.io/ChillMCP/plugin/","about":["Claude Code Plugin","MCP security","Agent Skills","LLM jailbreak"]}</script>
-</head>
-<body><nav class="wrap nav"><a class="brand" href="/ChillMCP/">CAPS Agent Security</a><div class="navlinks"><a href="/ChillMCP/skills/caps-agent-security/">Skills</a><a href="https://github.com/Mutoy-choi/ChillMCP">GitHub</a></div></nav>
-<main class="wrap prose"><p class="breadcrumb"><a href="/ChillMCP/">Home</a> / Plugin</p><h1>Claude Code Plugin 설치</h1><p class="lead">CAPS Security Plugin은 MCP·Plugin·Skill·<code>CLAUDE.md</code>·prompt injection·multimodal attachment 보안 평가 Skill을 Claude Code에 추가합니다.</p>
-<h2>GitHub Marketplace</h2><pre class="install"><code>claude plugin marketplace add Mutoy-choi/ChillMCP
-claude plugin install caps-security@caps-labs --scope user</code></pre>
-<h2>Pages Marketplace</h2><pre class="install"><code>claude plugin marketplace add https://mutoy-choi.github.io/ChillMCP/marketplace.json
-claude plugin install caps-security@caps-labs --scope user</code></pre>
-<h2>제공되는 Skill</h2><ul><li><code>/caps-security:caps-agent-security</code> — agent security audit와 ASR benchmark</li><li><code>/caps-security:caps-install</code> — Runtime·Research Chat 설치와 배포</li></ul>
-<h2>업데이트</h2><pre class="install"><code>claude plugin marketplace update caps-labs
-claude plugin update caps-security@caps-labs</code></pre>
-<div class="notice">설치만으로 Hook, MCP 서버, 공격 실행 또는 중앙 데이터 제출이 자동 활성화되지 않습니다.</div></main><footer class="wrap footer"><a href="/ChillMCP/">CAPS Agent Security</a></footer></body></html>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CAPS Plugin & Extension | ChatGPT·Codex·Claude·Gemini</title><meta name="description" content="CAPS Unlock Lab의 ChatGPT/Codex universal Plugin, Claude Code Marketplace Plugin, Gemini CLI extension 설치."><link rel="canonical" href="https://mutoy-choi.github.io/CAPS-Agent-Security/plugin/"><link rel="stylesheet" href="/CAPS-Agent-Security/assets/styles.css"><link rel="icon" href="/CAPS-Agent-Security/favicon.svg"></head><body><a class="skip-link" href="#main-content">본문으로 바로 이동</a><header><nav class="wrap nav"><a class="brand" href="/CAPS-Agent-Security/">CAPS Unlock Lab</a><div class="navlinks"><a href="/CAPS-Agent-Security/platforms/">Platforms</a><a href="/CAPS-Agent-Security/skills/">Skills</a></div></nav></header><main id="main-content" class="wrap prose"><p class="breadcrumb"><a href="/CAPS-Agent-Security/">Home</a> / Plugin</p><h1>Native Plugin & Extension packages</h1><p class="lead">같은 two-Skill core를 각 제품의 native package 형식으로 배포합니다.</p><h2>ChatGPT / Codex</h2><p><code>.codex-plugin/plugin.json</code>과 <code>skills/</code>가 저장소 루트 및 <code>plugins/caps-unlock/</code>에 있습니다. 로컬 사용은 <code>./install.sh codex</code>로 시작할 수 있으며, public universal directory listing은 별도 제출 이후 제공됩니다.</p><h2>Claude Code</h2><pre class="install"><code>claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
+claude plugin install caps-unlock@caps-labs --scope user</code></pre><h2>Gemini CLI</h2><pre class="install"><code>gemini extensions install https://github.com/Mutoy-choi/CAPS-Agent-Security --auto-update</code></pre><p>Gemini package에는 <code>GEMINI.md</code>, custom commands와 Agent Skills가 포함됩니다.</p><div class="notice">Plugin/extension 설치만으로 Runtime, MCP, telemetry 또는 active probe가 시작되지 않습니다.</div></main><footer class="wrap footer"><a href="/CAPS-Agent-Security/">CAPS Unlock Lab</a></footer></body></html>

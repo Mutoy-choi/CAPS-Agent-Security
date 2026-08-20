@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CAPS 플랫폼 설치 | Codex·Claude·Gemini·Copilot·Cursor·Cline·Windsurf</title>
+  <meta name="description" content="CAPS Unlock Lab을 ChatGPT, Codex, Claude Code, Gemini CLI, GitHub Copilot, Cursor, Cline, Windsurf, OpenCode와 MCP 호스트에 설치하는 방법.">
+  <link rel="canonical" href="https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/">
+  <link rel="stylesheet" href="/CAPS-Agent-Security/assets/styles.css"><link rel="icon" href="/CAPS-Agent-Security/favicon.svg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CAPS Unlock Lab cross-platform installation","url":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/","about":["ChatGPT","Codex","Claude Code","Gemini CLI","GitHub Copilot","Cursor","Cline","Windsurf","OpenCode","MCP"]}</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">본문으로 바로 이동</a>
+<header><nav class="wrap nav" aria-label="주요 탐색"><a class="brand" href="/CAPS-Agent-Security/">CAPS Unlock Lab</a><div class="navlinks"><a href="/CAPS-Agent-Security/plugin/">Plugin</a><a href="/CAPS-Agent-Security/skills/">Skills</a><a href="https://github.com/Mutoy-choi/CAPS-Agent-Security">GitHub</a></div></nav></header>
+<main id="main-content" class="wrap prose"><p class="breadcrumb"><a href="/CAPS-Agent-Security/">Home</a> / Platforms</p><p class="eyebrow">Pick your host</p><h1>한 코어를 여러 플랫폼에서 사용합니다</h1><p class="lead">공통 Skill은 같고, 각 플랫폼에는 native manifest·agent profile·rule·workflow만 얇게 추가됩니다.</p>
+<h2>macOS / Linux / WSL 공통 Skill</h2><pre class="install"><code>curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill</code></pre>
+<h2>Windows PowerShell</h2><pre class="install"><code>&amp; ([scriptblock]::Create((irm https://mutoy-choi.github.io/CAPS-Agent-Security/install.ps1))) skill</code></pre>
+<section class="grid">
+<article class="card"><h2>ChatGPT / Codex</h2><pre class="install"><code>./install.sh codex</code></pre><p class="muted"><code>.codex-plugin</code>, <code>agents/openai.yaml</code>, <code>.agents/skills</code>, <code>AGENTS.md</code>.</p></article>
+<article class="card"><h2>Claude Code</h2><pre class="install"><code>claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
+claude plugin install caps-unlock@caps-labs</code></pre></article>
+<article class="card"><h2>Gemini CLI</h2><pre class="install"><code>gemini extensions install https://github.com/Mutoy-choi/CAPS-Agent-Security --auto-update</code></pre></article>
+<article class="card"><h2>GitHub Copilot</h2><pre class="install"><code>CAPS_SCOPE=project ./install.sh copilot</code></pre><p class="muted">Skills, custom agent, repository instructions.</p></article>
+<article class="card"><h2>Cursor</h2><pre class="install"><code>./install.sh cursor</code></pre><p class="muted">CAPS rule와 비활성 MCP 예시만 추가합니다.</p></article>
+<article class="card"><h2>Cline</h2><pre class="install"><code>./install.sh cline</code></pre><p class="muted">Rule과 audit workflow.</p></article>
+<article class="card"><h2>Windsurf</h2><pre class="install"><code>./install.sh windsurf</code></pre><p class="muted">Rule과 audit workflow.</p></article>
+<article class="card"><h2>OpenCode</h2><pre class="install"><code>./install.sh opencode</code></pre><p class="muted">User Skill 또는 project <code>.agents/skills</code>.</p></article>
+<article class="card"><h2>Generic MCP / API</h2><pre class="install"><code>./install.sh verify</code></pre><p class="muted"><code>caps-verify-runtime</code>, Gateway, Shadow Worker, fixture MCP.</p></article>
+</section>
+<div class="notice">Installer는 기존 공용 규칙을 덮어쓰지 않고 CAPS 전용 파일만 추가합니다. MCP와 telemetry는 자동 활성화하지 않습니다.</div>
+<p>기계 판독 목록: <a href="/CAPS-Agent-Security/platforms.json"><code>platforms.json</code></a></p></main>
+<footer class="wrap footer"><a href="/CAPS-Agent-Security/">CAPS Unlock Lab</a></footer>
+</body></html>

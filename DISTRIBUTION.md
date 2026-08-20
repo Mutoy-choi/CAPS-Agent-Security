@@ -1,70 +1,57 @@
-# CAPS Distribution and Search Checklist
+# CAPS Unlock Lab distribution checklist
 
-## Already implemented
+## Package surfaces
 
-- Root Claude Code Marketplace catalog: `.claude-plugin/marketplace.json`
-- Self-contained installable Plugin: `plugins/caps-security/`
-- Cross-client Agent Skills: `.agents/skills/`
-- User and project scope installer: `install.sh`
-- GitHub Pages discovery site: `site/`
-- Pages-hosted Marketplace JSON with `git-subdir` source
-- `robots.txt`, `sitemap.xml`, canonical URLs, Open Graph, JSON-LD, `llms.txt`
-- `CITATION.cff` and `codemeta.json`
-- Distribution validation workflow
+- ChatGPT/Codex: `.codex-plugin/plugin.json`, `skills/`, `agents/openai.yaml`, `.agents/skills/`, `AGENTS.md`.
+- Claude Code: `.claude-plugin/marketplace.json`, `plugins/caps-unlock/`.
+- Gemini CLI: `gemini-extension.json`, `GEMINI.md`, `commands/caps/`, `skills/`.
+- GitHub Copilot: `.github/skills/`, `.github/agents/`, `.github/copilot-instructions.md`.
+- Cursor: `.cursor/rules/` and disabled MCP example.
+- Cline: `.clinerules/` and workflows.
+- Windsurf: `.windsurf/rules/` and workflows.
+- OpenCode: `.agents/skills/` and `AGENTS.md`.
+- Generic MCP/API: `caps_verify/` and `platforms/mcp/`.
 
-## Required before public discovery
+## Automated validation
 
-1. Merge the Draft PR to `main`.
-2. Make this repository public, or copy the marketplace, plugin, Skills, installer and site into a dedicated public distribution repository.
-3. Enable **Settings → Pages → Source: GitHub Actions**.
-4. Set repository description to:
+- All Plugin/extension JSON parses.
+- Marketplace and package names/versions are synchronized at `0.8.0`.
+- Canonical `skills/` files are byte-identical to distributed copies.
+- `agents/openai.yaml`, Gemini commands, Copilot custom agent, IDE rules, and MCP examples exist.
+- Unix and Pages installers are identical; PowerShell installers are identical.
+- Shell and PowerShell syntax is checked.
+- Claude Code Plugin validation runs in CI.
+- Legacy ChillMCP paths are rejected.
+- Pages canonical URLs, platform page, sitemap, structured data, `skills.json`, `platforms.json`, `llms.txt`, and `llms-full.txt` are checked.
 
-   `Claude Code plugin + Agent Skills marketplace for MCP, prompt injection, multimodal attachment and LLM jailbreak security evaluation.`
+## Public directory steps
 
-5. Set repository homepage to `https://mutoy-choi.github.io/ChillMCP/`.
-6. Add GitHub topics:
+1. Merge the release branch to `main`.
+2. Enable GitHub Pages through the provided Actions workflow.
+3. Create release `v0.8.0`.
+4. Test each installer from a clean environment.
+5. Submit the ChatGPT/Codex Plugin package to the universal directory when ready.
+6. Add repository topic `gemini-cli-extension` and follow the Gemini extension gallery process.
+7. Keep Claude Marketplace metadata and published Pages `marketplace.json` synchronized.
+8. Submit `sitemap.xml` to search consoles and monitor crawl errors.
 
-   ```text
-   ai-agent-security
-   agent-skills
-   claude-code-plugin
-   continuous-red-team
-   jailbreak-benchmark
-   llm-security
-   mcp-security
-   multimodal-security
-   prompt-injection
-   security-testing
-   ```
+## Repository topics
 
-7. Create a GitHub release such as `v0.6.0` and bump Plugin and Marketplace versions on every release.
-8. Verify installation from a clean machine:
+```text
+agent-skills
+ai-agent-security
+chatgpt-plugin
+claude-code-plugin
+codex
+continuous-red-team
+gemini-cli-extension
+github-copilot
+jailbreak-benchmark
+llm-security
+mcp-security
+model-unlock
+multimodal-security
+prompt-injection
+```
 
-   ```bash
-   claude plugin marketplace add Mutoy-choi/ChillMCP
-   claude plugin install caps-security@caps-labs
-   curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill
-   ```
-
-9. Validate with Claude Code:
-
-   ```bash
-   claude plugin validate .
-   ```
-
-10. Validate Agent Skills with the official reference tool:
-
-   ```bash
-   skills-ref validate .agents/skills/caps-agent-security
-   skills-ref validate .agents/skills/caps-install
-   ```
-
-11. Add the Pages property to Google Search Console and submit:
-
-   `https://mutoy-choi.github.io/ChillMCP/sitemap.xml`
-
-12. Submit the Plugin to Anthropic's official marketplace through the current Claude.ai or Console submission form after public testing.
-
-## Search-content policy
-
-Use accurate visible descriptions. Do not add fake ratings, reviews, downloads, or security claims to structured data. Search indexing and rich results are never guaranteed.
+Search indexing and directory acceptance are not guaranteed. Do not publish fabricated ratings, reviews, download counts, or safety claims.

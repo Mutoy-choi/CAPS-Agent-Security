@@ -1,0 +1,16 @@
+{
+  "schema_version": "caps.platforms.v1",
+  "version": "0.8.0",
+  "source": "https://github.com/Mutoy-choi/CAPS-Agent-Security/blob/main/platforms.json",
+  "platforms": [
+    {"id":"chatgpt-codex","install_mode":"codex","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"claude-code","install_mode":"claude","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/plugin/"},
+    {"id":"gemini-cli","install_mode":"gemini","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"github-copilot","install_mode":"copilot","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"cursor","install_mode":"cursor","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"cline","install_mode":"cline","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"windsurf","install_mode":"windsurf","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"opencode","install_mode":"opencode","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"},
+    {"id":"generic-mcp-api","install_mode":"verify","page":"https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/"}
+  ]
+}

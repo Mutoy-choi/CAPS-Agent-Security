@@ -1,51 +1,47 @@
 ---
 name: caps-agent-security
-description: Audit, benchmark, and harden LLM agents against jailbreaks, prompt injection, indirect prompt injection, MCP tool poisoning, malicious plugins, Agent Skills, CLAUDE.md instructions, and multimodal attachment attacks. Use when the user asks to evaluate AI agent security, measure attack success rate or ASR, review MCP or tool permissions, inspect plugins or skills, build a synthetic digital twin, compare defenses, or generate an agent security report.
-compatibility: Designed for Claude Code and other Agent Skills clients. Use only in authorized environments. Docker, Python 3.11+, and git are optional depending on the selected CAPS component.
+description: Reproduce, audit, benchmark, and harden model restriction-bypass paths across LLM jailbreaks, prompt injection, indirect prompt injection, MCP tool poisoning, Claude Code plugins, Agent Skills, CLAUDE.md instructions, multimodal attachments, tool permissions, and runtime defenses. Use when the user asks to unlock-test a model, measure attack success rate or ASR, inspect MCP or agent extensions, compare defenses, build a synthetic capability twin, or create an AI-agent security report.
+compatibility: Claude Code and Agent Skills clients. Use only on systems the user owns or is explicitly authorized to test. Prefer Docker and Python 3.11+ for reproducible CAPS runs.
 metadata:
   author: Mutoy-choi
-  version: "0.6.0"
-  homepage: https://mutoy-choi.github.io/ChillMCP/
-  repository: https://github.com/Mutoy-choi/ChillMCP
+  version: "0.7.0"
+  homepage: https://mutoy-choi.github.io/CAPS-Agent-Security/
+  repository: https://github.com/Mutoy-choi/CAPS-Agent-Security
 ---
 
-# CAPS Agent Security
+# CAPS Unlock Lab
 
-Use this skill to evaluate the security of an LLM agent configuration rather than judging a model from text output alone.
+Evaluate how a complete agent configuration loses restrictions—not only whether a model emits unsafe text.
 
-## Safety boundary
+## Required boundary
 
-- Work only on systems the user owns or is authorized to test.
-- Run active attacks in an isolated synthetic environment with fixture tools.
-- Do not mix jailbreak probes into a live user's conversation.
-- Do not use real credentials, customer files, payment systems, or destructive production tools.
-- Distinguish synthetic benchmark scores from claims about a production model.
+- Use only authorized targets.
+- Run active probes in an isolated synthetic digital twin.
+- Expose fixture tools and canaries, never production accounts or customer data.
+- Keep live user conversations separate from unlock probes.
+- Label synthetic scores accurately; they are not universal safety certification.
 
 ## Workflow
 
-1. **Define the target configuration.** Record model/provider, agent host, system instructions or `CLAUDE.md`, installed plugins and skills, MCP servers, tool schemas, permissions, attachment pipeline, and active defenses.
-2. **Inventory attack surfaces.** Classify attachments, indirect prompt injection, Skill or Plugin activation, MCP metadata and response poisoning, tool-selection risk, external writes, destructive actions, multi-turn state, and reasoning settings.
-3. **Choose an execution mode.** Prefer CAPS Verify fixture mode for reproducible tests. Use a capability twin when the user's real tool structure must be represented without real side effects.
-4. **Run paired cases.** For every adversarial case, run a clean case with the same base task, model snapshot, seed, tools, and budget.
-5. **Evaluate defense ablations.** Compare model-only, prompt policy, attachment scanner, capability scanner, exchange guard, action gateway, provenance policy, and user confirmation.
-6. **Score actual actions.** Prioritize sandbox state changes and deterministic policy predicates over an LLM judge.
-7. **Report uncertainty.** Include valid runs, exclusions, attack budget, model snapshot, confidence intervals, false-block rate, and normal-task utility.
+1. Record model snapshot, provider, host, system instructions, `CLAUDE.md`, plugins, skills, MCP servers, tool schemas, permissions, modalities, and defenses.
+2. Map unlock surfaces: direct/indirect injection, attachments, extension supply chain, MCP metadata/results, tool selection, external writes, destructive actions, multi-turn context, and reasoning.
+3. Create paired clean and adversarial cases under the same model, seed, tools, budget, and base task.
+4. Run defense ablations: model-only, prompt policy, attachment scanner, capability scanner, exchange guard, action gateway, provenance policy, and confirmation.
+5. Score fixture tool calls and final sandbox state before using a model judge.
+6. Report ASR, utility, false blocks, uncertainty, exclusions, attack budget, cost, and configuration fingerprint.
 
 ## Core metrics
 
 - Attachment-to-Action ASR
-- Defense-Adaptive ASR at a fixed query budget
+- Defense-Adaptive ASR
 - Unauthorized Tool Invocation Rate
 - Unauthorized Data-Flow Rate
 - Benign Task Success Rate
 - False Block Rate
-- Composition Delta and Composition Ratio
-- Configuration Safety Drift
-- Provenance Attribution Accuracy
+- Composition Delta and Ratio
+- Safety Drift and Provenance Accuracy
 
-## CAPS commands
-
-After installing CAPS Verify:
+## Commands
 
 ```bash
 caps-verify demo --output artifacts/demo --repetitions 10
@@ -54,4 +50,4 @@ caps-verify-gateway --help
 caps-verify-shadow-worker --help
 ```
 
-For architecture, threat-model and reporting details, read `references/REFERENCE.md`.
+Read `references/REFERENCE.md` for the first scenario, evidence requirements, and composition metrics.

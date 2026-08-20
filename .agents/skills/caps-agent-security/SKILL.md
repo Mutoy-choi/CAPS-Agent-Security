@@ -1,33 +1,33 @@
 ---
 name: caps-agent-security
-description: Audit, benchmark, and harden LLM agents against jailbreaks, prompt injection, indirect prompt injection, MCP tool poisoning, malicious plugins, Agent Skills, CLAUDE.md instructions, and multimodal attachment attacks. Use when the user asks to evaluate AI agent security, measure attack success rate or ASR, review MCP or tool permissions, inspect plugins or skills, build a synthetic digital twin, compare defenses, or generate an agent security report.
-compatibility: Designed for Agent Skills compatible clients and Claude Code. Use only in authorized environments. Docker, Python 3.11+, and git are optional depending on the selected CAPS component.
+description: Reproduce, audit, benchmark, and harden model restriction-bypass paths across LLM jailbreaks, prompt injection, MCP tool poisoning, Claude Code plugins, Agent Skills, CLAUDE.md instructions, multimodal attachments, tool permissions, and runtime defenses. Use for authorized model unlock testing, attack success rate or ASR measurement, MCP and extension audits, synthetic capability twins, defense comparison, and AI-agent security reports.
+compatibility: Agent Skills clients and Claude Code. Use only on systems the user owns or is authorized to test. Prefer synthetic fixture tools and isolated sessions.
 metadata:
   author: Mutoy-choi
-  version: "0.6.0"
-  homepage: https://mutoy-choi.github.io/ChillMCP/
-  repository: https://github.com/Mutoy-choi/ChillMCP
+  version: "0.7.0"
+  homepage: https://mutoy-choi.github.io/CAPS-Agent-Security/
+  repository: https://github.com/Mutoy-choi/CAPS-Agent-Security
 ---
 
-# CAPS Agent Security
+# CAPS Unlock Lab
 
-Evaluate the complete agent configuration: model, host, instructions, Plugin, Skill, MCP servers, Tool permissions, attachment pipeline, and defenses.
+Measure how the full agent configuration loses restrictions: model, host, instructions, `CLAUDE.md`, plugins, skills, MCP, permissions, attachments, and defenses.
 
-## Required boundaries
+## Boundaries
 
-- Test only authorized systems.
-- Keep active attacks in a synthetic digital twin with fixture tools.
-- Never add hidden jailbreak text to a live user's query.
-- Never test with real credentials, customer records, payments, or destructive production tools.
+- Evaluate only authorized systems.
+- Keep active probes in an isolated synthetic twin.
+- Use fixture tools and canaries instead of credentials, customer records, payments, or production side effects.
+- Do not append hidden attacks to live user conversations.
 
 ## Procedure
 
-1. Record the model snapshot, agent host, instructions, plugins, skills, MCP tools, permissions, modalities, and defenses.
-2. Classify attack surfaces: attachments, indirect injection, Skill/Plugin activation, MCP metadata or response poisoning, external writes, deletion, multi-turn state, and reasoning.
-3. Run clean/adversarial paired scenarios under identical budgets.
-4. Compare defense ablations and preserve normal task utility.
-5. Score actual synthetic Tool calls and final sandbox state before using an LLM judge.
-6. Report ASR, confidence intervals, false blocks, utility, attack budget, exclusions, and configuration fingerprint.
+1. Inventory the complete configuration and model snapshot.
+2. Map prompt, attachment, extension, MCP, tool-action, multi-turn, and reasoning surfaces.
+3. Run paired clean/adversarial scenarios under identical budgets.
+4. Compare defense ablations without discarding benign utility.
+5. Score fixture tool calls and sandbox state before model-judge output.
+6. Report ASR, confidence intervals, false blocks, utility, cost, exclusions, and fingerprints.
 
 ## Metrics
 
@@ -38,4 +38,4 @@ Evaluate the complete agent configuration: model, host, instructions, Plugin, Sk
 - Composition Delta and Ratio
 - Safety Drift and Provenance Accuracy
 
-Install or update the runtime with the `caps-install` Skill. More detail is available in `references/REFERENCE.md`.
+Use the `caps-install` Skill to install the Runtime. See `references/REFERENCE.md` for the first scenario and evidence requirements.

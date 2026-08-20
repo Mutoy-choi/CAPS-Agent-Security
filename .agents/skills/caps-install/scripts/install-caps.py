@@ -7,11 +7,11 @@ import subprocess
 import sys
 from pathlib import Path
 
-DEFAULT_REPO = "https://github.com/Mutoy-choi/ChillMCP.git"
-DEFAULT_DESTINATION = Path.home() / ".local" / "share" / "caps-security" / "ChillMCP"
+DEFAULT_REPO = "https://github.com/Mutoy-choi/CAPS-Agent-Security.git"
+DEFAULT_DESTINATION = Path.home() / ".local" / "share" / "caps-unlock-lab"
 
 
-def command(args: list[str], *, cwd: Path | None = None) -> None:
+def run(args: list[str], *, cwd: Path | None = None) -> None:
     subprocess.run(args, cwd=cwd, check=True)
 
 
@@ -26,18 +26,18 @@ def clone_or_update(repo: str, ref: str, destination: Path, assume_yes: bool) ->
     if destination.exists():
         if not (destination / ".git").exists():
             raise SystemExit(f"Destination exists but is not a git repository: {destination}")
-        confirm(f"Update existing checkout at {destination}?", assume_yes)
-        command(["git", "fetch", "--depth", "1", "origin", ref], cwd=destination)
-        command(["git", "checkout", ref], cwd=destination)
-        command(["git", "pull", "--ff-only", "origin", ref], cwd=destination)
+        confirm(f"Update {destination} from {repo}?", assume_yes)
+        run(["git", "fetch", "--depth", "1", "origin", ref], cwd=destination)
+        run(["git", "checkout", ref], cwd=destination)
+        run(["git", "pull", "--ff-only", "origin", ref], cwd=destination)
         return
     confirm(f"Clone {repo} ({ref}) into {destination}?", assume_yes)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    command(["git", "clone", "--depth", "1", "--branch", ref, repo, str(destination)])
+    run(["git", "clone", "--depth", "1", "--branch", ref, repo, str(destination)])
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Install CAPS security components")
+    parser = argparse.ArgumentParser(description="Install CAPS Unlock Lab components")
     parser.add_argument("--component", choices=("verify", "chat", "all"), default="verify")
     parser.add_argument("--repo", default=DEFAULT_REPO)
     parser.add_argument("--ref", default="main")
@@ -51,11 +51,11 @@ def main() -> int:
     clone_or_update(args.repo, args.ref, destination, args.yes)
 
     if args.component in {"verify", "all"}:
-        venv = destination.parent / "venv"
-        command([sys.executable, "-m", "venv", str(venv)])
+        venv = destination / ".venv"
+        run([sys.executable, "-m", "venv", str(venv)])
         python = venv / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
-        command([str(python), "-m", "pip", "install", "--upgrade", "pip"])
-        command([str(python), "-m", "pip", "install", "-e", f"{destination / 'caps_verify'}[gateway]"])
+        run([str(python), "-m", "pip", "install", "--upgrade", "pip"])
+        run([str(python), "-m", "pip", "install", "-e", f"{destination / 'caps_verify'}[gateway]"])
         print(f"CAPS Verify installed. CLI directory: {python.parent}")
     if args.component in {"chat", "all"}:
         if shutil.which("docker") is None:

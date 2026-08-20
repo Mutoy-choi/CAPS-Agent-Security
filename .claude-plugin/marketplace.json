@@ -4,38 +4,40 @@
     "name": "Mutoy-choi",
     "url": "https://github.com/Mutoy-choi"
   },
-  "description": "Claude Code plugins and Agent Skills for AI agent security, MCP security, prompt injection, multimodal attachment testing, and LLM jailbreak ASR evaluation.",
-  "version": "0.6.0",
+  "description": "Authorized model-unlock research, Claude Code plugins, Agent Skills, MCP security, prompt injection, multimodal jailbreak, and ASR evaluation.",
+  "version": "0.7.0",
   "plugins": [
     {
       "name": "caps-security",
-      "displayName": "CAPS Agent Security",
+      "displayName": "CAPS Unlock Lab",
       "source": "./plugins/caps-security",
-      "description": "Audit and benchmark Claude Code, MCP tools, plugins, Agent Skills, CLAUDE.md instructions, prompt injection, multimodal attachments, and LLM jailbreak defenses.",
-      "version": "0.6.0",
+      "description": "Reproduce and measure model restriction-bypass paths across CLAUDE.md, plugins, Agent Skills, MCP tools, prompt injection, multimodal attachments, and runtime defenses in authorized synthetic environments.",
+      "version": "0.7.0",
       "author": {
         "name": "Mutoy-choi",
         "url": "https://github.com/Mutoy-choi"
       },
-      "homepage": "https://mutoy-choi.github.io/ChillMCP/",
-      "repository": "https://github.com/Mutoy-choi/ChillMCP",
+      "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+      "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
       "keywords": [
-        "ai-agent-security",
         "agent-skills",
+        "ai-agent-security",
         "claude-code",
         "jailbreak",
         "llm-security",
         "mcp-security",
+        "model-unlock",
         "prompt-injection",
         "red-team"
       ],
       "category": "security",
       "tags": [
+        "asr-benchmark",
         "mcp",
-        "plugin-security",
-        "skill-security",
         "multimodal-security",
-        "asr-benchmark"
+        "plugin-security",
+        "restriction-bypass",
+        "skill-security"
       ],
       "strict": true,
       "defaultEnabled": true

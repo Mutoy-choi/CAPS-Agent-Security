@@ -1,36 +1,34 @@
 ---
 name: caps-install
-description: Install, update, or deploy CAPS Agent Security, CAPS Verify Runtime, and CAPS Research Chat from GitHub. Use when the user asks to install CAPS, import Agent Skills, start the LLM gateway, enable synthetic shadow ASR, deploy the research chat, or troubleshoot CAPS dependencies.
-compatibility: Requires git and Python 3.11+ for CAPS Verify. CAPS Research Chat requires Docker. Private GitHub repositories require an authenticated git credential helper.
+description: Install, update, or deploy CAPS Unlock Lab, the Claude Code Plugin, Agent Skills, CAPS Verify Runtime, synthetic shadow ASR, and CAPS Research Chat. Use when the user asks to install CAPS, add the marketplace, import Skills, start the LLM gateway, prepare an authorized model unlock lab, or troubleshoot CAPS dependencies.
+compatibility: Claude Code Plugin installation requires the Claude CLI. Skills require git. CAPS Verify uses Python 3.11+. Research Chat uses Docker.
 metadata:
   author: Mutoy-choi
-  version: "0.6.0"
-  homepage: https://mutoy-choi.github.io/ChillMCP/
-  repository: https://github.com/Mutoy-choi/ChillMCP
+  version: "0.7.0"
+  homepage: https://mutoy-choi.github.io/CAPS-Agent-Security/
+  repository: https://github.com/Mutoy-choi/CAPS-Agent-Security
 ---
 
-# Install CAPS
-
-Explain and confirm changes before cloning, updating, creating a virtual environment, or installing packages. Never request or print provider API keys, and never enable telemetry or public network exposure implicitly.
-
-```bash
-python scripts/install-caps.py --component verify
-python scripts/install-caps.py --component chat
-python scripts/install-caps.py --component all
-```
-
-Use `--yes` only after the user has approved the destination and operations.
+# Install CAPS Unlock Lab
 
 Claude Code Plugin:
 
 ```bash
-claude plugin marketplace add Mutoy-choi/ChillMCP
+claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
 claude plugin install caps-security@caps-labs --scope user
 ```
 
-After installing Research Chat:
+Cross-client Skills:
 
 ```bash
-cd ~/.local/share/caps-security/ChillMCP/caps_app
-./bootstrap.sh
+curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill
 ```
+
+Runtime or Chat:
+
+```bash
+python scripts/install-caps.py --component verify
+python scripts/install-caps.py --component chat
+```
+
+Explain and confirm filesystem, package, container, and network changes. Never request or print provider API keys. Do not enable telemetry, public exposure, research contribution, or active probes implicitly.

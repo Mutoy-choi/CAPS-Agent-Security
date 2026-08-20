@@ -1,21 +1,22 @@
 {
   "name": "caps-security",
-  "displayName": "CAPS Agent Security",
-  "description": "Continuous AI agent security evaluation for LLM jailbreaks, prompt injection, MCP tool poisoning, Claude Code plugins, Agent Skills, CLAUDE.md, and multimodal attachments.",
-  "version": "0.6.0",
+  "displayName": "CAPS Unlock Lab",
+  "description": "Authorized model-unlock and AI-agent security research for jailbreaks, prompt injection, MCP tool poisoning, Claude Code plugins, Agent Skills, CLAUDE.md, multimodal attachments, and defenses.",
+  "version": "0.7.0",
   "author": {
     "name": "Mutoy-choi",
     "url": "https://github.com/Mutoy-choi"
   },
-  "homepage": "https://mutoy-choi.github.io/ChillMCP/",
-  "repository": "https://github.com/Mutoy-choi/ChillMCP",
+  "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+  "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
   "keywords": [
-    "ai-agent-security",
     "agent-skills",
+    "ai-agent-security",
     "claude-code-plugin",
     "jailbreak-benchmark",
     "llm-security",
     "mcp-security",
+    "model-unlock",
     "prompt-injection",
     "red-team"
   ],

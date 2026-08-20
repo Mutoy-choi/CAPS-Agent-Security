@@ -1,0 +1,6 @@
+{
+  "name": "caps-unlock-lab",
+  "version": "0.8.0",
+  "description": "Platform-neutral Agent Skills and commands for authorized model-restriction-bypass research, MCP security, prompt injection, and jailbreak ASR evaluation.",
+  "contextFileName": "GEMINI.md"
+}

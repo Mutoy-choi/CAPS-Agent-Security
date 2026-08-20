@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "caps-unlock": {
+      "command": "/absolute/path/to/caps-verify-mcp",
+      "args": ["--state", ".caps/fixture-state.json"]
+    }
+  }
+}

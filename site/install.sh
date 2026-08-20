@@ -6,8 +6,8 @@ SCOPE="${CAPS_SCOPE:-user}"
 REF="${CAPS_REF:-main}"
 REPO_GIT="${CAPS_REPO:-https://github.com/Mutoy-choi/CAPS-Agent-Security.git}"
 REPO_WEB="${CAPS_REPO_WEB:-https://github.com/Mutoy-choi/CAPS-Agent-Security}"
-ORIGINAL_DIR="$PWD"
 CAPS_HOME="${CAPS_HOME:-$HOME/.local/share/caps-unlock-lab}"
+PROJECT_DIR="$PWD"
 TMP_DIR=""
 CHECKOUT=""
 
@@ -18,17 +18,9 @@ CAPS Unlock Lab universal installer
 Usage:
   ./install.sh [skill|codex|chatgpt|claude|gemini|copilot|cursor|cline|windsurf|opencode|verify|mcp|chat|all]
 
-Examples:
-  ./install.sh codex
-  CAPS_SCOPE=project ./install.sh copilot
-  ./install.sh gemini
-  ./install.sh verify
-
-Environment:
-  CAPS_SCOPE=user|project
-  CAPS_REF=main
-  CAPS_HOME=~/.local/share/caps-unlock-lab
-  CAPS_REPO=https://github.com/Mutoy-choi/CAPS-Agent-Security.git
+Scope:
+  CAPS_SCOPE=user      install user Skills or native extensions (default)
+  CAPS_SCOPE=project   copy repository-scoped Skills/agents where supported
 EOF
 }
 
@@ -37,67 +29,53 @@ case "$MODE" in
   skill|codex|chatgpt|claude|gemini|copilot|cursor|cline|windsurf|opencode|verify|mcp|chat|all) ;;
   *) usage >&2; exit 2 ;;
 esac
-if [[ "$SCOPE" != "user" && "$SCOPE" != "project" ]]; then
-  echo "CAPS_SCOPE must be user or project" >&2
-  exit 2
-fi
+[[ "$SCOPE" == "user" || "$SCOPE" == "project" ]] || { echo "CAPS_SCOPE must be user or project" >&2; exit 2; }
 
-cleanup() {
-  [[ -n "$TMP_DIR" && -d "$TMP_DIR" ]] && rm -rf "$TMP_DIR"
-}
+cleanup() { [[ -z "$TMP_DIR" || ! -d "$TMP_DIR" ]] || rm -rf "$TMP_DIR"; }
 trap cleanup EXIT
-
-need() {
-  command -v "$1" >/dev/null 2>&1 || { echo "$1 is required for mode '$MODE'" >&2; exit 1; }
-}
+need() { command -v "$1" >/dev/null 2>&1 || { echo "$1 is required for mode '$MODE'" >&2; exit 1; }; }
 
 checkout() {
-  if [[ -n "$CHECKOUT" ]]; then return; fi
+  [[ -n "$CHECKOUT" ]] && return
   need git
   TMP_DIR="$(mktemp -d)"
   CHECKOUT="$TMP_DIR/repo"
   git clone --quiet --depth 1 --branch "$REF" "$REPO_GIT" "$CHECKOUT"
 }
 
-copy_skill() {
-  local root="$1" skill
-  mkdir -p "$root"
+copy_skills() {
+  local destination="$1" skill
+  checkout
+  mkdir -p "$destination"
   for skill in caps-agent-security caps-install; do
-    rm -rf "$root/$skill"
-    cp -R "$CHECKOUT/skills/$skill" "$root/$skill"
+    rm -rf "$destination/$skill"
+    cp -R "$CHECKOUT/skills/$skill" "$destination/$skill"
   done
-  echo "  $root"
+  printf '  %s\n' "$destination"
 }
 
 install_shared_skills() {
-  checkout
-  echo "Installing CAPS Agent Skills to:"
+  echo "Installing shared Agent Skills:"
   if [[ "$SCOPE" == "project" ]]; then
-    copy_skill "$ORIGINAL_DIR/.agents/skills"
-    copy_skill "$ORIGINAL_DIR/.claude/skills"
-    copy_skill "$ORIGINAL_DIR/.github/skills"
+    copy_skills "$PROJECT_DIR/.agents/skills"
+    copy_skills "$PROJECT_DIR/.claude/skills"
+    copy_skills "$PROJECT_DIR/.github/skills"
   else
-    copy_skill "$HOME/.agents/skills"
-    copy_skill "$HOME/.claude/skills"
-    copy_skill "$HOME/.copilot/skills"
-    copy_skill "$HOME/.config/opencode/skills"
+    copy_skills "$HOME/.agents/skills"
+    copy_skills "$HOME/.claude/skills"
+    copy_skills "$HOME/.copilot/skills"
+    copy_skills "$HOME/.config/opencode/skills"
   fi
 }
 
 install_codex() {
+  if [[ "$SCOPE" == "project" ]]; then copy_skills "$PROJECT_DIR/.agents/skills"; else copy_skills "$HOME/.agents/skills"; fi
   checkout
-  if [[ "$SCOPE" == "project" ]]; then
-    echo "Installing Codex/OpenCode Skills to:"
-    copy_skill "$ORIGINAL_DIR/.agents/skills"
-  else
-    echo "Installing Codex Skills to:"
-    copy_skill "$HOME/.agents/skills"
-  fi
   mkdir -p "$CAPS_HOME"
   rm -rf "$CAPS_HOME/openai-plugin"
   cp -R "$CHECKOUT/plugins/caps-unlock" "$CAPS_HOME/openai-plugin"
-  echo "Local ChatGPT/Codex Plugin package: $CAPS_HOME/openai-plugin"
-  echo "In Codex, use: $caps-agent-security or /skills"
+  printf 'Local ChatGPT/Codex Plugin package: %s\n' "$CAPS_HOME/openai-plugin"
+  printf '%s\n' 'In Codex, use: $caps-agent-security or /skills'
 }
 
 install_claude() {
@@ -105,99 +83,80 @@ install_claude() {
   claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security >/dev/null 2>&1 || \
     claude plugin marketplace update caps-labs >/dev/null 2>&1 || true
   claude plugin install caps-unlock@caps-labs --scope "$SCOPE"
-  echo "Installed Claude Code Plugin: caps-unlock@caps-labs"
 }
 
 install_gemini() {
   need gemini
-  gemini extensions install "$REPO_WEB" --auto-update || \
-    gemini extensions update caps-unlock-lab
-  echo "Installed Gemini CLI extension: caps-unlock-lab"
+  gemini extensions install "$REPO_WEB" --auto-update || gemini extensions update caps-unlock-lab
 }
 
 install_copilot() {
   checkout
   if [[ "$SCOPE" == "project" ]]; then
-    echo "Installing GitHub Copilot project files:"
-    copy_skill "$ORIGINAL_DIR/.github/skills"
-    mkdir -p "$ORIGINAL_DIR/.github/agents"
-    cp "$CHECKOUT/.github/agents/caps-unlock.md" "$ORIGINAL_DIR/.github/agents/caps-unlock.md"
-    if [[ ! -e "$ORIGINAL_DIR/.github/copilot-instructions.md" ]]; then
-      cp "$CHECKOUT/.github/copilot-instructions.md" "$ORIGINAL_DIR/.github/copilot-instructions.md"
+    copy_skills "$PROJECT_DIR/.github/skills"
+    mkdir -p "$PROJECT_DIR/.github/agents"
+    cp "$CHECKOUT/.github/agents/caps-unlock.md" "$PROJECT_DIR/.github/agents/caps-unlock.md"
+    if [[ -e "$PROJECT_DIR/.github/copilot-instructions.md" ]]; then
+      echo "Existing .github/copilot-instructions.md kept unchanged."
     else
-      echo "  Existing .github/copilot-instructions.md kept unchanged"
+      cp "$CHECKOUT/.github/copilot-instructions.md" "$PROJECT_DIR/.github/copilot-instructions.md"
     fi
   else
-    echo "Installing GitHub Copilot user Skills to:"
-    copy_skill "$HOME/.copilot/skills"
-    echo "Use CAPS_SCOPE=project to install the custom agent profile."
+    copy_skills "$HOME/.copilot/skills"
+    echo "Use CAPS_SCOPE=project to add the custom-agent profile."
   fi
 }
 
 install_cursor() {
   checkout
-  mkdir -p "$ORIGINAL_DIR/.cursor/rules"
-  cp "$CHECKOUT/.cursor/rules/caps-unlock.mdc" "$ORIGINAL_DIR/.cursor/rules/caps-unlock.mdc"
-  cp "$CHECKOUT/.cursor/mcp.json.example" "$ORIGINAL_DIR/.cursor/mcp.caps.example.json"
-  echo "Installed Cursor adapter in $ORIGINAL_DIR/.cursor"
-  echo "The MCP example is not enabled automatically."
+  mkdir -p "$PROJECT_DIR/.cursor/rules"
+  cp "$CHECKOUT/.cursor/rules/caps-unlock.mdc" "$PROJECT_DIR/.cursor/rules/caps-unlock.mdc"
+  cp "$CHECKOUT/.cursor/mcp.json.example" "$PROJECT_DIR/.cursor/mcp.caps.example.json"
+  echo "Cursor rule installed; the MCP example remains disabled."
 }
 
 install_cline() {
   checkout
-  mkdir -p "$ORIGINAL_DIR/.clinerules/workflows"
-  cp "$CHECKOUT/.clinerules/caps-unlock.md" "$ORIGINAL_DIR/.clinerules/caps-unlock.md"
-  cp "$CHECKOUT/.clinerules/workflows/caps-unlock-audit.md" "$ORIGINAL_DIR/.clinerules/workflows/caps-unlock-audit.md"
-  echo "Installed Cline adapter in $ORIGINAL_DIR/.clinerules"
+  mkdir -p "$PROJECT_DIR/.clinerules/workflows"
+  cp "$CHECKOUT/.clinerules/caps-unlock.md" "$PROJECT_DIR/.clinerules/caps-unlock.md"
+  cp "$CHECKOUT/.clinerules/workflows/caps-unlock-audit.md" "$PROJECT_DIR/.clinerules/workflows/caps-unlock-audit.md"
 }
 
 install_windsurf() {
   checkout
-  mkdir -p "$ORIGINAL_DIR/.windsurf/rules" "$ORIGINAL_DIR/.windsurf/workflows"
-  cp "$CHECKOUT/.windsurf/rules/caps-unlock.md" "$ORIGINAL_DIR/.windsurf/rules/caps-unlock.md"
-  cp "$CHECKOUT/.windsurf/workflows/caps-unlock-audit.md" "$ORIGINAL_DIR/.windsurf/workflows/caps-unlock-audit.md"
-  echo "Installed Windsurf adapter in $ORIGINAL_DIR/.windsurf"
+  mkdir -p "$PROJECT_DIR/.windsurf/rules" "$PROJECT_DIR/.windsurf/workflows"
+  cp "$CHECKOUT/.windsurf/rules/caps-unlock.md" "$PROJECT_DIR/.windsurf/rules/caps-unlock.md"
+  cp "$CHECKOUT/.windsurf/workflows/caps-unlock-audit.md" "$PROJECT_DIR/.windsurf/workflows/caps-unlock-audit.md"
 }
 
 install_opencode() {
-  checkout
-  if [[ "$SCOPE" == "project" ]]; then
-    echo "Installing OpenCode project Skills to:"
-    copy_skill "$ORIGINAL_DIR/.agents/skills"
-  else
-    echo "Installing OpenCode user Skills to:"
-    copy_skill "$HOME/.config/opencode/skills"
-  fi
+  if [[ "$SCOPE" == "project" ]]; then copy_skills "$PROJECT_DIR/.agents/skills"; else copy_skills "$HOME/.config/opencode/skills"; fi
 }
 
 install_verify() {
-  local destination venv python
+  local venv python
   checkout
   need python3
-  destination="$CAPS_HOME"
-  rm -rf "$destination"
-  mkdir -p "$(dirname "$destination")"
-  cp -R "$CHECKOUT" "$destination"
-  rm -rf "$destination/.git"
-  venv="$destination/.venv"
+  rm -rf "$CAPS_HOME"
+  mkdir -p "$(dirname "$CAPS_HOME")"
+  cp -R "$CHECKOUT" "$CAPS_HOME"
+  rm -rf "$CAPS_HOME/.git"
+  venv="$CAPS_HOME/.venv"
   python3 -m venv "$venv"
   python="$venv/bin/python"
   "$python" -m pip install --upgrade pip
-  "$python" -m pip install -e "$destination/caps_verify[gateway,mcp]"
-  echo "CAPS Verify installed at $destination"
-  echo "CLI directory: $venv/bin"
+  "$python" -m pip install -e "$CAPS_HOME/caps_verify[gateway,mcp]"
+  printf 'CAPS Verify installed at %s\nCLI directory: %s\n' "$CAPS_HOME" "$venv/bin"
 }
 
 prepare_chat() {
-  local destination="$CAPS_HOME"
   checkout
   need docker
-  rm -rf "$destination"
-  mkdir -p "$(dirname "$destination")"
-  cp -R "$CHECKOUT" "$destination"
-  rm -rf "$destination/.git"
-  echo "CAPS Research Chat prepared at $destination/caps_app"
-  echo "Run ./bootstrap.sh from that directory when ready to enter provider secrets."
+  rm -rf "$CAPS_HOME"
+  mkdir -p "$(dirname "$CAPS_HOME")"
+  cp -R "$CHECKOUT" "$CAPS_HOME"
+  rm -rf "$CAPS_HOME/.git"
+  printf 'Research Chat prepared at %s/caps_app\nRun ./bootstrap.sh there.\n' "$CAPS_HOME"
 }
 
 case "$MODE" in
@@ -214,8 +173,8 @@ case "$MODE" in
   chat) prepare_chat ;;
   all)
     install_shared_skills
-    command -v claude >/dev/null 2>&1 && install_claude || echo "Claude Code CLI not found; skipped native Plugin."
-    command -v gemini >/dev/null 2>&1 && install_gemini || echo "Gemini CLI not found; skipped native extension."
+    if command -v claude >/dev/null 2>&1; then install_claude; else echo "Claude Code CLI not found; skipped native Plugin."; fi
+    if command -v gemini >/dev/null 2>&1; then install_gemini; else echo "Gemini CLI not found; skipped native extension."; fi
     ;;
 esac
 

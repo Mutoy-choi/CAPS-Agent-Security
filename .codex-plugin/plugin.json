@@ -1,0 +1,6 @@
+{
+  "name": "caps-unlock-lab",
+  "version": "0.8.0",
+  "description": "Authorized model-restriction-bypass research and AI-agent security evaluation across prompts, Skills, Plugins, MCP tools, and multimodal attachments.",
+  "skills": "./skills/"
+}

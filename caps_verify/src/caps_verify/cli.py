@@ -13,6 +13,15 @@ from .evidence import write_evidence_bundle
 from .fingerprint import sha256_json
 from .models import Scenario
 from .policy import PolicyEngine
+from .research import (
+    available_profiles,
+    build_research_pack,
+    export_research_bundle,
+    library_doctor,
+    load_research_registry,
+    research_summary,
+    write_research_pack,
+)
 from .resource_loader import load_json
 from .runner import BenchmarkRunner
 from .scoring import composition_metrics, score_runs
@@ -20,12 +29,56 @@ from .telemetry import TelemetryConfig, build_telemetry_payload, submit_bundle
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CAPS Verify security evaluation prototype")
+    parser = argparse.ArgumentParser(description="CAPS Verify security evaluation runtime")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     demo = subparsers.add_parser("demo", help="Run the synthetic smoke benchmark")
     demo.add_argument("--output", default="artifacts/demo")
     demo.add_argument("--repetitions", type=int, default=10)
+
+    research = subparsers.add_parser(
+        "research",
+        help="Use bundled research-backed synthetic profiles and optional libraries",
+    )
+    research_commands = research.add_subparsers(dest="research_command", required=True)
+
+    research_commands.add_parser("list", help="List bundled research profiles")
+    research_commands.add_parser("doctor", help="Check optional research-library installs")
+    research_commands.add_parser("sources", help="Print the bundled source and license registry")
+
+    describe = research_commands.add_parser("describe", help="Describe one research profile")
+    describe.add_argument("--profile", default="core")
+
+    build = research_commands.add_parser(
+        "build",
+        help="Write a provenance-bearing CAPS Attack Pack",
+    )
+    build.add_argument("--profile", default="core")
+    build.add_argument("--output", default="artifacts/research/caps-attack-pack.json")
+
+    export = research_commands.add_parser(
+        "export",
+        help="Export CAPS, Inspect, PyRIT, garak, and AgentDojo bridge artifacts",
+    )
+    export.add_argument("--profile", default="core")
+    export.add_argument("--output", default="artifacts/research-bundle")
+    export.add_argument(
+        "--endpoint",
+        default="http://127.0.0.1:8788/v1/chat/completions",
+        help="Defaults to a local CAPS Runtime endpoint",
+    )
+    export.add_argument("--model", default="caps-synthetic-target")
+    export.add_argument(
+        "--allow-remote-target",
+        action="store_true",
+        help="Required for an explicitly authorized non-local endpoint",
+    )
+
+    preview = research_commands.add_parser(
+        "preview",
+        help="Print a redacted profile pack without writing files",
+    )
+    preview.add_argument("--profile", default="core")
 
     submit = subparsers.add_parser(
         "submit",
@@ -106,7 +159,7 @@ def run_demo(output: str | Path, repetitions: int) -> dict[str, object]:
 
     configuration = {
         "benchmark": "caps-verify",
-        "version": "0.4.0",
+        "version": "0.8.0",
         "scenario": scenario.scenario_id,
         "target": target.name,
         "repetitions": repetitions,
@@ -143,10 +196,40 @@ def _telemetry_config(args: argparse.Namespace) -> TelemetryConfig:
     )
 
 
+def _run_research_command(args: argparse.Namespace) -> dict[str, object] | list[object]:
+    command = args.research_command
+    if command == "list":
+        return available_profiles()
+    if command == "doctor":
+        return library_doctor()
+    if command == "sources":
+        return load_research_registry()
+    if command == "describe":
+        return research_summary(args.profile)
+    if command == "build":
+        path = write_research_pack(args.profile, args.output)
+        return {"output": str(path), "summary": research_summary(args.profile)}
+    if command == "export":
+        return export_research_bundle(
+            args.profile,
+            args.output,
+            endpoint=args.endpoint,
+            model=args.model,
+            allow_remote_target=args.allow_remote_target,
+        )
+    if command == "preview":
+        return build_research_pack(args.profile)
+    raise AssertionError(f"Unhandled research command: {command}")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "demo":
         result = run_demo(args.output, args.repetitions)
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0
+    if args.command == "research":
+        result = _run_research_command(args)
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0
     if args.command == "submit":

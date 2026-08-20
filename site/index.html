@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>CAPS Unlock Lab | 모델 제한 해제 연구·MCP·Jailbreak ASR</title>
-  <meta name="description" content="승인된 synthetic 환경에서 모델 제한 해제 경로, MCP·Plugin·Agent Skills·CLAUDE.md·prompt injection·멀티모달 jailbreak와 ASR을 측정합니다.">
-  <meta name="keywords" content="model unlock, LLM jailbreak, MCP security, Agent Skills, Claude Code plugin, prompt injection, ASR benchmark, 모델 제한 해제, 탈옥 연구">
+  <title>CAPS Unlock Lab | ChatGPT·Codex·Claude·Gemini·MCP Jailbreak ASR</title>
+  <meta name="description" content="ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, Cursor, Cline, Windsurf, OpenCode와 MCP 에이전트에서 모델 제한 해제·prompt injection·jailbreak ASR을 승인된 synthetic 환경으로 평가합니다.">
+  <meta name="keywords" content="ChatGPT plugin, Codex skill, Claude Code plugin, Gemini CLI extension, GitHub Copilot skill, Cursor rules, Cline workflow, Windsurf workflow, OpenCode skills, MCP security, LLM jailbreak, ASR benchmark, 모델 제한 해제">
   <link rel="canonical" href="https://mutoy-choi.github.io/CAPS-Agent-Security/">
   <link rel="icon" href="/CAPS-Agent-Security/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/CAPS-Agent-Security/manifest.webmanifest">
   <link rel="stylesheet" href="/CAPS-Agent-Security/assets/styles.css">
   <meta name="theme-color" content="#07111f">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="CAPS Unlock Lab — 모델 제한 해제 연구">
-  <meta property="og:description" content="MCP, Plugin, Skill, CLAUDE.md, prompt injection, multimodal jailbreak and ASR evaluation in authorized synthetic environments.">
+  <meta property="og:title" content="CAPS Unlock Lab — One core, many agent platforms">
+  <meta property="og:description" content="Authorized model-unlock research for ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, IDE agents, MCP and OpenAI-compatible apps.">
   <meta property="og:url" content="https://mutoy-choi.github.io/CAPS-Agent-Security/">
   <meta name="twitter:card" content="summary">
   <script type="application/ld+json">
@@ -21,7 +21,7 @@
     "@context":"https://schema.org",
     "@graph":[
       {"@type":"WebSite","name":"CAPS Unlock Lab","url":"https://mutoy-choi.github.io/CAPS-Agent-Security/","inLanguage":["ko","en"]},
-      {"@type":"SoftwareApplication","name":"CAPS Unlock Lab","applicationCategory":"SecurityApplication","operatingSystem":"Linux, macOS, Windows with WSL, Docker","softwareVersion":"0.7.0","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://mutoy-choi.github.io/CAPS-Agent-Security/","codeRepository":"https://github.com/Mutoy-choi/CAPS-Agent-Security","description":"Authorized model-unlock research, Claude Code Plugin and Agent Skills for MCP, prompt injection, multimodal jailbreak and ASR evaluation."}
+      {"@type":"SoftwareApplication","name":"CAPS Unlock Lab","applicationCategory":"SecurityApplication","operatingSystem":"Cross-platform","softwareVersion":"0.8.0","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://mutoy-choi.github.io/CAPS-Agent-Security/","codeRepository":"https://github.com/Mutoy-choi/CAPS-Agent-Security","description":"Platform-neutral Agent Skills, plugins, extension adapters, MCP runtime, and synthetic jailbreak ASR evaluation."}
     ]
   }
   </script>
@@ -30,10 +30,11 @@
   <a class="skip-link" href="#main-content">본문으로 바로 이동</a>
   <header>
     <nav class="wrap nav" aria-label="주요 탐색">
-      <a class="brand" href="/CAPS-Agent-Security/" aria-label="CAPS Unlock Lab 홈">CAPS Unlock Lab</a>
+      <a class="brand" href="/CAPS-Agent-Security/">CAPS Unlock Lab</a>
       <div class="navlinks">
+        <a href="/CAPS-Agent-Security/platforms/">플랫폼</a>
         <a href="/CAPS-Agent-Security/plugin/">Plugin</a>
-        <a href="/CAPS-Agent-Security/skills/">Agent Skills</a>
+        <a href="/CAPS-Agent-Security/skills/">Skills</a>
         <a href="/CAPS-Agent-Security/accessibility/">접근성</a>
         <a href="https://github.com/Mutoy-choi/CAPS-Agent-Security">GitHub</a>
       </div>
@@ -41,46 +42,52 @@
   </header>
   <main id="main-content">
     <section class="wrap hero" aria-labelledby="hero-title">
-      <p class="eyebrow">Authorized Model Unlock Research</p>
-      <h1 id="hero-title">Break the limit.<br>Measure the path.<br>Harden the agent.</h1>
-      <p class="lead">CAPS는 모델 제한 해제 기법을 실제 사용자 세션이 아닌 synthetic twin에서 재현합니다. Plugin, Skill, MCP, <code>CLAUDE.md</code>, 첨부파일과 Tool 행동까지 추적해 ASR과 방어 성능을 측정합니다.</p>
-      <div class="actions" aria-label="설치 선택">
-        <a class="button" href="/CAPS-Agent-Security/plugin/">Claude Code Plugin 설치</a>
-        <a class="button secondary" href="/CAPS-Agent-Security/skills/">Agent Skills 보기</a>
+      <p class="eyebrow">One core · Many agent platforms</p>
+      <h1 id="hero-title">Measure the unlock path.<br>Across every agent host.</h1>
+      <p class="lead">CAPS는 ChatGPT·Codex·Claude Code·Gemini CLI·Copilot·Cursor·Cline·Windsurf·OpenCode와 일반 MCP/API 에이전트에서 같은 보안 워크플로를 사용합니다. live 요청은 건드리지 않고 synthetic twin에서 제한 해제 경로와 ASR을 측정합니다.</p>
+      <div class="actions" aria-label="시작 선택">
+        <a class="button" href="/CAPS-Agent-Security/platforms/">내 플랫폼 선택</a>
+        <a class="button secondary" href="/CAPS-Agent-Security/skills/">공통 Skills 보기</a>
       </div>
-      <pre class="install" aria-label="Claude Code Plugin 설치 명령"><code>claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
-claude plugin install caps-security@caps-labs --scope user</code></pre>
-      <div class="notice warning"><strong>의미:</strong> 여기서 “제한 해제”는 승인된 격리 환경에서 우회 가능성을 검증한다는 뜻입니다. 실제 사용자 쿼리를 몰래 변조하거나 운영 Tool을 공격하지 않습니다.</div>
+      <pre class="install" aria-label="범용 Agent Skills 설치 명령"><code>curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill</code></pre>
+      <p class="muted">Windows에서는 <code>install.ps1</code>을 사용합니다. 설치만으로 서버·텔레메트리·공격이 시작되지 않습니다.</p>
     </section>
 
-    <section class="wrap" aria-labelledby="skills-install-title">
-      <h2 id="skills-install-title">한 줄로 Agent Skills 설치</h2>
-      <pre class="install" aria-label="Agent Skills 설치 명령"><code>curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill</code></pre>
-      <p class="muted"><code>~/.agents/skills/</code>와 <code>~/.claude/skills/</code>에 설치됩니다. 원격 스크립트는 실행 전에 직접 열어 확인할 수 있습니다.</p>
+    <section class="wrap" aria-labelledby="platform-title">
+      <h2 id="platform-title">지원 플랫폼</h2>
+      <div class="keywords" aria-label="지원 플랫폼">
+        <span class="tag">ChatGPT</span><span class="tag">Codex</span><span class="tag">Claude Code</span><span class="tag">Gemini CLI</span><span class="tag">GitHub Copilot</span><span class="tag">Cursor</span><span class="tag">Cline</span><span class="tag">Windsurf</span><span class="tag">OpenCode</span><span class="tag">MCP</span><span class="tag">OpenAI-compatible API</span>
+      </div>
     </section>
 
-    <section class="wrap" aria-labelledby="surfaces-title">
-      <h2 id="surfaces-title">제한이 풀리는 전체 경로를 본다</h2>
+    <section class="wrap grid" aria-label="CAPS 구성요소">
+      <article class="card"><h2>Native packages</h2><p class="muted"><code>.codex-plugin</code>, Claude Marketplace Plugin, Gemini extension, Copilot custom agent를 제공합니다.</p></article>
+      <article class="card"><h2>Shared Agent Skills</h2><p class="muted">두 개의 canonical Skill을 Codex, Claude, Gemini, Copilot, OpenCode와 호환 호스트에 배포합니다.</p></article>
+      <article class="card"><h2>MCP & Runtime</h2><p class="muted">플랫폼에 관계없이 fixture MCP, Query Gateway, Shadow Worker와 ASR scorer를 연결합니다.</p></article>
+    </section>
+
+    <section class="wrap prose" aria-labelledby="install-title">
+      <h2 id="install-title">플랫폼별 빠른 명령</h2>
+      <h3>Claude Code</h3>
+      <pre class="install"><code>claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
+claude plugin install caps-unlock@caps-labs --scope user</code></pre>
+      <h3>Gemini CLI</h3>
+      <pre class="install"><code>gemini extensions install https://github.com/Mutoy-choi/CAPS-Agent-Security --auto-update</code></pre>
+      <h3>Codex / OpenCode</h3>
+      <pre class="install"><code>curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- codex</code></pre>
+      <p><a href="/CAPS-Agent-Security/platforms/">Copilot, Cursor, Cline, Windsurf, Windows와 generic MCP 설치 보기</a></p>
+    </section>
+
+    <section class="wrap" aria-labelledby="path-title">
+      <h2 id="path-title">출력이 아니라 행동 경로를 평가</h2>
       <div class="grid">
-        <article class="card"><h3>MCP & Tool</h3><p class="muted">Metadata poisoning, response injection, confused deputy, tool selection, 외부 쓰기와 파괴적 행동을 fixture로 평가합니다.</p></article>
-        <article class="card"><h3>Plugin & Skill</h3><p class="muted">Manifest, description, <code>SKILL.md</code>, references, scripts, assets와 <code>CLAUDE.md</code>의 공급망 경로를 검사합니다.</p></article>
-        <article class="card"><h3>Multimodal & Reasoning</h3><p class="muted">PDF·이미지·오디오·비디오, 다중 턴, 긴 reasoning과 조합 공격의 ASR을 분리해 측정합니다.</p></article>
+        <article class="card"><h3>Instruction & Context</h3><p class="muted"><code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>GEMINI.md</code>, IDE rules, prompt injection과 첨부파일을 검사합니다.</p></article>
+        <article class="card"><h3>Capability Supply Chain</h3><p class="muted">Plugin, extension, Skill, MCP metadata, Tool response, permission drift와 activation을 평가합니다.</p></article>
+        <article class="card"><h3>Deterministic ASR</h3><p class="muted">금지된 fixture Tool 선택과 sandbox 상태 변화로 A2A-ASR, utility, false block과 defense gain을 계산합니다.</p></article>
       </div>
-    </section>
-
-    <section class="wrap prose" aria-labelledby="score-title">
-      <h2 id="score-title">말이 아니라 행동으로 점수화</h2>
-      <pre class="install"><code>A2A-ASR = forbidden synthetic action successes ÷ valid attack runs</code></pre>
-      <p>정상 업무 성공률, false block, 무권한 Tool 호출, 데이터 흐름, composition lift, safety drift, latency와 비용을 함께 기록합니다.</p>
-    </section>
-
-    <section class="wrap" aria-labelledby="keywords-title">
-      <h2 id="keywords-title">검색 및 사용 분야</h2>
-      <div class="keywords" aria-label="프로젝트 키워드">
-        <span class="tag">model unlock</span><span class="tag">LLM jailbreak</span><span class="tag">MCP security</span><span class="tag">Agent Skills</span><span class="tag">Claude Code plugin</span><span class="tag">prompt injection</span><span class="tag">multimodal security</span><span class="tag">ASR benchmark</span><span class="tag">continuous red team</span><span class="tag">모델 제한 해제</span>
-      </div>
+      <div class="notice warning"><strong>범위:</strong> 소유하거나 승인받은 환경만 평가합니다. live 사용자 쿼리에 숨겨진 공격문을 넣거나 production side effect를 사용하지 않습니다.</div>
     </section>
   </main>
-  <footer class="wrap footer"><p>CAPS Unlock Lab · Authorized synthetic evaluation only · <a href="https://github.com/Mutoy-choi/CAPS-Agent-Security">Source</a> · <a href="/CAPS-Agent-Security/accessibility/">Accessibility</a></p></footer>
+  <footer class="wrap footer"><p>CAPS Unlock Lab · Cross-platform authorized synthetic evaluation · <a href="https://github.com/Mutoy-choi/CAPS-Agent-Security">Source</a></p></footer>
 </body>
 </html>

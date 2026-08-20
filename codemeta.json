@@ -2,29 +2,14 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "name": "CAPS Unlock Lab",
-  "version": "0.7.0",
-  "description": "Authorized model-unlock research, Claude Code Plugin, Agent Skills, MCP security, prompt-injection, multimodal jailbreak and ASR evaluation.",
+  "version": "0.8.0",
+  "description": "Cross-platform Agent Skills, native plugin/extension adapters, MCP runtime, Research Chat, and synthetic jailbreak ASR evaluation for authorized model-restriction-bypass research.",
   "codeRepository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
   "issueTracker": "https://github.com/Mutoy-choi/CAPS-Agent-Security/issues",
   "url": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
   "dateModified": "2026-08-20",
-  "programmingLanguage": ["Python", "Shell", "HTML", "JavaScript"],
-  "runtimePlatform": ["Claude Code", "Agent Skills", "Docker", "Python 3.11+"],
-  "keywords": [
-    "AI agent security",
-    "Agent Skills",
-    "Claude Code plugin",
-    "LLM jailbreak",
-    "MCP security",
-    "model unlock",
-    "multimodal security",
-    "prompt injection",
-    "red team"
-  ],
-  "author": {
-    "@type": "Person",
-    "givenName": "Jun Hyeok",
-    "familyName": "Choi",
-    "url": "https://github.com/Mutoy-choi"
-  }
+  "programmingLanguage": ["Python","Shell","PowerShell","HTML","JavaScript"],
+  "runtimePlatform": ["ChatGPT","Codex","Claude Code","Gemini CLI","GitHub Copilot","Cursor","Cline","Windsurf","OpenCode","MCP","Docker","Python 3.11+"],
+  "keywords": ["AI agent security","Agent Skills","model unlock","LLM jailbreak ASR","MCP security","prompt injection","multimodal security","continuous red team"],
+  "author": {"@type":"Person","givenName":"Jun Hyeok","familyName":"Choi","url":"https://github.com/Mutoy-choi"}
 }

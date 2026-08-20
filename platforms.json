@@ -1,0 +1,15 @@
+{
+  "schema_version": "caps.platforms.v1",
+  "version": "0.8.0",
+  "platforms": [
+    {"id":"chatgpt-codex","names":["ChatGPT","Codex"],"native":[".codex-plugin/plugin.json","skills/",".agents/skills/","AGENTS.md"],"install_mode":"codex"},
+    {"id":"claude-code","names":["Claude Code"],"native":[".claude-plugin/marketplace.json","plugins/caps-unlock/"],"install_mode":"claude"},
+    {"id":"gemini-cli","names":["Gemini CLI"],"native":["gemini-extension.json","GEMINI.md","commands/","skills/"],"install_mode":"gemini"},
+    {"id":"github-copilot","names":["GitHub Copilot"],"native":[".github/skills/",".github/agents/caps-unlock.md"],"install_mode":"copilot"},
+    {"id":"cursor","names":["Cursor"],"native":[".cursor/rules/caps-unlock.mdc"],"install_mode":"cursor"},
+    {"id":"cline","names":["Cline"],"native":[".clinerules/caps-unlock.md",".clinerules/workflows/"],"install_mode":"cline"},
+    {"id":"windsurf","names":["Windsurf"],"native":[".windsurf/rules/",".windsurf/workflows/"],"install_mode":"windsurf"},
+    {"id":"opencode","names":["OpenCode"],"native":[".agents/skills/","AGENTS.md"],"install_mode":"opencode"},
+    {"id":"generic-mcp-api","names":["MCP host","OpenAI-compatible app","Custom agent"],"native":["caps_verify/","platforms/mcp/"],"install_mode":"verify"}
+  ]
+}

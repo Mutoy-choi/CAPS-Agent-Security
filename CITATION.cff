@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use CAPS Unlock Lab in research, cite this software and the exact release or commit evaluated."
-title: "CAPS Unlock Lab: Agent Skills, MCP Security, and LLM Restriction-Bypass Evaluation"
+message: "If you use CAPS Unlock Lab in research, cite this software and the exact release or commit tested."
+title: "CAPS Unlock Lab: Cross-Platform Model Restriction-BYpass and AI-Agent Security Evaluation"
 type: software
 authors:
   - family-names: Choi
@@ -8,15 +8,16 @@ authors:
     alias: Mutoy-choi
 repository-code: "https://github.com/Mutoy-choi/CAPS-Agent-Security"
 url: "https://mutoy-choi.github.io/CAPS-Agent-Security/"
-version: 0.7.0
+version: 0.8.0
 date-released: 2026-08-20
 keywords:
   - AI agent security
   - Agent Skills
+  - ChatGPT plugin
+  - Codex
   - Claude Code plugin
-  - LLM jailbreak
-  - model unlock research
+  - Gemini CLI extension
+  - LLM jailbreak ASR
   - MCP security
-  - multimodal security
+  - model restriction bypass
   - prompt injection
-  - red teaming

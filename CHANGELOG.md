@@ -1,18 +1,30 @@
 # Changelog
 
-All notable changes to CAPS Agent Security are documented here.
+## 0.8.0 — 2026-08-20
 
-## 0.7.0 — CAPS Unlock Lab
+### Universal platform distribution
 
-- Removed the original ChillMCP demonstration server and all legacy test artifacts.
-- Repositioned the project as an authorized model-unlock and agent-security research platform.
-- Simplified the root documentation around Plugin, Agent Skills, Runtime, Attack Packs, ASR, and Research Chat.
-- Updated repository, Marketplace, installer, citation, and discovery metadata for `CAPS-Agent-Security`.
-- Improved keyboard, screen-reader, contrast, motion, and mobile accessibility for the discovery site.
+- Added a ChatGPT/Codex skills-only Plugin manifest at `.codex-plugin/plugin.json`.
+- Added OpenAI Skill metadata under `agents/openai.yaml`.
+- Added a Gemini CLI extension manifest, `GEMINI.md`, custom commands, and bundled Skills.
+- Added GitHub Copilot Skills, a custom agent profile, and repository instructions.
+- Added Cursor, Cline, Windsurf, OpenCode, and generic MCP adapters.
+- Renamed the Claude Code package to `caps-unlock` and made its directory dual-manifest.
+- Added Unix and Windows universal installers with platform-specific modes.
+- Rewrote README and Pages around a platform-first quick-start matrix.
+- Added machine-readable `platforms.json` and expanded AI/search discovery documents.
 
-## 0.6.0 — Distribution stack
+### Preserved boundaries
 
-- Added the Claude Code Plugin Marketplace and `caps-security` Plugin.
-- Added cross-client Agent Skills and a one-line installer.
-- Added GitHub Pages discovery metadata and distribution validation.
-- Added CAPS Verify Runtime, shadow jailbreak ASR, and CAPS Research Chat.
+- No native adapter starts active probes, telemetry, hooks, or MCP servers automatically.
+- Live user requests remain separate from synthetic evaluation sessions.
+
+## 0.7.0 — 2026-08-20
+
+- Removed the original ChillMCP demo server and legacy root scripts.
+- Rebranded the repository as CAPS Unlock Lab.
+- Improved Pages and Research Chat accessibility.
+
+## 0.6.0 — 2026-08-19
+
+- Added CAPS Verify, Research Chat, Claude Code Marketplace, Agent Skills, and discovery site.

@@ -4,33 +4,25 @@
     "name": "Mutoy-choi",
     "url": "https://github.com/Mutoy-choi"
   },
-  "description": "Claude Code Plugin Marketplace for authorized model-unlock research, MCP security, prompt injection, Agent Skills, multimodal jailbreak and ASR evaluation.",
-  "version": "0.7.0",
+  "description": "Claude Code Marketplace for the cross-platform CAPS Unlock Lab model-restriction-bypass and AI-agent security toolkit.",
+  "version": "0.8.0",
   "plugins": [
     {
-      "name": "caps-security",
+      "name": "caps-unlock",
       "displayName": "CAPS Unlock Lab",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/Mutoy-choi/CAPS-Agent-Security.git",
-        "path": "plugins/caps-security",
+        "path": "plugins/caps-unlock",
         "ref": "main"
       },
-      "description": "Measure model restriction-bypass paths across CLAUDE.md, plugins, Agent Skills, MCP tools, prompt injection, multimodal attachments, and runtime defenses in authorized synthetic environments.",
-      "version": "0.7.0",
+      "description": "Measure restriction-bypass paths across instruction files, Plugins, Skills, MCP tools, prompt injection, multimodal attachments, and defenses in authorized synthetic environments.",
+      "version": "0.8.0",
       "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
       "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
-      "keywords": [
-        "agent-skills",
-        "ai-agent-security",
-        "claude-code-plugin",
-        "jailbreak-benchmark",
-        "mcp-security",
-        "model-unlock",
-        "prompt-injection"
-      ],
+      "keywords": ["agent-skills","ai-agent-security","claude-code-plugin","jailbreak-asr","mcp-security","model-unlock","prompt-injection"],
       "category": "security",
-      "tags": ["asr", "llm-security", "multimodal-security", "red-team"],
+      "tags": ["cross-platform","llm-security","multimodal-security","red-team"],
       "strict": true,
       "defaultEnabled": true
     }

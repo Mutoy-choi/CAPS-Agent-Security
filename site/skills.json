@@ -1,19 +1,22 @@
 {
-  "schema_version": "caps.skills.v1",
+  "schema_version": "caps.skills.v2",
   "name": "CAPS Unlock Lab Agent Skills",
+  "version": "0.8.0",
   "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
   "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
-  "install": "curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill",
+  "install_unix": "curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill",
+  "install_windows": "& ([scriptblock]::Create((irm https://mutoy-choi.github.io/CAPS-Agent-Security/install.ps1))) skill",
+  "platforms": ["chatgpt","codex","claude-code","gemini-cli","github-copilot","cursor","cline","windsurf","opencode","mcp"],
   "skills": [
     {
       "name": "caps-agent-security",
-      "description": "Authorized model-unlock, MCP, Plugin, Agent Skills, CLAUDE.md, prompt-injection, multimodal-jailbreak and ASR evaluation.",
+      "description": "Evaluate authorized model restriction bypass, jailbreak ASR, prompt injection, MCP, Plugins, Skills, instruction files, attachments, and defenses.",
       "skill_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-agent-security/SKILL.md",
       "page_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-agent-security/"
     },
     {
       "name": "caps-install",
-      "description": "Install the CAPS Claude Code Plugin, Agent Skills, Verify Runtime, shadow ASR and Research Chat.",
+      "description": "Install or connect CAPS on ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, Cursor, Cline, Windsurf, OpenCode, and MCP/API agents.",
       "skill_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-install/SKILL.md",
       "page_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-install/"
     }

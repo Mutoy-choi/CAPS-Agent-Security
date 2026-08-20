@@ -1,56 +1,57 @@
-# CAPS Distribution Checklist
+# CAPS Unlock Lab distribution checklist
 
-## Public endpoints
+## Package surfaces
 
-- Repository: `https://github.com/Mutoy-choi/CAPS-Agent-Security`
-- Pages: `https://mutoy-choi.github.io/CAPS-Agent-Security/`
-- Marketplace: `https://mutoy-choi.github.io/CAPS-Agent-Security/marketplace.json`
-- Skills registry: `https://mutoy-choi.github.io/CAPS-Agent-Security/skills.json`
-- Installer: `https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh`
+- ChatGPT/Codex: `.codex-plugin/plugin.json`, `skills/`, `agents/openai.yaml`, `.agents/skills/`, `AGENTS.md`.
+- Claude Code: `.claude-plugin/marketplace.json`, `plugins/caps-unlock/`.
+- Gemini CLI: `gemini-extension.json`, `GEMINI.md`, `commands/caps/`, `skills/`.
+- GitHub Copilot: `.github/skills/`, `.github/agents/`, `.github/copilot-instructions.md`.
+- Cursor: `.cursor/rules/` and disabled MCP example.
+- Cline: `.clinerules/` and workflows.
+- Windsurf: `.windsurf/rules/` and workflows.
+- OpenCode: `.agents/skills/` and `AGENTS.md`.
+- Generic MCP/API: `caps_verify/` and `platforms/mcp/`.
 
-## Release checklist
+## Automated validation
 
-1. Run all GitHub Actions workflows.
-2. Validate the Claude Code Marketplace and Plugin:
+- All Plugin/extension JSON parses.
+- Marketplace and package names/versions are synchronized at `0.8.0`.
+- Canonical `skills/` files are byte-identical to distributed copies.
+- `agents/openai.yaml`, Gemini commands, Copilot custom agent, IDE rules, and MCP examples exist.
+- Unix and Pages installers are identical; PowerShell installers are identical.
+- Shell and PowerShell syntax is checked.
+- Claude Code Plugin validation runs in CI.
+- Legacy ChillMCP paths are rejected.
+- Pages canonical URLs, platform page, sitemap, structured data, `skills.json`, `platforms.json`, `llms.txt`, and `llms-full.txt` are checked.
 
-   ```bash
-   claude plugin validate .
-   ```
+## Public directory steps
 
-3. Validate Agent Skills with the current reference validator when available.
-4. Test from a clean user account:
+1. Merge the release branch to `main`.
+2. Enable GitHub Pages through the provided Actions workflow.
+3. Create release `v0.8.0`.
+4. Test each installer from a clean environment.
+5. Submit the ChatGPT/Codex Plugin package to the universal directory when ready.
+6. Add repository topic `gemini-cli-extension` and follow the Gemini extension gallery process.
+7. Keep Claude Marketplace metadata and published Pages `marketplace.json` synchronized.
+8. Submit `sitemap.xml` to search consoles and monitor crawl errors.
 
-   ```bash
-   claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
-   claude plugin install caps-security@caps-labs --scope user
-   curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill
-   ```
-
-5. Enable GitHub Pages using GitHub Actions.
-6. Create a signed release and update all component versions together.
-7. Submit `sitemap.xml` to search consoles.
-8. Confirm keyboard navigation, visible focus, 200% zoom, reduced motion, and screen-reader labels.
-
-## Suggested repository metadata
-
-Description:
-
-`Authorized LLM unlock research, Claude Code Plugin, Agent Skills, MCP security, prompt-injection and jailbreak ASR evaluation.`
-
-Topics:
+## Repository topics
 
 ```text
 agent-skills
 ai-agent-security
+chatgpt-plugin
 claude-code-plugin
+codex
 continuous-red-team
+gemini-cli-extension
+github-copilot
 jailbreak-benchmark
 llm-security
 mcp-security
 model-unlock
 multimodal-security
 prompt-injection
-security-testing
 ```
 
-Search indexing and rich results are not guaranteed. Do not publish fabricated ratings, download counts, benchmark claims, or safety certifications.
+Search indexing and directory acceptance are not guaranteed. Do not publish fabricated ratings, reviews, download counts, or safety claims.

@@ -1,70 +1,52 @@
 # CAPS Unlock Lab — full discovery document
 
-CAPS Unlock Lab is an authorized model-restriction-bypass research platform containing a Claude Code Plugin Marketplace, cross-client Agent Skills, an LLM query runtime, synthetic shadow-jailbreak evaluation, ASR scoring, and a consent-aware Research Chat.
+CAPS Unlock Lab is a platform-neutral research and evaluation toolkit for authorized model restriction bypass, LLM jailbreak ASR, prompt injection, MCP security, Plugin and Agent Skill supply chains, instruction files, and multimodal attachments.
 
-## Topics
+## Supported hosts
 
-- model unlock and restriction-bypass evaluation
-- LLM jailbreak and prompt injection
-- indirect prompt injection through documents and multimodal attachments
-- MCP tool metadata and response poisoning
-- Claude Code Plugin, Agent Skill, and CLAUDE.md supply-chain review
-- tool selection, unauthorized data flow, external writes and destructive actions
-- defense ablation, benign utility, false blocks, composition and safety drift
-- synthetic capability twins, fixture tools and deterministic action predicates
+ChatGPT, Codex CLI/IDE, Claude Code, Gemini CLI, GitHub Copilot, Cursor, Cline, Windsurf, OpenCode, Agent Skills compatible hosts, MCP-capable agents, and OpenAI-compatible applications.
 
-## Claude Code Plugin
+## Shared core
+
+- `caps-agent-security`: threat modeling, paired synthetic scenarios, defense ablation, deterministic action scoring, ASR, utility, uncertainty, and evidence.
+- `caps-install`: detects the host and explains the smallest safe installation path.
+- `caps_verify`: Query Gateway, Shadow Worker, fixture MCP, deterministic scoring, evidence bundle, and opt-in aggregate telemetry.
+
+## Native packages
+
+- ChatGPT/Codex: `.codex-plugin/plugin.json`, `skills/`, `agents/openai.yaml`, `.agents/skills/`, `AGENTS.md`.
+- Claude Code: `.claude-plugin/marketplace.json`, `plugins/caps-unlock/`.
+- Gemini CLI: `gemini-extension.json`, `GEMINI.md`, `commands/caps/`, `skills/`.
+- GitHub Copilot: `.github/skills/`, `.github/agents/caps-unlock.md`, `.github/copilot-instructions.md`.
+- Cursor: `.cursor/rules/caps-unlock.mdc`.
+- Cline: `.clinerules/caps-unlock.md`, `.clinerules/workflows/`.
+- Windsurf: `.windsurf/rules/`, `.windsurf/workflows/`.
+- OpenCode: `.agents/skills/`, `AGENTS.md`.
+
+## Install examples
 
 ```bash
+curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- codex
 claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
-claude plugin install caps-security@caps-labs --scope user
+gemini extensions install https://github.com/Mutoy-choi/CAPS-Agent-Security --auto-update
+CAPS_SCOPE=project ./install.sh copilot
+./install.sh cursor
+./install.sh cline
+./install.sh windsurf
+./install.sh opencode
+./install.sh verify
 ```
 
-Plugin Skills:
+## Security model
 
-- `/caps-security:caps-agent-security`
-- `/caps-security:caps-install`
-
-## Agent Skills
-
-```bash
-curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill
-```
-
-Canonical Skill documents:
-
-- https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-agent-security/SKILL.md
-- https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-install/SKILL.md
-
-## CAPS Verify
-
-```bash
-caps-verify demo --output artifacts/demo --repetitions 10
-caps-verify-runtime --help
-caps-verify-gateway --help
-caps-verify-shadow-worker --help
-```
-
-Live user requests are forwarded unchanged. Unlock probes execute in separate synthetic sessions with fixture tools.
-
-## CAPS Research Chat
-
-```bash
-cd caps_app
-./bootstrap.sh
-```
-
-Research Chat offers a disclosed Research mode and a no-persistence Private mode.
+The basic success predicate is a forbidden synthetic Tool call or fixture state change. Live user prompts are not secretly modified. Real credentials, customer data, payments, production writes, and destructive tools are excluded from attack fixtures.
 
 ## Machine-readable resources
 
 - https://mutoy-choi.github.io/CAPS-Agent-Security/marketplace.json
 - https://mutoy-choi.github.io/CAPS-Agent-Security/skills.json
+- https://mutoy-choi.github.io/CAPS-Agent-Security/platforms.json
 - https://mutoy-choi.github.io/CAPS-Agent-Security/sitemap.xml
 - https://mutoy-choi.github.io/CAPS-Agent-Security/.well-known/security.txt
 - https://github.com/Mutoy-choi/CAPS-Agent-Security/blob/main/codemeta.json
 - https://github.com/Mutoy-choi/CAPS-Agent-Security/blob/main/CITATION.cff
-
-## Safety
-
-Test only authorized systems. Use synthetic data, canaries, fixture tools and isolated sessions. Do not use credentials, customer records, payments, production side effects, or hidden live-query modification.

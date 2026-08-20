@@ -1,23 +1,26 @@
 # CAPS Unlock Lab
 
-> Authorized model-unlock research, Claude Code Plugin Marketplace, Agent Skills, MCP security, prompt injection, multimodal jailbreak and ASR evaluation.
+> Cross-platform authorized model-restriction-bypass research and AI-agent security evaluation for ChatGPT, Codex, Claude Code, Gemini CLI, GitHub Copilot, Cursor, Cline, Windsurf, OpenCode, MCP, and OpenAI-compatible apps.
 
 ## Install
 
-- Marketplace: `claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security`
-- Plugin: `claude plugin install caps-security@caps-labs --scope user`
-- Agent Skills: `curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill`
+- Universal Skills: `curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill`
+- Claude Code: `claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security` then `claude plugin install caps-unlock@caps-labs`
+- Gemini CLI: `gemini extensions install https://github.com/Mutoy-choi/CAPS-Agent-Security --auto-update`
+- Windows: use `https://mutoy-choi.github.io/CAPS-Agent-Security/install.ps1`
 
 ## Canonical resources
 
 - Home: https://mutoy-choi.github.io/CAPS-Agent-Security/
+- Platforms: https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/
 - Plugin: https://mutoy-choi.github.io/CAPS-Agent-Security/plugin/
 - Skills: https://mutoy-choi.github.io/CAPS-Agent-Security/skills/
-- Marketplace JSON: https://mutoy-choi.github.io/CAPS-Agent-Security/marketplace.json
-- Skills JSON: https://mutoy-choi.github.io/CAPS-Agent-Security/skills.json
+- Marketplace: https://mutoy-choi.github.io/CAPS-Agent-Security/marketplace.json
+- Skill registry: https://mutoy-choi.github.io/CAPS-Agent-Security/skills.json
+- Platform registry: https://mutoy-choi.github.io/CAPS-Agent-Security/platforms.json
 - Full discovery document: https://mutoy-choi.github.io/CAPS-Agent-Security/llms-full.txt
 - Source: https://github.com/Mutoy-choi/CAPS-Agent-Security
 
 ## Safety
 
-Use only in authorized environments. Active restriction-bypass probes run in separate synthetic sessions with fixture tools. Installation does not enable telemetry or data contribution.
+Use only on systems the operator owns or is authorized to test. Active probes run in isolated synthetic sessions with fixture tools; installation does not enable telemetry or attacks.

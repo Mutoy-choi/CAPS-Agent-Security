@@ -1,16 +1,10 @@
 {
   "name": "CAPS Unlock Lab",
   "short_name": "CAPS Unlock",
-  "description": "Authorized model-unlock research, Claude Code Plugin and Agent Skills for MCP, prompt injection, multimodal jailbreak and ASR evaluation.",
+  "description": "Cross-platform authorized model-unlock research for ChatGPT, Codex, Claude, Gemini, Copilot, IDE agents, MCP, and jailbreak ASR.",
   "start_url": "/CAPS-Agent-Security/",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#7f95ff",
-  "icons": [
-    {
-      "src": "/CAPS-Agent-Security/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
+  "background_color": "#07101d",
+  "theme_color": "#7C5CFF",
+  "icons": [{"src":"/CAPS-Agent-Security/favicon.svg","sizes":"any","type":"image/svg+xml"}]
 }

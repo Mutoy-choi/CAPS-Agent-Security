@@ -18,7 +18,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,13 +32,40 @@ jobs:
         run: ruff check caps_verify/src caps_verify/tests
       - name: Test
         run: pytest caps_verify/tests
+      - name: Validate research registry and export bundle
+        run: |
+          caps-verify research list
+          caps-verify research describe --profile full
+          caps-verify research doctor
+          caps-verify research export \
+            --profile full \
+            --output caps_verify/artifacts/research-smoke \
+            --model ci-synthetic-model
+          test -f caps_verify/artifacts/research-smoke/caps-attack-pack.json
+          test -f caps_verify/artifacts/research-smoke/inspect-dataset.jsonl
+          test -f caps_verify/artifacts/research-smoke/pyrit-seeds.prompt
+          test -f caps_verify/artifacts/research-smoke/garak-rest.json
+          test -f caps_verify/artifacts/research-smoke/agentdojo-scenarios.json
+          test -f caps_verify/artifacts/research-smoke/artifacts/figstep-typography-001.png
+      - name: Validate native Inspect AI task
+        run: |
+          python -m pip install -e "./caps_verify[inspect]"
+          python - <<'PY'
+          from caps_verify.integrations.inspect_task import caps_research
+
+          task = caps_research(profile="core")
+          assert len(task.dataset) == 5
+          print("Inspect CAPS task loaded with", len(task.dataset), "samples")
+          PY
       - name: Generate smoke evidence
         run: caps-verify demo --output caps_verify/artifacts/ci-smoke --repetitions 5
       - name: Upload evidence
         uses: actions/upload-artifact@v4
         with:
           name: caps-verify-smoke-evidence
-          path: caps_verify/artifacts/ci-smoke
+          path: |
+            caps_verify/artifacts/ci-smoke
+            caps_verify/artifacts/research-smoke
           if-no-files-found: error
       - name: Submit opt-in aggregate telemetry
         if: github.event_name != 'pull_request' && vars.CAPS_TELEMETRY_ENABLED == 'true'

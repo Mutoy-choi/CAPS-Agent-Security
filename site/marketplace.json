@@ -4,32 +4,33 @@
     "name": "Mutoy-choi",
     "url": "https://github.com/Mutoy-choi"
   },
-  "description": "Claude Code plugin marketplace for CAPS Agent Security, MCP security, prompt injection, Agent Skills, multimodal attachment testing, and LLM jailbreak ASR.",
-  "version": "0.6.0",
+  "description": "Claude Code Plugin Marketplace for authorized model-unlock research, MCP security, prompt injection, Agent Skills, multimodal jailbreak and ASR evaluation.",
+  "version": "0.7.0",
   "plugins": [
     {
       "name": "caps-security",
-      "displayName": "CAPS Agent Security",
+      "displayName": "CAPS Unlock Lab",
       "source": {
         "source": "git-subdir",
-        "url": "https://github.com/Mutoy-choi/ChillMCP.git",
+        "url": "https://github.com/Mutoy-choi/CAPS-Agent-Security.git",
         "path": "plugins/caps-security",
         "ref": "main"
       },
-      "description": "Audit and benchmark Claude Code, MCP tools, plugins, Agent Skills, CLAUDE.md, prompt injection, multimodal attachments, and LLM jailbreak defenses.",
-      "version": "0.6.0",
-      "homepage": "https://mutoy-choi.github.io/ChillMCP/",
-      "repository": "https://github.com/Mutoy-choi/ChillMCP",
+      "description": "Measure model restriction-bypass paths across CLAUDE.md, plugins, Agent Skills, MCP tools, prompt injection, multimodal attachments, and runtime defenses in authorized synthetic environments.",
+      "version": "0.7.0",
+      "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+      "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
       "keywords": [
-        "ai-agent-security",
         "agent-skills",
+        "ai-agent-security",
         "claude-code-plugin",
         "jailbreak-benchmark",
         "mcp-security",
+        "model-unlock",
         "prompt-injection"
       ],
       "category": "security",
-      "tags": ["red-team", "llm-security", "multimodal-security", "asr"],
+      "tags": ["asr", "llm-security", "multimodal-security", "red-team"],
       "strict": true,
       "defaultEnabled": true
     }

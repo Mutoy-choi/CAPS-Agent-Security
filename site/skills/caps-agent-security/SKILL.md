@@ -1,13 +1,13 @@
 ---
 name: caps-agent-security
-description: Audit, benchmark, and harden LLM agents against jailbreaks, prompt injection, indirect prompt injection, MCP tool poisoning, malicious plugins, Agent Skills, CLAUDE.md instructions, and multimodal attachment attacks. Use when the user asks to evaluate AI agent security, measure attack success rate or ASR, review MCP or tool permissions, inspect plugins or skills, build a synthetic digital twin, compare defenses, or generate an agent security report.
-compatibility: Designed for Agent Skills compatible clients and Claude Code. Use only in authorized environments.
+description: Reproduce, audit, benchmark, and harden model restriction-bypass paths across LLM jailbreaks, prompt injection, MCP tool poisoning, Claude Code plugins, Agent Skills, CLAUDE.md instructions, multimodal attachments, tool permissions, and runtime defenses. Use for authorized model unlock testing, attack success rate or ASR measurement, MCP and extension audits, synthetic capability twins, defense comparison, and AI-agent security reports.
+compatibility: Agent Skills clients and Claude Code. Use only on authorized systems with synthetic fixture tools and isolated sessions.
 metadata:
   author: Mutoy-choi
-  version: "0.6.0"
-  homepage: https://mutoy-choi.github.io/ChillMCP/
+  version: "0.7.0"
+  homepage: https://mutoy-choi.github.io/CAPS-Agent-Security/
 ---
 
-# CAPS Agent Security
+# CAPS Unlock Lab
 
-Evaluate model, host, instructions, Plugin, Skill, MCP, Tool permissions, attachments and defenses together. Run paired clean/adversarial cases in a synthetic digital twin, score actual fixture Tool actions, and report ASR, utility, false blocks, composition and drift with uncertainty. Never insert hidden attacks into live user queries or use real credentials and production side effects.
+Evaluate model, host, instructions, CLAUDE.md, Plugin, Skill, MCP, Tool permissions, attachments, and defenses together. Run paired clean/adversarial cases in a synthetic twin, score actual fixture Tool actions, and report ASR, utility, false blocks, composition, drift, budgets, and uncertainty. Never add hidden attacks to live user queries or use real credentials and production side effects.

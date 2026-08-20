@@ -1,21 +1,21 @@
 {
   "schema_version": "caps.skills.v1",
-  "name": "CAPS Agent Skills",
-  "homepage": "https://mutoy-choi.github.io/ChillMCP/",
-  "repository": "https://github.com/Mutoy-choi/ChillMCP",
-  "install": "curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill",
+  "name": "CAPS Unlock Lab Agent Skills",
+  "homepage": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+  "repository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
+  "install": "curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill",
   "skills": [
     {
       "name": "caps-agent-security",
-      "description": "Audit and benchmark LLM agents, MCP tools, plugins, Agent Skills, CLAUDE.md, prompt injection, multimodal attachments, jailbreak ASR, and defenses.",
-      "skill_url": "https://mutoy-choi.github.io/ChillMCP/skills/caps-agent-security/SKILL.md",
-      "page_url": "https://mutoy-choi.github.io/ChillMCP/skills/caps-agent-security/"
+      "description": "Authorized model-unlock, MCP, Plugin, Agent Skills, CLAUDE.md, prompt-injection, multimodal-jailbreak and ASR evaluation.",
+      "skill_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-agent-security/SKILL.md",
+      "page_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-agent-security/"
     },
     {
       "name": "caps-install",
-      "description": "Install and deploy CAPS Verify Runtime, Claude Code Plugin, Agent Skills, and CAPS Research Chat.",
-      "skill_url": "https://mutoy-choi.github.io/ChillMCP/skills/caps-install/SKILL.md",
-      "page_url": "https://mutoy-choi.github.io/ChillMCP/skills/caps-install/"
+      "description": "Install the CAPS Claude Code Plugin, Agent Skills, Verify Runtime, shadow ASR and Research Chat.",
+      "skill_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-install/SKILL.md",
+      "page_url": "https://mutoy-choi.github.io/CAPS-Agent-Security/skills/caps-install/"
     }
   ]
 }

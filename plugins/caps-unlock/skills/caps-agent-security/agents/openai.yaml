@@ -1,0 +1,7 @@
+interface:
+  display_name: "CAPS Unlock Audit"
+  short_description: "Audit jailbreak, MCP, Skill, Plugin, and attachment risks"
+  brand_color: "#7C5CFF"
+  default_prompt: "Use $caps-agent-security to audit this agent configuration in an authorized synthetic environment."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,14 @@
+---
+description: Use CAPS Unlock Lab for authorized jailbreak ASR, prompt injection, MCP, Plugin, Skill, instruction-file, and multimodal attachment security evaluation.
+alwaysApply: false
+---
+
+When the user asks for an AI-agent security audit or model-unlock evaluation:
+
+1. Read `AGENTS.md` and `skills/caps-agent-security/SKILL.md`.
+2. Inventory the model, instructions, Plugins, Skills, MCP tools, permissions, modalities, memory, and defenses.
+3. Design only synthetic paired tests using fixture tools and canary data.
+4. Score deterministic tool actions and sandbox state before subjective model judging.
+5. Report ASR, utility, false blocks, attack budget, uncertainty, evidence, and remediations.
+
+Never insert hidden probes into live user conversations or use production credentials, customer data, or side effects.

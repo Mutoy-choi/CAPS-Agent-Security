@@ -4,15 +4,15 @@
     "name": "Mutoy-choi",
     "url": "https://github.com/Mutoy-choi"
   },
-  "description": "Authorized model-unlock research, Claude Code plugins, Agent Skills, MCP security, prompt injection, multimodal jailbreak, and ASR evaluation.",
-  "version": "0.7.0",
+  "description": "Cross-platform authorized model-unlock research for ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, IDE agents, MCP security, prompt injection, and jailbreak ASR.",
+  "version": "0.8.0",
   "plugins": [
     {
-      "name": "caps-security",
+      "name": "caps-unlock",
       "displayName": "CAPS Unlock Lab",
-      "source": "./plugins/caps-security",
-      "description": "Reproduce and measure model restriction-bypass paths across CLAUDE.md, plugins, Agent Skills, MCP tools, prompt injection, multimodal attachments, and runtime defenses in authorized synthetic environments.",
-      "version": "0.7.0",
+      "source": "./plugins/caps-unlock",
+      "description": "Measure restriction-bypass paths across instruction files, Plugins, Agent Skills, MCP tools, prompt injection, multimodal attachments, and defenses in authorized synthetic environments.",
+      "version": "0.8.0",
       "author": {
         "name": "Mutoy-choi",
         "url": "https://github.com/Mutoy-choi"
@@ -33,6 +33,7 @@
       "category": "security",
       "tags": [
         "asr-benchmark",
+        "cross-platform",
         "mcp",
         "multimodal-security",
         "plugin-security",

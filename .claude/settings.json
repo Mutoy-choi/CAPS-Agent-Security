@@ -8,6 +8,6 @@
     }
   },
   "enabledPlugins": {
-    "caps-security@caps-labs": true
+    "caps-unlock@caps-labs": true
   }
 }

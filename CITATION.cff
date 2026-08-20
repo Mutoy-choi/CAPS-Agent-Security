@@ -1,20 +1,21 @@
 cff-version: 1.2.0
-message: "If you use CAPS Agent Security in research, cite this software and the exact release or commit tested."
-title: "CAPS Agent Security: Claude Code Plugin, Agent Skills, MCP Security and LLM Jailbreak Evaluation"
+message: "If you use CAPS Unlock Lab in research, cite this software and the exact release or commit evaluated."
+title: "CAPS Unlock Lab: Agent Skills, MCP Security, and LLM Restriction-Bypass Evaluation"
 type: software
 authors:
   - family-names: Choi
     given-names: Jun Hyeok
     alias: Mutoy-choi
-repository-code: "https://github.com/Mutoy-choi/ChillMCP"
-url: "https://mutoy-choi.github.io/ChillMCP/"
-version: 0.6.0
-date-released: 2026-08-19
+repository-code: "https://github.com/Mutoy-choi/CAPS-Agent-Security"
+url: "https://mutoy-choi.github.io/CAPS-Agent-Security/"
+version: 0.7.0
+date-released: 2026-08-20
 keywords:
   - AI agent security
   - Agent Skills
   - Claude Code plugin
   - LLM jailbreak
+  - model unlock research
   - MCP security
   - multimodal security
   - prompt injection

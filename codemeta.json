@@ -1,13 +1,13 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
-  "name": "CAPS Agent Security",
-  "version": "0.6.0",
-  "description": "Claude Code plugin marketplace and Agent Skills for MCP security, prompt injection, multimodal attachments, LLM jailbreak ASR, and continuous AI agent red teaming.",
-  "codeRepository": "https://github.com/Mutoy-choi/ChillMCP",
-  "issueTracker": "https://github.com/Mutoy-choi/ChillMCP/issues",
-  "url": "https://mutoy-choi.github.io/ChillMCP/",
-  "dateModified": "2026-08-19",
+  "name": "CAPS Unlock Lab",
+  "version": "0.7.0",
+  "description": "Authorized model-unlock research, Claude Code Plugin, Agent Skills, MCP security, prompt-injection, multimodal jailbreak and ASR evaluation.",
+  "codeRepository": "https://github.com/Mutoy-choi/CAPS-Agent-Security",
+  "issueTracker": "https://github.com/Mutoy-choi/CAPS-Agent-Security/issues",
+  "url": "https://mutoy-choi.github.io/CAPS-Agent-Security/",
+  "dateModified": "2026-08-20",
   "programmingLanguage": ["Python", "Shell", "HTML", "JavaScript"],
   "runtimePlatform": ["Claude Code", "Agent Skills", "Docker", "Python 3.11+"],
   "keywords": [
@@ -16,6 +16,7 @@
     "Claude Code plugin",
     "LLM jailbreak",
     "MCP security",
+    "model unlock",
     "multimodal security",
     "prompt injection",
     "red team"

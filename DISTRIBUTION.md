@@ -1,70 +1,56 @@
-# CAPS Distribution and Search Checklist
+# CAPS Distribution Checklist
 
-## Already implemented
+## Public endpoints
 
-- Root Claude Code Marketplace catalog: `.claude-plugin/marketplace.json`
-- Self-contained installable Plugin: `plugins/caps-security/`
-- Cross-client Agent Skills: `.agents/skills/`
-- User and project scope installer: `install.sh`
-- GitHub Pages discovery site: `site/`
-- Pages-hosted Marketplace JSON with `git-subdir` source
-- `robots.txt`, `sitemap.xml`, canonical URLs, Open Graph, JSON-LD, `llms.txt`
-- `CITATION.cff` and `codemeta.json`
-- Distribution validation workflow
+- Repository: `https://github.com/Mutoy-choi/CAPS-Agent-Security`
+- Pages: `https://mutoy-choi.github.io/CAPS-Agent-Security/`
+- Marketplace: `https://mutoy-choi.github.io/CAPS-Agent-Security/marketplace.json`
+- Skills registry: `https://mutoy-choi.github.io/CAPS-Agent-Security/skills.json`
+- Installer: `https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh`
 
-## Required before public discovery
+## Release checklist
 
-1. Merge the Draft PR to `main`.
-2. Make this repository public, or copy the marketplace, plugin, Skills, installer and site into a dedicated public distribution repository.
-3. Enable **Settings → Pages → Source: GitHub Actions**.
-4. Set repository description to:
-
-   `Claude Code plugin + Agent Skills marketplace for MCP, prompt injection, multimodal attachment and LLM jailbreak security evaluation.`
-
-5. Set repository homepage to `https://mutoy-choi.github.io/ChillMCP/`.
-6. Add GitHub topics:
-
-   ```text
-   ai-agent-security
-   agent-skills
-   claude-code-plugin
-   continuous-red-team
-   jailbreak-benchmark
-   llm-security
-   mcp-security
-   multimodal-security
-   prompt-injection
-   security-testing
-   ```
-
-7. Create a GitHub release such as `v0.6.0` and bump Plugin and Marketplace versions on every release.
-8. Verify installation from a clean machine:
-
-   ```bash
-   claude plugin marketplace add Mutoy-choi/ChillMCP
-   claude plugin install caps-security@caps-labs
-   curl -fsSL https://mutoy-choi.github.io/ChillMCP/install.sh | bash -s -- skill
-   ```
-
-9. Validate with Claude Code:
+1. Run all GitHub Actions workflows.
+2. Validate the Claude Code Marketplace and Plugin:
 
    ```bash
    claude plugin validate .
    ```
 
-10. Validate Agent Skills with the official reference tool:
+3. Validate Agent Skills with the current reference validator when available.
+4. Test from a clean user account:
 
    ```bash
-   skills-ref validate .agents/skills/caps-agent-security
-   skills-ref validate .agents/skills/caps-install
+   claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security
+   claude plugin install caps-security@caps-labs --scope user
+   curl -fsSL https://mutoy-choi.github.io/CAPS-Agent-Security/install.sh | bash -s -- skill
    ```
 
-11. Add the Pages property to Google Search Console and submit:
+5. Enable GitHub Pages using GitHub Actions.
+6. Create a signed release and update all component versions together.
+7. Submit `sitemap.xml` to search consoles.
+8. Confirm keyboard navigation, visible focus, 200% zoom, reduced motion, and screen-reader labels.
 
-   `https://mutoy-choi.github.io/ChillMCP/sitemap.xml`
+## Suggested repository metadata
 
-12. Submit the Plugin to Anthropic's official marketplace through the current Claude.ai or Console submission form after public testing.
+Description:
 
-## Search-content policy
+`Authorized LLM unlock research, Claude Code Plugin, Agent Skills, MCP security, prompt-injection and jailbreak ASR evaluation.`
 
-Use accurate visible descriptions. Do not add fake ratings, reviews, downloads, or security claims to structured data. Search indexing and rich results are never guaranteed.
+Topics:
+
+```text
+agent-skills
+ai-agent-security
+claude-code-plugin
+continuous-red-team
+jailbreak-benchmark
+llm-security
+mcp-security
+model-unlock
+multimodal-security
+prompt-injection
+security-testing
+```
+
+Search indexing and rich results are not guaranteed. Do not publish fabricated ratings, download counts, benchmark claims, or safety certifications.

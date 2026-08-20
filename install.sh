@@ -4,20 +4,27 @@ set -euo pipefail
 MODE="${1:-all}"
 SCOPE="${CAPS_SCOPE:-user}"
 REF="${CAPS_REF:-main}"
-REPO="${CAPS_REPO:-https://github.com/Mutoy-choi/ChillMCP.git}"
+REPO="${CAPS_REPO:-https://github.com/Mutoy-choi/CAPS-Agent-Security.git}"
 ORIGINAL_DIR="$PWD"
 
 usage() {
   cat <<'EOF'
-CAPS installer
+CAPS Unlock Lab installer
 
 Usage:
-  ./install.sh [all|plugin|skill]
+  ./install.sh [all|plugin|skill|verify|chat]
+
+Modes:
+  all      Install Agent Skills and the Claude Code Plugin when available
+  plugin   Install the Claude Code Plugin
+  skill    Install cross-client Agent Skills
+  verify   Clone CAPS and install CAPS Verify into a local virtual environment
+  chat     Clone CAPS and prepare CAPS Research Chat
 
 Environment:
-  CAPS_SCOPE=user|project   Installation scope (default: user)
-  CAPS_REF=main             Git branch or tag
-  CAPS_REPO=https://...     Repository URL
+  CAPS_SCOPE=user|project
+  CAPS_REF=main
+  CAPS_REPO=https://github.com/Mutoy-choi/CAPS-Agent-Security.git
 EOF
 }
 
@@ -25,18 +32,20 @@ if [[ "$MODE" == "-h" || "$MODE" == "--help" ]]; then
   usage
   exit 0
 fi
-if [[ "$MODE" != "all" && "$MODE" != "plugin" && "$MODE" != "skill" ]]; then
-  usage >&2
-  exit 2
-fi
+case "$MODE" in
+  all|plugin|skill|verify|chat) ;;
+  *) usage >&2; exit 2 ;;
+esac
 if [[ "$SCOPE" != "user" && "$SCOPE" != "project" ]]; then
   echo "CAPS_SCOPE must be user or project" >&2
   exit 2
 fi
-if ! command -v git >/dev/null 2>&1; then
-  echo "git is required" >&2
-  exit 1
-fi
+for command in git python3; do
+  if ! command -v "$command" >/dev/null 2>&1; then
+    echo "$command is required" >&2
+    exit 1
+  fi
+done
 
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
@@ -58,37 +67,54 @@ install_skills() {
     cp -R "$TMP_DIR/repo/.agents/skills/$skill" "$agents_root/$skill"
     cp -R "$TMP_DIR/repo/.agents/skills/$skill" "$claude_root/$skill"
   done
-  echo "Installed Agent Skills to:"
-  echo "  $agents_root"
-  echo "  $claude_root"
+  printf 'Installed Agent Skills:\n  %s\n  %s\n' "$agents_root" "$claude_root"
 }
 
 install_plugin() {
   if ! command -v claude >/dev/null 2>&1; then
-    if [[ "$MODE" == "plugin" ]]; then
-      echo "Claude Code CLI is required for plugin installation" >&2
-      exit 1
-    fi
-    echo "Claude Code CLI not found; skipped Plugin installation. Skills were still installed."
+    echo "Claude Code CLI not found; Plugin installation skipped." >&2
     return
   fi
-  claude plugin marketplace add Mutoy-choi/ChillMCP >/dev/null 2>&1 || \
+  claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security >/dev/null 2>&1 || \
     claude plugin marketplace update caps-labs >/dev/null 2>&1 || true
   claude plugin install caps-security@caps-labs --scope "$SCOPE"
-  echo "Installed Claude Code Plugin: caps-security@caps-labs"
+}
+
+install_verify() {
+  local destination venv python
+  destination="${CAPS_HOME:-$HOME/.local/share/caps-unlock-lab}"
+  rm -rf "$destination"
+  mkdir -p "$(dirname "$destination")"
+  cp -R "$TMP_DIR/repo" "$destination"
+  rm -rf "$destination/.git"
+  venv="$destination/.venv"
+  python3 -m venv "$venv"
+  python="$venv/bin/python"
+  "$python" -m pip install --upgrade pip
+  "$python" -m pip install -e "$destination/caps_verify[gateway]"
+  printf 'CAPS Verify installed at %s\nCLI directory: %s\n' "$destination" "$venv/bin"
+}
+
+prepare_chat() {
+  local destination
+  if ! command -v docker >/dev/null 2>&1; then
+    echo "Docker is required for CAPS Research Chat" >&2
+    exit 1
+  fi
+  destination="${CAPS_HOME:-$HOME/.local/share/caps-unlock-lab}"
+  rm -rf "$destination"
+  mkdir -p "$(dirname "$destination")"
+  cp -R "$TMP_DIR/repo" "$destination"
+  rm -rf "$destination/.git"
+  printf 'CAPS Research Chat prepared at %s/caps_app\nRun ./bootstrap.sh there.\n' "$destination"
 }
 
 case "$MODE" in
-  skill)
-    install_skills
-    ;;
-  plugin)
-    install_plugin
-    ;;
-  all)
-    install_skills
-    install_plugin
-    ;;
+  skill) install_skills ;;
+  plugin) install_plugin ;;
+  verify) install_verify ;;
+  chat) prepare_chat ;;
+  all) install_skills; install_plugin ;;
 esac
 
-echo "CAPS installation complete."
+printf 'CAPS installation complete.\n'

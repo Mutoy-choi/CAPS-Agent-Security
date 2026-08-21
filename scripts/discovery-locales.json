@@ -1,0 +1,207 @@
+{
+  "en": {
+    "path": "",
+    "html_lang": "en",
+    "og_locale": "en_US",
+    "name": "English",
+    "title": "CAPS Unlock Lab | AI-Agent Security, Prompt Injection & MCP Evaluation",
+    "description": "Cross-platform AI-agent security toolkit for authorized synthetic prompt-injection, MCP/tool-use, and restriction-bypass ASR evaluation across ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, and IDE agents.",
+    "skip": "Skip to main content",
+    "nav_platforms": "Platforms",
+    "nav_plugin": "Plugin",
+    "nav_skills": "Skills",
+    "nav_accessibility": "Accessibility",
+    "eyebrow": "Authorized synthetic evaluation · One core · Many agent hosts",
+    "h1": "Measure AI-agent security across every host.",
+    "lead": "Use one authorized synthetic evaluation workflow for ChatGPT, Codex, Claude Code, Gemini CLI, GitHub Copilot, Cursor, Cline, Windsurf, OpenCode, and MCP/API agents. CAPS scores real fixture actions—not just text that looks unsafe.",
+    "primary": "Choose your platform",
+    "secondary": "View source",
+    "install_note": "Inspect the installer before execution. Windows users can use install.ps1. Installation alone does not start telemetry, servers, or active probes.",
+    "platform_title": "Supported platforms",
+    "why_title": "Evaluate the path from context to action",
+    "quick_title": "Quick start by host",
+    "platform_more": "See Copilot, Cursor, Cline, Windsurf, Windows, OpenCode, and generic MCP installation paths",
+    "safety_title": "Safety boundary",
+    "safety": "Evaluate only systems you own or are explicitly authorized to test. Active probes belong in isolated synthetic sessions with fixture tools. Do not modify live-user requests, use real credentials or customer data, or connect destructive production actions.",
+    "footer": "Cross-platform authorized synthetic AI-agent security evaluation.",
+    "og_alt": "CAPS Unlock Lab — AI-agent security evaluation across ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, IDE agents, and MCP.",
+    "cards": [
+      [
+        "Instruction & context",
+        "Test prompts, attachments, AGENTS.md, CLAUDE.md, GEMINI.md, IDE rules, and indirect prompt injection."
+      ],
+      [
+        "Capability supply chain",
+        "Evaluate Plugin, extension, Skill, MCP metadata, tool responses, permission drift, and activation."
+      ],
+      [
+        "Deterministic outcomes",
+        "Measure forbidden fixture tool calls and sandbox state changes alongside benign utility and defense overhead."
+      ]
+    ]
+  },
+  "ko": {
+    "path": "ko/",
+    "html_lang": "ko",
+    "og_locale": "ko_KR",
+    "name": "한국어",
+    "title": "CAPS Unlock Lab | AI 에이전트 보안·프롬프트 인젝션·MCP 평가",
+    "description": "ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, IDE Agent와 MCP에서 승인된 synthetic prompt-injection, Tool-use, 제한 해제 ASR을 평가하는 크로스플랫폼 AI 에이전트 보안 도구입니다.",
+    "skip": "본문으로 바로 이동",
+    "nav_platforms": "플랫폼",
+    "nav_plugin": "Plugin",
+    "nav_skills": "Skills",
+    "nav_accessibility": "접근성",
+    "eyebrow": "승인된 synthetic 평가 · 하나의 코어 · 여러 Agent host",
+    "h1": "모든 Agent 환경에서 보안 행동을 측정합니다.",
+    "lead": "ChatGPT, Codex, Claude Code, Gemini CLI, GitHub Copilot, Cursor, Cline, Windsurf, OpenCode, MCP/API Agent에 동일한 승인 기반 synthetic 평가 흐름을 적용합니다. CAPS는 위험해 보이는 문장만이 아니라 실제 fixture 행동을 점수화합니다.",
+    "primary": "내 플랫폼 선택",
+    "secondary": "소스 보기",
+    "install_note": "실행 전에 Installer를 검토하십시오. Windows에서는 install.ps1을 사용할 수 있습니다. 설치만으로 텔레메트리, 서버 또는 능동 probe가 시작되지 않습니다.",
+    "platform_title": "지원 플랫폼",
+    "why_title": "Context가 행동으로 변하는 전체 경로를 평가",
+    "quick_title": "Host별 빠른 시작",
+    "platform_more": "Copilot, Cursor, Cline, Windsurf, Windows, OpenCode 및 generic MCP 설치 경로 보기",
+    "safety_title": "안전 경계",
+    "safety": "소유하거나 명시적으로 승인받은 시스템만 평가하십시오. 능동 probe는 fixture Tool을 사용하는 격리된 synthetic 세션에서 실행해야 합니다. Live 사용자 요청을 변경하거나 실제 자격증명·고객 데이터·파괴적인 production 행동을 연결하지 마십시오.",
+    "footer": "크로스플랫폼 승인 기반 synthetic AI 에이전트 보안 평가.",
+    "og_alt": "CAPS Unlock Lab — ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, IDE Agent와 MCP를 위한 AI 에이전트 보안 평가.",
+    "cards": [
+      [
+        "Instruction & context",
+        "Prompt, 첨부파일, AGENTS.md, CLAUDE.md, GEMINI.md, IDE rule과 indirect prompt injection을 평가합니다."
+      ],
+      [
+        "Capability supply chain",
+        "Plugin, extension, Skill, MCP metadata, Tool response, 권한 drift와 activation을 검사합니다."
+      ],
+      [
+        "Deterministic outcomes",
+        "금지된 fixture Tool 호출과 sandbox 상태 변화를 benign utility 및 방어 비용과 함께 측정합니다."
+      ]
+    ]
+  },
+  "ja": {
+    "path": "ja/",
+    "html_lang": "ja",
+    "og_locale": "ja_JP",
+    "name": "日本語",
+    "title": "CAPS Unlock Lab | AIエージェントセキュリティ・Prompt Injection・MCP評価",
+    "description": "ChatGPT、Codex、Claude Code、Gemini CLI、Copilot、IDE Agent、MCPで、許可されたsynthetic prompt injection、tool-use、制限回避ASRを評価するクロスプラットフォームツールです。",
+    "skip": "メインコンテンツへ移動",
+    "nav_platforms": "プラットフォーム",
+    "nav_plugin": "Plugin",
+    "nav_skills": "Skills",
+    "nav_accessibility": "アクセシビリティ",
+    "eyebrow": "許可されたsynthetic評価 · 1つのコア · 複数のAgent host",
+    "h1": "すべてのAgent環境でセキュリティ動作を測定する。",
+    "lead": "ChatGPT、Codex、Claude Code、Gemini CLI、GitHub Copilot、Cursor、Cline、Windsurf、OpenCode、MCP/API Agentに同じ許可ベースのsynthetic評価フローを適用します。CAPSは危険に見える文章だけでなく、実際のfixture actionを採点します。",
+    "primary": "プラットフォームを選ぶ",
+    "secondary": "ソースを見る",
+    "install_note": "実行前にInstallerを確認してください。Windowsではinstall.ps1を利用できます。インストールだけでtelemetry、server、active probeが開始されることはありません。",
+    "platform_title": "対応プラットフォーム",
+    "why_title": "ContextからActionまでの経路を評価",
+    "quick_title": "Host別クイックスタート",
+    "platform_more": "Copilot、Cursor、Cline、Windsurf、Windows、OpenCode、generic MCPのインストール方法を見る",
+    "safety_title": "安全境界",
+    "safety": "所有している、または明示的に許可されたシステムのみを評価してください。Active probeはfixture Toolを使う隔離されたsynthetic sessionで実行します。Live user requestの変更、実credential・customer data・破壊的なproduction actionの接続は禁止です。",
+    "footer": "クロスプラットフォームの許可ベースsynthetic AIエージェントセキュリティ評価。",
+    "og_alt": "CAPS Unlock Lab — ChatGPT、Codex、Claude Code、Gemini CLI、Copilot、IDE Agent、MCP向けAIエージェントセキュリティ評価。",
+    "cards": [
+      [
+        "Instruction & context",
+        "Prompt、添付ファイル、AGENTS.md、CLAUDE.md、GEMINI.md、IDE rule、indirect prompt injectionを評価します。"
+      ],
+      [
+        "Capability supply chain",
+        "Plugin、extension、Skill、MCP metadata、Tool response、permission drift、activationを検査します。"
+      ],
+      [
+        "Deterministic outcomes",
+        "禁止されたfixture Tool callとsandbox state changeをbenign utilityや防御コストとともに測定します。"
+      ]
+    ]
+  },
+  "zh-CN": {
+    "path": "zh-cn/",
+    "html_lang": "zh-CN",
+    "og_locale": "zh_CN",
+    "name": "简体中文",
+    "title": "CAPS Unlock Lab | AI 智能体安全、提示注入与 MCP 评测",
+    "description": "面向 ChatGPT、Codex、Claude Code、Gemini CLI、Copilot、IDE 智能体和 MCP 的跨平台安全工具，用于经授权的合成提示注入、工具调用与限制绕过 ASR 评测。",
+    "skip": "跳到主要内容",
+    "nav_platforms": "平台",
+    "nav_plugin": "插件",
+    "nav_skills": "Skills",
+    "nav_accessibility": "无障碍",
+    "eyebrow": "经授权的合成评测 · 一套核心 · 多种智能体宿主",
+    "h1": "在每一种智能体环境中测量安全行为。",
+    "lead": "为 ChatGPT、Codex、Claude Code、Gemini CLI、GitHub Copilot、Cursor、Cline、Windsurf、OpenCode 和 MCP/API 智能体使用同一套经授权的合成评测流程。CAPS 衡量真实的 fixture 动作，而不只是看起来不安全的文本。",
+    "primary": "选择你的平台",
+    "secondary": "查看源码",
+    "install_note": "执行前请先检查安装脚本。Windows 可使用 install.ps1。仅安装不会启动遥测、服务器或主动探测。",
+    "platform_title": "支持的平台",
+    "why_title": "评估从上下文到动作的完整路径",
+    "quick_title": "按宿主快速开始",
+    "platform_more": "查看 Copilot、Cursor、Cline、Windsurf、Windows、OpenCode 与通用 MCP 安装路径",
+    "safety_title": "安全边界",
+    "safety": "只评估你拥有或明确获准测试的系统。主动 probe 必须在使用 fixture Tool 的隔离 synthetic session 中运行。不要修改真实用户请求，也不要接入真实凭据、客户数据或破坏性的生产动作。",
+    "footer": "跨平台、经授权的合成 AI 智能体安全评测。",
+    "og_alt": "CAPS Unlock Lab — 面向 ChatGPT、Codex、Claude Code、Gemini CLI、Copilot、IDE 智能体与 MCP 的 AI 智能体安全评测。",
+    "cards": [
+      [
+        "指令与上下文",
+        "评估 Prompt、附件、AGENTS.md、CLAUDE.md、GEMINI.md、IDE 规则与间接提示注入。"
+      ],
+      [
+        "能力供应链",
+        "检查 Plugin、extension、Skill、MCP metadata、Tool response、权限 drift 与 activation。"
+      ],
+      [
+        "确定性结果",
+        "结合 benign utility 和防御开销，测量被禁止的 fixture Tool 调用及 sandbox 状态变化。"
+      ]
+    ]
+  },
+  "es": {
+    "path": "es/",
+    "html_lang": "es",
+    "og_locale": "es_ES",
+    "name": "Español",
+    "title": "CAPS Unlock Lab | Seguridad de agentes de IA, Prompt Injection y MCP",
+    "description": "Toolkit multiplataforma para evaluar de forma sintética y autorizada prompt injection, seguridad MCP/uso de herramientas y ASR de debilitamiento de restricciones en ChatGPT, Codex, Claude Code, Gemini CLI, Copilot y agentes IDE.",
+    "skip": "Saltar al contenido principal",
+    "nav_platforms": "Plataformas",
+    "nav_plugin": "Plugin",
+    "nav_skills": "Skills",
+    "nav_accessibility": "Accesibilidad",
+    "eyebrow": "Evaluación sintética autorizada · Un núcleo · Muchos hosts de agentes",
+    "h1": "Mide la seguridad de agentes de IA en cualquier host.",
+    "lead": "Usa el mismo flujo de evaluación sintética autorizada en ChatGPT, Codex, Claude Code, Gemini CLI, GitHub Copilot, Cursor, Cline, Windsurf, OpenCode y agentes MCP/API. CAPS puntúa acciones reales de fixtures, no solo texto que parece inseguro.",
+    "primary": "Elige tu plataforma",
+    "secondary": "Ver código fuente",
+    "install_note": "Revisa el instalador antes de ejecutarlo. En Windows puedes usar install.ps1. La instalación por sí sola no inicia telemetría, servidores ni probes activos.",
+    "platform_title": "Plataformas compatibles",
+    "why_title": "Evalúa la ruta completa del contexto a la acción",
+    "quick_title": "Inicio rápido por host",
+    "platform_more": "Ver instalaciones para Copilot, Cursor, Cline, Windsurf, Windows, OpenCode y MCP genérico",
+    "safety_title": "Límite de seguridad",
+    "safety": "Evalúa únicamente sistemas que te pertenezcan o para los que tengas autorización explícita. Los probes activos deben ejecutarse en sesiones sintéticas aisladas con herramientas fixture. No modifiques solicitudes de usuarios reales ni conectes credenciales, datos de clientes o acciones destructivas de producción.",
+    "footer": "Evaluación multiplataforma, sintética y autorizada de seguridad de agentes de IA.",
+    "og_alt": "CAPS Unlock Lab — evaluación de seguridad de agentes de IA para ChatGPT, Codex, Claude Code, Gemini CLI, Copilot, agentes IDE y MCP.",
+    "cards": [
+      [
+        "Instrucciones y contexto",
+        "Evalúa prompts, adjuntos, AGENTS.md, CLAUDE.md, GEMINI.md, reglas de IDE e indirect prompt injection."
+      ],
+      [
+        "Cadena de suministro de capacidades",
+        "Examina Plugin, extensión, Skill, metadata MCP, respuestas de herramientas, permission drift y activation."
+      ],
+      [
+        "Resultados deterministas",
+        "Mide llamadas prohibidas a herramientas fixture y cambios de estado del sandbox junto con benign utility y coste defensivo."
+      ]
+    ]
+  }
+}

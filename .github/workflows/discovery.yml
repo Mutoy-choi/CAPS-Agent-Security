@@ -1,0 +1,37 @@
+name: Discovery Site
+
+on:
+  pull_request:
+    paths:
+      - "site/**"
+      - "scripts/build_discovery_site.py"
+      - "scripts/discovery-locales.json"
+      - "scripts/social-card.b64"
+      - "scripts/validate_discovery.py"
+      - ".github/workflows/discovery.yml"
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/build_discovery_site.py"
+      - "scripts/discovery-locales.json"
+      - "scripts/social-card.b64"
+      - "scripts/validate_discovery.py"
+      - ".github/workflows/discovery.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build localized discovery site
+        run: python scripts/build_discovery_site.py
+      - name: Validate localized search and social discovery
+        run: python scripts/validate_discovery.py

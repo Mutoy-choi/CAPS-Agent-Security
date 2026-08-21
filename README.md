@@ -10,7 +10,7 @@
 [![Research Chat](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/caps-app.yml/badge.svg)](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/caps-app.yml)
 [![Distribution](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/distribution.yml/badge.svg)](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/distribution.yml)
 
-[내 플랫폼에서 시작](#내-플랫폼에서-시작) · [CAPS가 하는 일](#caps가-하는-일) · [ASR](#asr은-어떻게-측정하나) · [구성](#하나의-코어-여러-플랫폼) · [문제 해결](#문제-해결)
+[내 플랫폼에서 시작](#내-플랫폼에서-시작) · [내장 연구](#기존-연구와-라이브러리를-내장) · [ASR](#asr은-어떻게-측정하나) · [구성](#하나의-코어-여러-플랫폼) · [문제 해결](#문제-해결)
 
 </div>
 
@@ -153,6 +153,90 @@ Attachment-to-Action ASR
 - Safety Drift
 - Latency, token, cost overhead
 
+## 기존 연구와 라이브러리를 내장
+
+CAPS는 논문 이름만 README에 나열하지 않습니다. **출처가 연결된 synthetic probe를 공통 Attack Pack으로 정규화하고, 기존 평가 생태계에 내보낼 수 있게 내장**합니다.
+
+### 내장 프로필
+
+| 프로필 | 연구에서 가져온 평가 아이디어 |
+|---|---|
+| `core` | PromptInject-style attachment conflict, AgentDojo-style tool-output injection, MCPTox-style tool metadata poisoning, paired benign control, composition |
+| `adaptive` | `core` + FITD-style progressive multi-turn + PyRIT-ready adaptive seed |
+| `reasoning` | `core` + CoT-Hijacking-inspired long benign-context dilution diagnostic |
+| `multimodal` | `core` + FigStep-inspired native typographic image |
+| `full` | 모든 내장 프로필 |
+
+외부 논문의 원본 prompt·위험 데이터셋을 복제하지 않습니다. CAPS는 canary와 fixture tool만 사용하는 자체 synthetic adaptation을 제공하며, 프로필 이름은 논문 ASR의 정확한 재현을 뜻하지 않습니다.
+
+```bash
+cd caps_verify
+caps-verify research list
+caps-verify research describe --profile full
+caps-verify research sources
+```
+
+### 선택 설치형 라이브러리
+
+```bash
+pip install -e ".[research]"
+```
+
+권장 bundle에는 다음이 포함됩니다.
+
+```text
+Inspect AI     재현 가능한 Task·Tool loop·Scorer·Log
+PyRIT          SeedDataset·adaptive/multi-turn orchestration
+AgentDojo      agent prompt-injection task and utility mapping
+Pillow         native typographic-image probe rendering
+```
+
+garak까지 포함하려면 지원되는 Python 버전에서:
+
+```bash
+pip install -e ".[research-all]"
+```
+
+환경 확인:
+
+```bash
+caps-verify research doctor
+```
+
+### 한 번에 브리지 생성
+
+```bash
+caps-verify research export \
+  --profile full \
+  --output artifacts/research-full \
+  --endpoint http://127.0.0.1:8788/v1/chat/completions \
+  --model your-model-id
+```
+
+생성 결과:
+
+```text
+caps-attack-pack.json       CAPS Shadow Worker
+inspect-dataset.jsonl       Inspect normalized records
+pyrit-seeds.prompt          PyRIT SeedDataset YAML/JSON
+garak-rest.json             garak RestGenerator config
+agentdojo-scenarios.json    AgentDojo custom-suite mapping
+artifacts/*.png             native image canary
+SOURCES.md                   논문·라이브러리·버전·라이선스
+manifest.sha256.json         evidence hashes
+```
+
+Inspect AI용 native task도 함께 등록됩니다.
+
+```bash
+inspect eval \
+  src/caps_verify/integrations/inspect_task.py@caps_research \
+  -T profile=core \
+  --model your-provider/your-model
+```
+
+상세 설명과 연구 출처는 [`caps_verify/docs/research-library-integrations.md`](caps_verify/docs/research-library-integrations.md)를 확인하십시오.
+
 ## 가장 빠른 로컬 실험
 
 ```bash
@@ -168,6 +252,9 @@ caps-verify demo --output artifacts/demo --repetitions 10
 주요 명령:
 
 ```bash
+caps-verify research list
+caps-verify research doctor
+caps-verify research build --profile core --output artifacts/core.json
 caps-verify-runtime --help
 caps-verify-gateway --help
 caps-verify-shadow-worker --help
@@ -190,7 +277,7 @@ skills/                         canonical Skills
 .clinerules/                    Cline adapter
 .windsurf/                      Windsurf adapter
 .agents/skills/                 Codex · OpenCode · shared discovery
-caps_verify/                    platform-neutral Runtime and MCP
+caps_verify/                    Runtime, research profiles, library bridges, MCP
 caps_app/                       accessible Research Chat
 ```
 
@@ -201,6 +288,7 @@ caps_app/                       accessible Research Chat
 - **Skill만 필요:** `skill`, `codex`, `opencode`, 또는 Copilot Skill 설치.
 - **호스트의 native package가 필요:** Claude Code Plugin 또는 Gemini CLI extension.
 - **실제 ASR 실행이 필요:** `verify`로 CAPS Verify Runtime 설치.
+- **기존 평가 라이브러리와 연결:** `research` 또는 `research-all` extra 설치.
 - **일반 사용자가 쓸 UI가 필요:** `chat`으로 Research Chat 준비.
 - **MCP fixture가 필요:** CAPS Verify 설치 후 `caps-verify-mcp` 연결.
 
@@ -232,6 +320,7 @@ Installer는 기존의 공용 설정 파일을 덮어쓰지 않고 CAPS 전용 �
 - 능동 공격은 live 사용자 대화가 아닌 격리된 synthetic 세션에서 실행합니다.
 - 실제 사용자 질문에 숨겨진 jailbreak 문구를 덧붙이지 않습니다.
 - 실제 자격증명, 고객 문서, 결제, 외부 전송, 삭제 가능한 운영 Tool을 fixture로 사용하지 않습니다.
+- 원격 research bridge는 명시적인 승인 옵션 없이는 생성하지 않습니다.
 - Plugin과 Skill 설치만으로 텔레메트리, 데이터 기여, MCP, Hook, Gateway가 활성화되지 않습니다.
 - synthetic ASR을 특정 상용 모델의 보편적인 안전성 인증으로 과장하지 않습니다.
 
@@ -257,14 +346,19 @@ Installer는 기존의 공용 설정 파일을 덮어쓰지 않고 CAPS 전용 �
 
 기본 Shadow ASR은 표준 synthetic Tool 구성을 사용합니다. 실제 System Prompt, Plugin, Skill, MCP 권한, 승인 흐름까지 반영하려면 capability twin과 host probe가 필요합니다.
 
+### 논문의 수치와 CAPS 수치가 다름
+
+CAPS 내장 프로필은 평가 아이디어를 안전한 fixture 행동으로 정규화한 것입니다. 모델, 데이터, TTS/OCR, judge, 공격 budget, Tool 구성과 성공 조건이 원 논문과 다르므로 수치를 직접 동일시하지 마십시오.
+
 ## 링크
 
 - Discovery site: `https://mutoy-choi.github.io/CAPS-Agent-Security/`
 - Source: `https://github.com/Mutoy-choi/CAPS-Agent-Security`
 - Platform matrix: [PLATFORMS.md](PLATFORMS.md)
+- Research integrations: [caps_verify/docs/research-library-integrations.md](caps_verify/docs/research-library-integrations.md)
 - Distribution checklist: [DISTRIBUTION.md](DISTRIBUTION.md)
 - Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## 상태
 
-CAPS Unlock Lab은 빠르게 변하는 연구용 프로젝트입니다. 결과에는 모델 snapshot, host, attack-pack version, 예산, defense configuration, valid/excluded runs, confidence interval, 그리고 evidence hash를 함께 기록하십시오.
+CAPS Unlock Lab은 빠르게 변하는 연구용 프로젝트입니다. 결과에는 모델 snapshot, host, attack-pack version, optional-library versions, 예산, defense configuration, valid/excluded runs, confidence interval, 그리고 evidence hash를 함께 기록하십시오.

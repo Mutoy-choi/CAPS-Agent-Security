@@ -1,5 +1,5 @@
 param(
-  [ValidateSet('skill','codex','chatgpt','claude','gemini','copilot','cursor','cline','windsurf','opencode','verify','mcp','chat','all')]
+  [ValidateSet('skill','codex','chatgpt','claude','gemini','copilot','cursor','cline','windsurf','opencode','verify','research','research-all','mcp','chat','all')]
   [string]$Mode = 'skill',
   [ValidateSet('user','project')]
   [string]$Scope = $(if ($env:CAPS_SCOPE) { $env:CAPS_SCOPE } else { 'user' })
@@ -16,8 +16,11 @@ $Checkout = Join-Path $Temp 'repo'
 $CheckoutReady = $false
 
 function Need([string]$Command) {
-  if (-not (Get-Command $Command -ErrorAction SilentlyContinue)) { throw "$Command is required for mode '$Mode'" }
+  if (-not (Get-Command $Command -ErrorAction SilentlyContinue)) {
+    throw "$Command is required for mode '$Mode'"
+  }
 }
+
 function Ensure-Checkout {
   if ($script:CheckoutReady) { return }
   Need 'git'
@@ -25,6 +28,7 @@ function Ensure-Checkout {
   git clone --quiet --depth 1 --branch $Ref $Repo $Checkout
   $script:CheckoutReady = $true
 }
+
 function Copy-Skills([string]$Destination) {
   Ensure-Checkout
   New-Item -ItemType Directory -Force -Path $Destination | Out-Null
@@ -35,34 +39,62 @@ function Copy-Skills([string]$Destination) {
   }
   Write-Host "  $Destination"
 }
+
 function Install-SharedSkills {
   Write-Host 'Installing CAPS Agent Skills to:'
   if ($Scope -eq 'project') {
-    Copy-Skills (Join-Path $Project '.agents/skills'); Copy-Skills (Join-Path $Project '.claude/skills'); Copy-Skills (Join-Path $Project '.github/skills')
+    Copy-Skills (Join-Path $Project '.agents/skills')
+    Copy-Skills (Join-Path $Project '.claude/skills')
+    Copy-Skills (Join-Path $Project '.github/skills')
   } else {
-    Copy-Skills (Join-Path $HOME '.agents/skills'); Copy-Skills (Join-Path $HOME '.claude/skills'); Copy-Skills (Join-Path $HOME '.copilot/skills'); Copy-Skills (Join-Path $HOME '.config/opencode/skills')
+    Copy-Skills (Join-Path $HOME '.agents/skills')
+    Copy-Skills (Join-Path $HOME '.claude/skills')
+    Copy-Skills (Join-Path $HOME '.copilot/skills')
+    Copy-Skills (Join-Path $HOME '.config/opencode/skills')
   }
 }
+
 function Install-Codex {
-  if ($Scope -eq 'project') { Copy-Skills (Join-Path $Project '.agents/skills') } else { Copy-Skills (Join-Path $HOME '.agents/skills') }
-  Ensure-Checkout; New-Item -ItemType Directory -Force -Path $CapsHome | Out-Null
-  $Target = Join-Path $CapsHome 'openai-plugin'; Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $Target
+  if ($Scope -eq 'project') { Copy-Skills (Join-Path $Project '.agents/skills') }
+  else { Copy-Skills (Join-Path $HOME '.agents/skills') }
+  Ensure-Checkout
+  New-Item -ItemType Directory -Force -Path $CapsHome | Out-Null
+  $Target = Join-Path $CapsHome 'openai-plugin'
+  Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $Target
   Copy-Item -Recurse (Join-Path $Checkout 'plugins/caps-unlock') $Target
   Write-Host "Local ChatGPT/Codex Plugin package: $Target"
 }
+
 function Install-Claude {
-  Need 'claude'; try { claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security | Out-Null } catch { claude plugin marketplace update caps-labs | Out-Null }
+  Need 'claude'
+  try { claude plugin marketplace add Mutoy-choi/CAPS-Agent-Security | Out-Null }
+  catch { claude plugin marketplace update caps-labs | Out-Null }
   claude plugin install caps-unlock@caps-labs --scope $Scope
 }
-function Install-Gemini { Need 'gemini'; try { gemini extensions install $RepoWeb --auto-update } catch { gemini extensions update caps-unlock-lab } }
+
+function Install-Gemini {
+  Need 'gemini'
+  try { gemini extensions install $RepoWeb --auto-update }
+  catch { gemini extensions update caps-unlock-lab }
+}
+
 function Install-Copilot {
   Ensure-Checkout
   if ($Scope -eq 'project') {
-    Copy-Skills (Join-Path $Project '.github/skills'); New-Item -ItemType Directory -Force -Path (Join-Path $Project '.github/agents') | Out-Null
+    Copy-Skills (Join-Path $Project '.github/skills')
+    New-Item -ItemType Directory -Force -Path (Join-Path $Project '.github/agents') | Out-Null
     Copy-Item (Join-Path $Checkout '.github/agents/caps-unlock.md') (Join-Path $Project '.github/agents/caps-unlock.md') -Force
-    $Instructions = Join-Path $Project '.github/copilot-instructions.md'; if (-not (Test-Path $Instructions)) { Copy-Item (Join-Path $Checkout '.github/copilot-instructions.md') $Instructions }
-  } else { Copy-Skills (Join-Path $HOME '.copilot/skills') }
+    $Instructions = Join-Path $Project '.github/copilot-instructions.md'
+    if (-not (Test-Path $Instructions)) {
+      Copy-Item (Join-Path $Checkout '.github/copilot-instructions.md') $Instructions
+    } else {
+      Write-Host 'Existing .github/copilot-instructions.md kept unchanged.'
+    }
+  } else {
+    Copy-Skills (Join-Path $HOME '.copilot/skills')
+  }
 }
+
 function Install-ProjectAdapter([string]$Platform) {
   Ensure-Checkout
   if ($Platform -eq 'cursor') {
@@ -74,26 +106,69 @@ function Install-ProjectAdapter([string]$Platform) {
     Copy-Item (Join-Path $Checkout '.clinerules/caps-unlock.md') (Join-Path $Project '.clinerules/caps-unlock.md') -Force
     Copy-Item (Join-Path $Checkout '.clinerules/workflows/caps-unlock-audit.md') (Join-Path $Project '.clinerules/workflows/caps-unlock-audit.md') -Force
   } else {
-    New-Item -ItemType Directory -Force -Path (Join-Path $Project '.windsurf/rules') | Out-Null; New-Item -ItemType Directory -Force -Path (Join-Path $Project '.windsurf/workflows') | Out-Null
+    New-Item -ItemType Directory -Force -Path (Join-Path $Project '.windsurf/rules') | Out-Null
+    New-Item -ItemType Directory -Force -Path (Join-Path $Project '.windsurf/workflows') | Out-Null
     Copy-Item (Join-Path $Checkout '.windsurf/rules/caps-unlock.md') (Join-Path $Project '.windsurf/rules/caps-unlock.md') -Force
     Copy-Item (Join-Path $Checkout '.windsurf/workflows/caps-unlock-audit.md') (Join-Path $Project '.windsurf/workflows/caps-unlock-audit.md') -Force
   }
 }
-function Install-OpenCode { if ($Scope -eq 'project') { Copy-Skills (Join-Path $Project '.agents/skills') } else { Copy-Skills (Join-Path $HOME '.config/opencode/skills') } }
-function Install-Verify {
-  Need 'python'; Ensure-Checkout; Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $CapsHome; New-Item -ItemType Directory -Force -Path (Split-Path $CapsHome) | Out-Null
-  Copy-Item -Recurse $Checkout $CapsHome; Remove-Item -Recurse -Force -ErrorAction SilentlyContinue (Join-Path $CapsHome '.git')
-  $Venv = Join-Path $CapsHome '.venv'; python -m venv $Venv; $Python = Join-Path $Venv 'Scripts/python.exe'
-  & $Python -m pip install --upgrade pip; & $Python -m pip install -e "$(Join-Path $CapsHome 'caps_verify')[gateway,mcp]"
+
+function Install-OpenCode {
+  if ($Scope -eq 'project') { Copy-Skills (Join-Path $Project '.agents/skills') }
+  else { Copy-Skills (Join-Path $HOME '.config/opencode/skills') }
 }
-function Prepare-Chat { Need 'docker'; Ensure-Checkout; Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $CapsHome; New-Item -ItemType Directory -Force -Path (Split-Path $CapsHome) | Out-Null; Copy-Item -Recurse $Checkout $CapsHome; Remove-Item -Recurse -Force -ErrorAction SilentlyContinue (Join-Path $CapsHome '.git'); Write-Host "Research Chat: $(Join-Path $CapsHome 'caps_app')" }
+
+function Install-Verify([string]$Extras = 'gateway,mcp') {
+  Need 'python'
+  Ensure-Checkout
+  Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $CapsHome
+  New-Item -ItemType Directory -Force -Path (Split-Path $CapsHome) | Out-Null
+  Copy-Item -Recurse $Checkout $CapsHome
+  Remove-Item -Recurse -Force -ErrorAction SilentlyContinue (Join-Path $CapsHome '.git')
+  $Venv = Join-Path $CapsHome '.venv'
+  python -m venv $Venv
+  $Python = Join-Path $Venv 'Scripts/python.exe'
+  & $Python -m pip install --upgrade pip
+  & $Python -m pip install -e "$(Join-Path $CapsHome 'caps_verify')[$Extras]"
+  Write-Host "CAPS Verify installed at $CapsHome"
+  $CapsVerify = Join-Path $Venv 'Scripts/caps-verify.exe'
+  if (Test-Path $CapsVerify) { & $CapsVerify research doctor }
+}
+
+function Prepare-Chat {
+  Need 'docker'
+  Ensure-Checkout
+  Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $CapsHome
+  New-Item -ItemType Directory -Force -Path (Split-Path $CapsHome) | Out-Null
+  Copy-Item -Recurse $Checkout $CapsHome
+  Remove-Item -Recurse -Force -ErrorAction SilentlyContinue (Join-Path $CapsHome '.git')
+  Write-Host "Research Chat: $(Join-Path $CapsHome 'caps_app')"
+}
 
 try {
   switch ($Mode) {
-    'skill' { Install-SharedSkills }; 'codex' { Install-Codex }; 'chatgpt' { Install-Codex }; 'claude' { Install-Claude }; 'gemini' { Install-Gemini }; 'copilot' { Install-Copilot }
-    'cursor' { Install-ProjectAdapter 'cursor' }; 'cline' { Install-ProjectAdapter 'cline' }; 'windsurf' { Install-ProjectAdapter 'windsurf' }; 'opencode' { Install-OpenCode }
-    'verify' { Install-Verify }; 'mcp' { Install-Verify }; 'chat' { Prepare-Chat }
-    'all' { Install-SharedSkills; if (Get-Command claude -ErrorAction SilentlyContinue) { Install-Claude }; if (Get-Command gemini -ErrorAction SilentlyContinue) { Install-Gemini } }
+    'skill' { Install-SharedSkills }
+    'codex' { Install-Codex }
+    'chatgpt' { Install-Codex }
+    'claude' { Install-Claude }
+    'gemini' { Install-Gemini }
+    'copilot' { Install-Copilot }
+    'cursor' { Install-ProjectAdapter 'cursor' }
+    'cline' { Install-ProjectAdapter 'cline' }
+    'windsurf' { Install-ProjectAdapter 'windsurf' }
+    'opencode' { Install-OpenCode }
+    'verify' { Install-Verify 'gateway,mcp' }
+    'mcp' { Install-Verify 'gateway,mcp' }
+    'research' { Install-Verify 'gateway,mcp,research' }
+    'research-all' { Install-Verify 'gateway,mcp,research-all' }
+    'chat' { Prepare-Chat }
+    'all' {
+      Install-SharedSkills
+      if (Get-Command claude -ErrorAction SilentlyContinue) { Install-Claude }
+      if (Get-Command gemini -ErrorAction SilentlyContinue) { Install-Gemini }
+    }
   }
   Write-Host 'CAPS installation complete. Restart the host if the Skill does not appear immediately.'
-} finally { Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $Temp }
+} finally {
+  Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $Temp
+}

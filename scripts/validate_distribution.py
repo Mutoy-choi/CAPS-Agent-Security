@@ -11,6 +11,8 @@ PAGES = "https://mutoy-choi.github.io/CAPS-Agent-Security/"
 REPOSITORY = "https://github.com/Mutoy-choi/CAPS-Agent-Security"
 VERSION = "0.8.0"
 SKILLS = ("caps-agent-security", "caps-install")
+RESEARCH_PROFILES = {"core", "adaptive", "reasoning", "multimodal", "full"}
+RESEARCH_LIBRARIES = {"inspect-ai", "pyrit", "garak", "agentdojo"}
 
 
 def load_json(path: str) -> dict:
@@ -53,7 +55,12 @@ def validate_canonical_skills() -> None:
         assert (skill_root / "references/PLATFORMS.md").is_file()
         metadata = skill_root / "agents/openai.yaml"
         text = metadata.read_text(encoding="utf-8")
-        for key in ("display_name:", "short_description:", "default_prompt:", "allow_implicit_invocation:"):
+        for key in (
+            "display_name:",
+            "short_description:",
+            "default_prompt:",
+            "allow_implicit_invocation:",
+        ):
             assert key in text
 
 
@@ -157,17 +164,117 @@ def validate_installers() -> None:
         "windsurf",
         "opencode",
         "verify",
+        "research",
+        "research-all",
         "mcp",
         "chat",
     ):
         assert mode in shell and mode in powershell
+    assert "gateway,mcp,research" in shell and "gateway,mcp,research" in powershell
+    assert "research-all" in shell and "research-all" in powershell
     assert "$caps-agent-security" not in shell, "Escape the Codex $skill name in shell output"
+
+
+def validate_research_integrations() -> None:
+    pyproject = tomllib.loads((ROOT / "caps_verify/pyproject.toml").read_text(encoding="utf-8"))
+    project = pyproject["project"]
+    assert project["version"] == VERSION
+    extras = project["optional-dependencies"]
+    for extra in (
+        "inspect",
+        "pyrit",
+        "garak",
+        "agentdojo",
+        "multimodal",
+        "research",
+        "research-all",
+    ):
+        assert extra in extras and extras[extra], f"Missing optional extra: {extra}"
+    entry_points = project["entry-points"]["inspect_ai"]
+    assert entry_points["caps_verify"] == "caps_verify.integrations.inspect_registry"
+
+    registry = load_json(
+        "caps_verify/src/caps_verify/resources/research_registry.json"
+    )
+    profiles = load_json(
+        "caps_verify/src/caps_verify/resources/research_profiles.json"
+    )
+    assert registry["schema_version"] == "caps.research.registry.v1"
+    assert profiles["schema_version"] == "caps.research.profiles.v1"
+    assert registry["policy"]["synthetic_canaries_only"] is True
+    assert registry["policy"]["live_query_mutation"] is False
+    assert registry["policy"]["real_side_effects"] is False
+    assert registry["policy"]["raw_third_party_datasets_bundled"] is False
+    assert {row["library_id"] for row in registry["libraries"]} == RESEARCH_LIBRARIES
+    source_ids = {row["source_id"] for row in registry["sources"]}
+    assert {
+        "promptinject",
+        "agentdojo",
+        "mcptox",
+        "fitd",
+        "cot-hijacking",
+        "figstep",
+    }.issubset(source_ids)
+    assert set(profiles["profiles"]) == RESEARCH_PROFILES
+    assert len(profiles["profiles"]["core"]["probes"]) == 5
+    assert set(profiles["profiles"]["full"]["extends"]) == {
+        "adaptive",
+        "reasoning",
+        "multimodal",
+    }
+    probe_rows = profiles["probes"]
+    assert len(probe_rows) == 9
+    for probe_id, probe in probe_rows.items():
+        assert probe["probe_id"] == probe_id
+        assert probe["kind"] in {"benign", "attack"}
+        assert probe["family"] and probe["strategy"]
+        assert isinstance(probe.get("source_ids"), list)
+        assert isinstance(probe.get("library_ids"), list)
+        assert set(probe["source_ids"]).issubset(source_ids)
+        assert set(probe["library_ids"]).issubset(RESEARCH_LIBRARIES)
+
+    required = (
+        "caps_verify/src/caps_verify/research.py",
+        "caps_verify/src/caps_verify/integrations/__init__.py",
+        "caps_verify/src/caps_verify/integrations/inspect_task.py",
+        "caps_verify/src/caps_verify/integrations/inspect_registry.py",
+        "caps_verify/docs/research-library-integrations.md",
+        "caps_verify/tests/test_research.py",
+        "caps_verify/tests/test_research_shadow.py",
+    )
+    for path in required:
+        assert (ROOT / path).is_file(), f"Missing research integration: {path}"
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    runtime_readme = (ROOT / "caps_verify/README.md").read_text(encoding="utf-8")
+    for value in (
+        "Inspect AI",
+        "PyRIT",
+        "garak",
+        "AgentDojo",
+        "PromptInject",
+        "MCPTox",
+        "CoT-Hijacking",
+        "FigStep",
+        "caps-verify research doctor",
+    ):
+        assert value in readme or value in runtime_readme
 
 
 def validate_site_and_discovery() -> None:
     index = (ROOT / "site/index.html").read_text(encoding="utf-8")
     assert f'<link rel="canonical" href="{PAGES}">' in index
-    for platform in ("ChatGPT", "Codex", "Claude Code", "Gemini CLI", "GitHub Copilot", "Cursor", "Cline", "Windsurf", "OpenCode"):
+    for platform in (
+        "ChatGPT",
+        "Codex",
+        "Claude Code",
+        "Gemini CLI",
+        "GitHub Copilot",
+        "Cursor",
+        "Cline",
+        "Windsurf",
+        "OpenCode",
+    ):
         assert platform in index
     assert "skip-link" in index and "main-content" in index
     assert "SoftwareApplication" in index and "noindex" not in index.lower()
@@ -181,7 +288,15 @@ def validate_site_and_discovery() -> None:
         assert requirement in styles
 
     sitemap = (ROOT / "site/sitemap.xml").read_text(encoding="utf-8")
-    for path in ("", "platforms/", "plugin/", "skills/", "skills/caps-agent-security/", "skills/caps-install/", "accessibility/"):
+    for path in (
+        "",
+        "platforms/",
+        "plugin/",
+        "skills/",
+        "skills/caps-agent-security/",
+        "skills/caps-install/",
+        "accessibility/",
+    ):
         assert f"{PAGES}{path}" in sitemap
 
     skills = load_json("site/skills.json")
@@ -202,7 +317,18 @@ def validate_site_and_discovery() -> None:
 
 def validate_readme() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    for value in ("ChatGPT", "Codex", "Claude Code", "Gemini CLI", "GitHub Copilot", "Cursor", "Cline", "Windsurf", "OpenCode", "MCP"):
+    for value in (
+        "ChatGPT",
+        "Codex",
+        "Claude Code",
+        "Gemini CLI",
+        "GitHub Copilot",
+        "Cursor",
+        "Cline",
+        "Windsurf",
+        "OpenCode",
+        "MCP",
+    ):
         assert value in readme
     assert "PLATFORMS.md" in readme
     assert "install.ps1" in readme
@@ -231,6 +357,7 @@ def main() -> int:
     validate_gemini_package()
     validate_copilot_and_ide_adapters()
     validate_installers()
+    validate_research_integrations()
     validate_site_and_discovery()
     validate_readme()
     validate_no_legacy()

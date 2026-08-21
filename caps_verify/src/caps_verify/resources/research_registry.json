@@ -1,0 +1,138 @@
+{
+  "schema_version": "caps.research.registry.v1",
+  "version": "2026.08.20",
+  "policy": {
+    "synthetic_canaries_only": true,
+    "live_query_mutation": false,
+    "real_side_effects": false,
+    "raw_third_party_datasets_bundled": false,
+    "note": "CAPS ships original synthetic canary probes informed by cited work. It does not redistribute third-party datasets or claim endorsement by their authors."
+  },
+  "libraries": [
+    {
+      "library_id": "inspect-ai",
+      "distribution": "inspect-ai",
+      "import_name": "inspect_ai",
+      "minimum_version": "0.3.251",
+      "license": "MIT",
+      "official_url": "https://github.com/UKGovernmentBEIS/inspect_ai",
+      "role": "Reproducible evaluation runner, tool loops, sandboxes, scorers, logs, and model-provider abstraction.",
+      "caps_extra": "inspect"
+    },
+    {
+      "library_id": "pyrit",
+      "distribution": "pyrit",
+      "import_name": "pyrit",
+      "minimum_version": "1.0.0",
+      "license": "MIT",
+      "official_url": "https://github.com/microsoft/PyRIT",
+      "role": "Attack orchestration, converters, multimodal seed groups, adaptive and multi-turn red-team workflows.",
+      "caps_extra": "pyrit"
+    },
+    {
+      "library_id": "garak",
+      "distribution": "garak",
+      "import_name": "garak",
+      "minimum_version": "0.15.1",
+      "license": "Apache-2.0",
+      "official_url": "https://github.com/NVIDIA/garak",
+      "role": "Broad LLM vulnerability probes and detectors, including prompt-injection-oriented probe families and REST targets.",
+      "caps_extra": "garak",
+      "notes": "The upstream project documents Python support through 3.12 for its standard environment."
+    },
+    {
+      "library_id": "agentdojo",
+      "distribution": "agentdojo",
+      "import_name": "agentdojo",
+      "minimum_version": "0.1.35",
+      "license": "MIT",
+      "official_url": "https://github.com/ethz-spylab/agentdojo",
+      "role": "Tool-using agent environments for indirect prompt-injection attacks, defenses, and utility measurement.",
+      "caps_extra": "agentdojo",
+      "notes": "The upstream API is explicitly described as under development; CAPS treats it as an optional bridge."
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "inspect-framework",
+      "title": "Inspect: A framework for large language model evaluations",
+      "kind": "library",
+      "year": 2024,
+      "url": "https://github.com/UKGovernmentBEIS/inspect_ai",
+      "library_ids": ["inspect-ai"],
+      "caps_use": "Runner, tool-loop, sandbox, scorer, log, and evidence design."
+    },
+    {
+      "source_id": "pyrit-framework",
+      "title": "PyRIT: A Framework for Security Risk Identification and Red Teaming in Generative AI Systems",
+      "kind": "paper-and-library",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.02828",
+      "library_ids": ["pyrit"],
+      "caps_use": "Composable attack planning, converters, seed groups, adaptive and multi-turn profiles."
+    },
+    {
+      "source_id": "garak-framework",
+      "title": "garak: A Framework for Security Probing Large Language Models",
+      "kind": "paper-and-library",
+      "year": 2024,
+      "url": "https://github.com/NVIDIA/garak",
+      "library_ids": ["garak"],
+      "caps_use": "Probe-family taxonomy, REST bridge, detector comparison, and broad text-model coverage."
+    },
+    {
+      "source_id": "agentdojo",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "kind": "paper-and-library",
+      "year": 2024,
+      "url": "https://github.com/ethz-spylab/agentdojo",
+      "library_ids": ["agentdojo"],
+      "caps_use": "Indirect prompt injection, paired utility/security evaluation, and tool-using agent task design."
+    },
+    {
+      "source_id": "promptinject",
+      "title": "PromptInject: Prompt Injection Attacks and Defenses in LLM-Integrated Applications",
+      "kind": "research-family",
+      "year": 2022,
+      "url": "https://github.com/agencyenterprise/PromptInject",
+      "library_ids": ["garak"],
+      "caps_use": "Instruction-boundary conflict and untrusted-content injection strategy."
+    },
+    {
+      "source_id": "mcptox",
+      "title": "MCPTox: A Benchmark for Tool Poisoning Attack on Real-World MCP Servers",
+      "kind": "paper",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.14925",
+      "library_ids": ["inspect-ai", "agentdojo"],
+      "caps_use": "Tool-description poisoning, explicit and implicit triggers, parameter-tampering-inspired synthetic tests."
+    },
+    {
+      "source_id": "fitd",
+      "title": "Foot-In-The-Door: A Multi-turn Jailbreak for LLMs",
+      "kind": "paper",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.19820",
+      "library_ids": ["pyrit"],
+      "caps_use": "Progressive multi-turn commitment and escalation profile using harmless fixture objectives."
+    },
+    {
+      "source_id": "cot-hijacking",
+      "title": "Chain-of-Thought Hijacking",
+      "kind": "paper",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.26418",
+      "library_ids": ["pyrit", "inspect-ai"],
+      "caps_use": "Long benign-context dilution profile with synthetic forbidden-tool scoring."
+    },
+    {
+      "source_id": "figstep",
+      "title": "FigStep: Jailbreaking Large Vision-Language Models via Typographic Visual Prompts",
+      "kind": "paper",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.05608",
+      "library_ids": ["pyrit", "inspect-ai"],
+      "caps_use": "Typographic-image transfer profile rendered with harmless fixture-tool instructions."
+    }
+  ]
+}

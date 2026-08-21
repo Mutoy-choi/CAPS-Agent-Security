@@ -16,17 +16,21 @@ usage() {
 CAPS Unlock Lab universal installer
 
 Usage:
-  ./install.sh [skill|codex|chatgpt|claude|gemini|copilot|cursor|cline|windsurf|opencode|verify|mcp|chat|all]
+  ./install.sh [skill|codex|chatgpt|claude|gemini|copilot|cursor|cline|windsurf|opencode|verify|research|research-all|mcp|chat|all]
 
 Scope:
   CAPS_SCOPE=user      install user Skills or native extensions (default)
   CAPS_SCOPE=project   copy repository-scoped Skills/agents where supported
+
+Research modes:
+  research             CAPS Runtime + Inspect AI + PyRIT + AgentDojo + Pillow
+  research-all         research bundle + garak on a supported Python version
 EOF
 }
 
 case "$MODE" in
   -h|--help|help) usage; exit 0 ;;
-  skill|codex|chatgpt|claude|gemini|copilot|cursor|cline|windsurf|opencode|verify|mcp|chat|all) ;;
+  skill|codex|chatgpt|claude|gemini|copilot|cursor|cline|windsurf|opencode|verify|research|research-all|mcp|chat|all) ;;
   *) usage >&2; exit 2 ;;
 esac
 [[ "$SCOPE" == "user" || "$SCOPE" == "project" ]] || { echo "CAPS_SCOPE must be user or project" >&2; exit 2; }
@@ -134,7 +138,7 @@ install_opencode() {
 }
 
 install_verify() {
-  local venv python
+  local extras="${1:-gateway,mcp}" venv python
   checkout
   need python3
   rm -rf "$CAPS_HOME"
@@ -145,8 +149,9 @@ install_verify() {
   python3 -m venv "$venv"
   python="$venv/bin/python"
   "$python" -m pip install --upgrade pip
-  "$python" -m pip install -e "$CAPS_HOME/caps_verify[gateway,mcp]"
+  "$python" -m pip install -e "$CAPS_HOME/caps_verify[$extras]"
   printf 'CAPS Verify installed at %s\nCLI directory: %s\n' "$CAPS_HOME" "$venv/bin"
+  "$venv/bin/caps-verify" research doctor || true
 }
 
 prepare_chat() {
@@ -169,7 +174,9 @@ case "$MODE" in
   cline) install_cline ;;
   windsurf) install_windsurf ;;
   opencode) install_opencode ;;
-  verify|mcp) install_verify ;;
+  verify|mcp) install_verify "gateway,mcp" ;;
+  research) install_verify "gateway,mcp,research" ;;
+  research-all) install_verify "gateway,mcp,research-all" ;;
   chat) prepare_chat ;;
   all)
     install_shared_skills

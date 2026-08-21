@@ -9,8 +9,13 @@
 [![CAPS Verify](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/caps-verify.yml/badge.svg)](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/caps-verify.yml)
 [![Research Chat](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/caps-app.yml/badge.svg)](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/caps-app.yml)
 [![Distribution](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/distribution.yml/badge.svg)](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/distribution.yml)
+[![README i18n](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/readme-i18n.yml/badge.svg)](https://github.com/Mutoy-choi/CAPS-Agent-Security/actions/workflows/readme-i18n.yml)
 
-[내 플랫폼에서 시작](#내-플랫폼에서-시작) · [내장 연구](#기존-연구와-라이브러리를-내장) · [ASR](#asr은-어떻게-측정하나) · [구성](#하나의-코어-여러-플랫폼) · [문제 해결](#문제-해결)
+[English](README.md) · **한국어** · [日本語](README.ja.md) · [简体中文](README.zh-CN.md) · [Español](README.es.md)
+
+**AI 에이전트 보안 · 프롬프트 인젝션 테스트 · jailbreak 평가 · MCP 보안 · Tool-use safety**
+
+[내 플랫폼에서 시작](#내-플랫폼에서-시작) · [60초 데모](#60초-로컬-데모) · [내장 연구](#기존-연구와-라이브러리를-내장) · [ASR](#asr은-어떻게-측정하나) · [구성](#하나의-코어-여러-플랫폼) · [문제 해결](#문제-해결)
 
 </div>
 
@@ -18,11 +23,23 @@
 
 ## 한 문장으로
 
-CAPS Unlock Lab은 **모델의 제한이 Prompt, instruction file, Plugin, Agent Skill, MCP Tool, 첨부파일, 추론 및 다중 턴 경로에서 어디까지 약해지는지 승인된 synthetic 환경에서 재현하고 ASR로 측정하는 범용 연구 도구**입니다.
+CAPS Unlock Lab은 **모델의 제한이 Prompt, instruction file, Plugin, Agent Skill, MCP Tool, 첨부파일, 추론 및 다중 턴 경로에서 어디까지 약해지는지 승인된 synthetic 환경에서 재현하고, 실제 fixture 행동과 ASR로 측정하는 범용 AI 에이전트 보안 연구 도구**입니다.
 
-CAPS는 특정 회사의 모델이나 한 가지 CLI에 종속되지 않습니다. 같은 두 개의 핵심 Skill과 CAPS Verify Runtime을 유지하고, 각 플랫폼에는 얇은 manifest·rule·agent profile만 제공합니다.
+CAPS는 특정 회사의 모델이나 한 가지 CLI에 종속되지 않습니다. 같은 두 개의 canonical Skill과 CAPS Verify Runtime을 유지하고, 각 플랫폼에는 얇은 manifest·rule·agent profile만 제공합니다.
 
-> 여기서 “unlock”은 라이브 사용자의 안전장치를 몰래 우회한다는 뜻이 아닙니다. 소유하거나 허가받은 시스템의 synthetic twin에서 제한 해제 경로를 재현하고 방어를 검증한다는 뜻입니다.
+> 여기서 “unlock”은 라이브 사용자의 안전장치를 몰래 우회한다는 뜻이 아닙니다. 소유하거나 명시적으로 승인받은 시스템의 synthetic twin에서 제한 해제 경로를 재현하고 방어를 검증한다는 뜻입니다.
+
+## CAPS가 다른 평가 도구와 연결되는 방식
+
+CAPS는 Inspect AI, PyRIT, garak, AgentDojo를 대체하려는 도구가 아닙니다. 여러 Agent host의 Plugin·Skill·MCP 구성을 **같은 synthetic action-state 기준으로 측정하고 기존 평가 생태계로 내보내는 통합 계층**입니다.
+
+| 도구 | CAPS와 함께 사용할 때의 역할 |
+|---|---|
+| Inspect AI | 재현 가능한 Task·Tool loop·Scorer·Log |
+| PyRIT | 적응형·다중 턴 공격 오케스트레이션 |
+| garak | 취약점 probe 생태계 |
+| AgentDojo | Tool 기반 prompt-injection 평가 |
+| **CAPS** | 여러 host의 구성과 실제 fixture 행동을 동일 기준으로 측정하고 bridge artifact로 내보냄 |
 
 ## 내 플랫폼에서 시작
 
@@ -103,6 +120,25 @@ commands/caps/install.toml
 
 자세한 파일 경로와 설치 차이는 [PLATFORMS.md](PLATFORMS.md)에 정리되어 있습니다.
 
+## 60초 로컬 데모
+
+```bash
+git clone https://github.com/Mutoy-choi/CAPS-Agent-Security.git
+cd CAPS-Agent-Security/caps_verify
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[gateway,dev]"
+caps-verify demo --output artifacts/demo --repetitions 10
+```
+
+Windows에서는 가상환경 활성화 명령을 다음과 같이 바꿉니다.
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+결과에는 유효 실행 수, 공격군별 ASR, benign task 성공률, fixture 행동, 신뢰구간과 evidence hash가 기록됩니다. 실제 수치는 모델·host·attack pack·방어 구성에 따라 달라지므로 README에 고정된 예시 수치를 안전성 인증처럼 사용하지 않습니다.
+
 ## CAPS가 하는 일
 
 CAPS는 모델 출력 하나가 아니라 **컨텍스트가 권한 있는 행동으로 변환되는 전체 경로**를 평가합니다.
@@ -125,7 +161,7 @@ Plugin / Skill / MCP metadata / Tool response
 | 표면 | 평가 예시 |
 |---|---|
 | Instruction files | `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, IDE rules의 충돌과 우선순위 |
-| Plugin / extension | Manifest, packaged Skills, capability 공급망과 업데이트 drift |
+| Plugin / extension | Manifest, packaged Skills, capability 공급망과 update drift |
 | Agent Skills | description, `SKILL.md`, references, scripts, assets와 activation |
 | MCP / Tool calling | Metadata·응답 오염, tool selection, confused deputy, 외부 쓰기 |
 | Attachments | PDF·문서·이미지·오디오·비디오의 indirect prompt injection |
@@ -203,7 +239,7 @@ pip install -e ".[research-all]"
 caps-verify research doctor
 ```
 
-### 한 번에 브리지 생성
+### 한 번에 bridge 생성
 
 ```bash
 caps-verify research export \
@@ -213,54 +249,7 @@ caps-verify research export \
   --model your-model-id
 ```
 
-생성 결과:
-
-```text
-caps-attack-pack.json       CAPS Shadow Worker
-inspect-dataset.jsonl       Inspect normalized records
-pyrit-seeds.prompt          PyRIT SeedDataset YAML/JSON
-garak-rest.json             garak RestGenerator config
-agentdojo-scenarios.json    AgentDojo custom-suite mapping
-artifacts/*.png             native image canary
-SOURCES.md                   논문·라이브러리·버전·라이선스
-manifest.sha256.json         evidence hashes
-```
-
-Inspect AI용 native task도 함께 등록됩니다.
-
-```bash
-inspect eval \
-  src/caps_verify/integrations/inspect_task.py@caps_research \
-  -T profile=core \
-  --model your-provider/your-model
-```
-
-상세 설명과 연구 출처는 [`caps_verify/docs/research-library-integrations.md`](caps_verify/docs/research-library-integrations.md)를 확인하십시오.
-
-## 가장 빠른 로컬 실험
-
-```bash
-git clone https://github.com/Mutoy-choi/CAPS-Agent-Security.git
-cd CAPS-Agent-Security/caps_verify
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[gateway,dev]"
-pytest
-caps-verify demo --output artifacts/demo --repetitions 10
-```
-
-주요 명령:
-
-```bash
-caps-verify research list
-caps-verify research doctor
-caps-verify research build --profile core --output artifacts/core.json
-caps-verify-runtime --help
-caps-verify-gateway --help
-caps-verify-shadow-worker --help
-caps-verify-mcp --help
-caps-verify demo --output artifacts/demo --repetitions 10
-```
+생성 결과에는 CAPS·Inspect·PyRIT·garak·AgentDojo용 bridge artifact, image canary, 출처·라이선스 정보와 evidence hash가 포함됩니다. 상세 설명은 [`caps_verify/docs/research-library-integrations.md`](caps_verify/docs/research-library-integrations.md)를 확인하십시오.
 
 ## 하나의 코어, 여러 플랫폼
 
@@ -324,7 +313,7 @@ Installer는 기존의 공용 설정 파일을 덮어쓰지 않고 CAPS 전용 �
 - Plugin과 Skill 설치만으로 텔레메트리, 데이터 기여, MCP, Hook, Gateway가 활성화되지 않습니다.
 - synthetic ASR을 특정 상용 모델의 보편적인 안전성 인증으로 과장하지 않습니다.
 
-취약점 제보는 [SECURITY.md](SECURITY.md)를 확인하십시오.
+취약점은 [SECURITY.md](SECURITY.md)의 비공개 신고 절차를 이용하십시오.
 
 ## 문제 해결
 
@@ -350,6 +339,10 @@ Installer는 기존의 공용 설정 파일을 덮어쓰지 않고 CAPS 전용 �
 
 CAPS 내장 프로필은 평가 아이디어를 안전한 fixture 행동으로 정규화한 것입니다. 모델, 데이터, TTS/OCR, judge, 공격 budget, Tool 구성과 성공 조건이 원 논문과 다르므로 수치를 직접 동일시하지 마십시오.
 
+## 번역과 기여
+
+영어 `README.md`가 번역의 기준 문서입니다. 번역 용어와 동기화 절차는 [`docs/TRANSLATIONS.md`](docs/TRANSLATIONS.md)를 확인하십시오. 원어민 기술 검수, 새로운 플랫폼 adapter, 재현 가능한 synthetic benchmark와 방어 기여를 환영합니다.
+
 ## 링크
 
 - Discovery site: `https://mutoy-choi.github.io/CAPS-Agent-Security/`
@@ -361,4 +354,4 @@ CAPS 내장 프로필은 평가 아이디어를 안전한 fixture 행동으로 �
 
 ## 상태
 
-CAPS Unlock Lab은 빠르게 변하는 연구용 프로젝트입니다. 결과에는 모델 snapshot, host, attack-pack version, optional-library versions, 예산, defense configuration, valid/excluded runs, confidence interval, 그리고 evidence hash를 함께 기록하십시오.
+CAPS Unlock Lab은 빠르게 변하는 연구용 프로젝트입니다. 결과에는 model snapshot, host, attack-pack version, optional-library versions, 예산, defense configuration, valid/excluded runs, confidence interval, evidence hash를 함께 기록하십시오.

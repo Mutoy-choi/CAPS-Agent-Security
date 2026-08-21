@@ -1,0 +1,70 @@
+name: Bug report
+description: Report a reproducible CAPS runtime, installer, package, or documentation defect.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, customer content, production prompts, or destructive payloads. Use private vulnerability reporting for security-sensitive findings.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - CAPS Verify
+        - Research Chat
+        - Installer
+        - Agent Skill
+        - Plugin or extension
+        - MCP runtime
+        - Documentation or translation
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Release or commit
+      placeholder: v0.8.0 or full commit SHA
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Host and environment
+      placeholder: macOS 15, Python 3.12, Claude Code, Gemini CLI, Codex, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Use fixture data and list the exact commands or configuration needed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs and evidence hashes
+      description: Redact secrets and personal or customer data.
+  - type: checkboxes
+    id: authorization
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I reproduced this only in an owned or explicitly authorized synthetic environment.
+          required: true
+        - label: I removed credentials, personal data, customer content, and production side effects.
+          required: true

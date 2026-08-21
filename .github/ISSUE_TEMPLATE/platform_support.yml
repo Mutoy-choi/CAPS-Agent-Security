@@ -1,0 +1,40 @@
+name: Platform support request
+description: Propose support for another AI-agent host, package format, or adapter.
+title: "[Platform]: "
+labels: [enhancement]
+body:
+  - type: input
+    id: platform
+    attributes:
+      label: Platform or host
+      placeholder: Product name and official documentation URL
+    validations:
+      required: true
+  - type: textarea
+    id: discovery
+    attributes:
+      label: Native discovery and package format
+      description: Describe instruction files, Skills, plugins, extensions, MCP configuration, and project/user scopes.
+    validations:
+      required: true
+  - type: textarea
+    id: permissions
+    attributes:
+      label: Tool and permission model
+      description: Explain confirmation flows, external writes, credential handling, and sandboxing.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed CAPS adapter
+      description: Identify the smallest manifest, rule, workflow, or Skill copy needed.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Safety boundaries
+      options:
+        - label: The proposal uses synthetic fixtures and does not require hidden modification of live-user requests.
+          required: true

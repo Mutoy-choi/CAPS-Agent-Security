@@ -1,0 +1,37 @@
+name: README i18n
+
+on:
+  pull_request:
+    paths:
+      - "README*.md"
+      - "SECURITY.md"
+      - "CITATION.cff"
+      - "CONTRIBUTING.md"
+      - "docs/TRANSLATIONS.md"
+      - "scripts/validate_readmes.py"
+      - ".github/workflows/readme-i18n.yml"
+  push:
+    branches: [main]
+    paths:
+      - "README*.md"
+      - "SECURITY.md"
+      - "CITATION.cff"
+      - "CONTRIBUTING.md"
+      - "docs/TRANSLATIONS.md"
+      - "scripts/validate_readmes.py"
+      - ".github/workflows/readme-i18n.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate localized README documentation
+        run: python scripts/validate_readmes.py

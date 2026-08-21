@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: https://github.com/Mutoy-choi/CAPS-Agent-Security/security/advisories/new
+    about: Report vulnerabilities privately. Do not post exploit details or sensitive data in a public issue.
+  - name: Platform and installation documentation
+    url: https://mutoy-choi.github.io/CAPS-Agent-Security/platforms/
+    about: Review supported hosts and installation paths before opening an issue.

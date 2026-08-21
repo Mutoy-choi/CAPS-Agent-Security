@@ -1,6 +1,14 @@
-name: Deploy CAPS Discovery Site
+name: Discovery Site
 
 on:
+  pull_request:
+    paths:
+      - "site/**"
+      - "scripts/build_discovery_site.py"
+      - "scripts/discovery-locales.json"
+      - "scripts/social-card.b64"
+      - "scripts/validate_discovery.py"
+      - ".github/workflows/discovery.yml"
   push:
     branches: [main]
     paths:
@@ -8,23 +16,15 @@ on:
       - "scripts/build_discovery_site.py"
       - "scripts/discovery-locales.json"
       - "scripts/social-card.b64"
-      - ".github/workflows/pages.yml"
+      - "scripts/validate_discovery.py"
+      - ".github/workflows/discovery.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,10 +33,5 @@ jobs:
           python-version: "3.12"
       - name: Build localized discovery site
         run: python scripts/build_discovery_site.py
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Validate localized search and social discovery
+        run: python scripts/validate_discovery.py

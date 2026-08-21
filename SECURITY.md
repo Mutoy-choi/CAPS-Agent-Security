@@ -6,9 +6,11 @@ CAPS Agent Security is intended for authorized defensive evaluation in synthetic
 
 Use GitHub's private vulnerability reporting flow:
 
-- https://github.com/Mutoy-choi/ChillMCP/security/advisories/new
+- https://github.com/Mutoy-choi/CAPS-Agent-Security/security/advisories/new
 
 Include the affected release or commit, configuration fingerprint, minimal synthetic reproduction, expected and observed behavior, and evidence hashes. Do not include real credentials, customer files, production prompts, or destructive payloads.
+
+If private vulnerability reporting is not available, contact the repository owner without publishing exploit details in a public issue.
 
 ## Coordinated disclosure
 

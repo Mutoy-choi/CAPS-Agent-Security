@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use CAPS Unlock Lab in research, cite this software and the exact release or commit tested."
-title: "CAPS Unlock Lab: Cross-Platform Model Restriction-BYpass and AI-Agent Security Evaluation"
+title: "CAPS Unlock Lab: Cross-Platform Model Restriction-Bypass and AI-Agent Security Evaluation"
 type: software
 authors:
   - family-names: Choi

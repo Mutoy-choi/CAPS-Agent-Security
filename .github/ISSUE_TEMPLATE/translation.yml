@@ -1,0 +1,42 @@
+name: Translation review
+description: Review an existing README translation or propose a new language.
+title: "[Translation]: "
+labels: [documentation]
+body:
+  - type: input
+    id: locale
+    attributes:
+      label: Language and locale
+      placeholder: Japanese (ja), Brazilian Portuguese (pt-BR), etc.
+    validations:
+      required: true
+  - type: dropdown
+    id: change
+    attributes:
+      label: Request type
+      options:
+        - Review an existing translation
+        - Correct terminology or grammar
+        - Add a new language
+        - Report translation drift
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Proposed changes
+      description: Preserve commands, paths, identifiers, URLs, ASR criteria, and safety meaning.
+    validations:
+      required: true
+  - type: textarea
+    id: terminology
+    attributes:
+      label: Terminology notes
+      description: Explain choices for prompt injection, fixture, confused deputy, provenance, safety drift, and related terms.
+  - type: checkboxes
+    id: review
+    attributes:
+      label: Review confirmation
+      options:
+        - label: I reviewed `docs/TRANSLATIONS.md` and preserved technical meaning.
+          required: true
